@@ -50,25 +50,18 @@ Example of a mouse being sold to Chroma
 | Operational Expenses | Exepnses AtliQ incurs from activities such as advertising by marketing team. | -$3.00 |
 | Net Profit | Profit after deducting operational expenses | $2.00 |
 
-## Tables Imported from MySQL
+## Data Sources
 
-#### Dimension Tables Imported from MySQL
-| Table Name    | Primary Key Field   | Description |
-| :- | :- | :- |
-| dim_market  | market  |
-| dim_customer  | customer_code  |
-| dim_product  | product_code  |
+### Dimension Tables Imported from MySQL and Sample Records
 
-dim_market sample records
-
+dim_market
 | market | sub_zone | region |
 | :- | :- | :- |
 | Japan | ROA | APAC |
 | Sweden | NE | EU |
 | Brazil | LATAM | LATAM |
 
-dim_customer sample records
-
+dim_customer
 | 	customer_code	 | 	customer	 | 	market	 | 	platform	 | 	channel	 |
 | 	-:	 | 	:-	 | 	:-	 | 	:-	 | 	:-	 |
 | 	1	 | 	Amazon	 | 	USA	 | 	E-Commerce	 | 	Retailer	 |
@@ -79,8 +72,7 @@ dim_customer sample records
 | 	6	 | 	Atliq e Store	 | 	Newzealand	 | 	E-Commerce	 | 	Direct	 |
 | 	7	 | 	Neptune	 | 	China	 | 	Brick & Mortar	 | 	Distributor	 |
 
-dim_product sample records
-
+dim_product
 | 	product_code	 | 	division	 | 	segment	 | 	category	 | 	product	 | 	variant	 |
 | 	-:	 | 	:-	 | 	:-	 | 	:-	 | 	:-	 | 	:-	 |
 | 	1	 | 	P & A	 | 	Peripherals	 | 	Graphic Card	 | 	AQ Mforce Gen Y	 | 	Plus 1	 |
