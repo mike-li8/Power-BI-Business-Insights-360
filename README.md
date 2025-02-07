@@ -20,7 +20,7 @@ This project was made from my enrollment in [Codebasics](https://codebasics.io/)
 
 
 ## AtliQ Business Model
-AtliQ manufactures computer hardware **products** (e.g. mouse, keyboard, printer, monitor) and then sells them to various **customers** which are stores (e.g. Amazon, Best Buy). Hence, AtliQ's customers are in the form of store businesses (e.g. Amazon) and should not be confused with customers in the form of people (e.g. the end consumer purchasing products from Amazon).
+AtliQ manufactures computer hardware **products** (e.g. mouse, keyboard, printer, monitor) and then sells them to various **customers** which are stores (e.g. Amazon, Best Buy). Hence, AtliQ's customers are in the form of store businesses (e.g. Amazon) and should not be confused with customers in the form of people (e.g. end consumers purchasing products from Amazon).
 
 AtliQ's sells to customers categorized into two different **platforms**:
 1. Brick & Motar
@@ -36,6 +36,18 @@ AtliQ sells to customers categorized by three different **channels**:
 5. Distributor
    * In markets where laws/regulations disallow AtliQ from selling directly to customers. 
 
+Sample Profit and Loss (P&L) Statement for AtliQ
+Example of a mouse being sold to Chroma
+| Line Item | Description | P&L Value |
+| -- | -- | -- |
+| Gross Price |  The Base Price of a Product | $30.00 |
+| Pre-Invoice Deduction | For each fiscal year, the sales team determines a discount given for each customer based on factors such as sales performance in previous years. | - $2.00 |
+| Net Invoice Sales | The amount of money that is billed to the customer to obtain the product | $28.00 |
+| Post-Invoice Deudctions | Rebates paid to customers **after** AtliQ sells products to them. For example, a prmotion can be given to give customers discounts for holidays. Rebates can be given for placing a product at a prime location inside a store. Performance rebates can be given if a customer generates a lot of sales for AtliQ | - $3.00 |
+| Net Sales | Revenue | $25.00 |
+| Cost of Goods Sold (COGS) | Expenses AtliQ incurs such as manufacturing the products, shipping of products, and storage of products in warehouses | -$20.00
+| Gross Margin | Profit after deducing COGS | $5.00 |
+
 
 ## Tables Imported from MySQL
 
@@ -49,6 +61,8 @@ AtliQ sells to customers categorized by three different **channels**:
 | manufacturing_cost | The manufacturing cost of a unique product for a given year |
 | post_invoice_deductions | For a specific customer and product and at a specific month, a rebate given to customer. |
 | pre_invoice_deductions | For a unique customer and fiscal year, the discount given to the customer |
+
+
 
 #### Dimension Tables
 | Table Name    | Primary Key Field   | Description |
