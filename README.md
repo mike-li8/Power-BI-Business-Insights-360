@@ -69,29 +69,30 @@ dim_market sample records
 
 dim_customer sample records
 
- | 	customer_code	 | 	customer	 | 	market	 | 	platform	 | 	channel	 |
- | 	-:	 | 	:-	 | 	:-	 | 	:-	 | 	:-	 |
- | 	1	 | 	Amazon	 | 	USA	 | 	E-Commerce	 | 	Retailer	 |
- | 	2	 | 	Amazon	 | 	Japan	 | 	E-Commerce	 | 	Retailer	 |
- | 	3	 | 	AltiQ Exclusive	 | 	South Korea	 | 	Brick & Mortar	 | 	Direct	 |
- | 	4	 | 	Atliq e Store	 | 	Newzealand	 | 	E-Commerce	 | 	Direct	 |
- | 	5	 | 	BestBuy	 | 	USA	 | 	Brick & Mortar	 | 	Retailer	 |
- | 	6	 | 	Neptune	 | 	China	 | 	Brick & Mortar	 | 	Distributor	 |
+| 	customer_code	 | 	customer	 | 	market	 | 	platform	 | 	channel	 |
+| 	-:	 | 	:-	 | 	:-	 | 	:-	 | 	:-	 |
+| 	1	 | 	Amazon	 | 	USA	 | 	E-Commerce	 | 	Retailer	 |
+| 	2	 | 	Amazon	 | 	Japan	 | 	E-Commerce	 | 	Retailer	 |
+| 	3	 | 	Staples	 | 	USA	 | 	Brick & Mortar	 | 	Retailer	 |
+| 	4	 | 	Staples	 | 	Canada	 | 	Brick & Mortar	 | 	Retailer	 |
+| 	5	 | 	AltiQ Exclusive	 | 	South Korea	 | 	Brick & Mortar	 | 	Direct	 |
+| 	6	 | 	Atliq e Store	 | 	Newzealand	 | 	E-Commerce	 | 	Direct	 |
+| 	7	 | 	Neptune	 | 	China	 | 	Brick & Mortar	 | 	Distributor	 |
 
 dim_product sample records
 
- | 	product_code	 | 	division	 | 	segment	 | 	category	 | 	product	 | 	variant	 | 
- | 	-:	 | 	:-	 | 	:-	 | 	:-	 | 	:-	 | 	:-	 | 
- | 	1	 | 	P & A	 | 	Peripherals	 | 	Graphic Card	 | 	AQ Mforce Gen Y	 | 	Plus 1	 | 
- | 	2	 | 	P & A	 | 	Peripherals	 | 	Graphic Card	 | 	AQ Mforce Gen Y	 | 	Plus 2	 | 
- | 	3	 | 	P & A	 | 	Accessories	 | 	Mouse	 | 	AQ Master wired x1 Ms	 | 	Premium 1	 | 
- | 	4	 | 	P & A	 | 	Accessories	 | 	Mouse	 | 	AQ Master wired x1 Ms	 | 	Premium 2	 | 
- | 	5	 | 	PC	 | 	Notebook	 | 	Business Laptop	 | 	AQ BZ Compact	 | 	Standard Blue	 | 
- | 	6	 | 	PC	 | 	Notebook	 | 	Business Laptop	 | 	AQ BZ Compact	 | 	Standard Red	 | 
- | 	7	 | 	N & S	 | 	Storage	 | 	External Solid State Drives	 | 	AQ Digit SSD	 | 	Premium	 | 
- | 	8	 | 	N & S	 | 	Storage	 | 	External Solid State Drives	 | 	AQ Neuer SSD	 | 	Premium	 | 
- | 	9	 | 	N & S	 | 	Networking	 | 	Wi fi extender	 | 	AQ Wi Power Dx1	 | 	Standard	 | 
- | 	10	 | 	N & S	 | 	Networking	 | 	Wi fi extender	 | 	AQ Wi Power Dx2	 | 	Standard	 | 
+| 	product_code	 | 	division	 | 	segment	 | 	category	 | 	product	 | 	variant	 |
+| 	-:	 | 	:-	 | 	:-	 | 	:-	 | 	:-	 | 	:-	 |
+| 	1	 | 	P & A	 | 	Peripherals	 | 	Graphic Card	 | 	AQ Mforce Gen Y	 | 	Plus 1	 |
+| 	2	 | 	P & A	 | 	Peripherals	 | 	Graphic Card	 | 	AQ Mforce Gen Y	 | 	Plus 2	 |
+| 	3	 | 	P & A	 | 	Accessories	 | 	Mouse	 | 	AQ Master wired x1 Ms	 | 	Premium 1	 |
+| 	4	 | 	P & A	 | 	Accessories	 | 	Mouse	 | 	AQ Master wired x1 Ms	 | 	Premium 2	 |
+| 	5	 | 	PC	 | 	Notebook	 | 	Business Laptop	 | 	AQ BZ Compact	 | 	Standard Blue	 |
+| 	6	 | 	PC	 | 	Notebook	 | 	Business Laptop	 | 	AQ BZ Compact	 | 	Standard Red	 |
+| 	9	 | 	N & S	 | 	Networking	 | 	Wi fi extender	 | 	AQ Wi Power Dx1	 | 	Standard	 |
+| 	10	 | 	N & S	 | 	Networking	 | 	Wi fi extender	 | 	AQ Wi Power Dx2	 | 	Standard	 |
+| 	7	 | 	N & S	 | 	Storage	 | 	External Solid State Drives	 | 	AQ Digit SSD	 | 	Premium	 |
+| 	8	 | 	N & S	 | 	Storage	 | 	External Solid State Drives	 | 	AQ Neuer SSD	 | 	Premium	 |
 
 
 #### Fact Tables Imported from MySQL
