@@ -18,29 +18,44 @@ This project was made from my enrollment in [Codebasics](https://codebasics.io/)
   * Field Parameters
   * Bookmarks
 
-## Data Modelling
-### Fact Tables
-| Table Name    | Description   |
-| ------------- | ------------- |
-| FactActualsEstimates  | -  |
-| FactForecastMonthly  |   |
-| FactTargets           | ------------- |
-| FactSalesMonthly | ------------- |
-| freight_cost | ------------- |
-| gross_price | ------------- |
-| manufacturing_cost | ------------- |
-| post_invoice_deductions | ------------- |
-| pre_invoice_deductions | ------------- |
-| remaining_forecast | ------------- |
-| Operational Expense | ------------- |
 
-### Dimension Tables
+## AtliQ Business Model
+AtliQ manufactures computer hardware **products** (e.g. mouse, keyboard, printer, monitor) and then sells them to various **customers** which are stores (e.g. Amazon, Best Buy). Hence, AtliQ's customers are in the form of store businesses (e.g. Amazon) and should not be confused with customers in the form of people (e.g. the end consumer purchasing products from Amazon).
+
+AtliQ's sells to customers categorized into two different **platforms**:
+1. Brick & Motar
+   * stores that have a physical store locations
+2. E-Commerce
+   * stores which only sell products online
+
+AtliQ sells to customers categorized by three different **channels**:
+1. Retailer
+   * Stores not owned by AtliQ hardware (e.g. Amazon)
+3. Direct
+   * Stores owned by AtliQ hardware
+5. Distributor
+   * In markets where laws/regulations disallow AtliQ from selling directly to customers. 
+
+
+## Tables Imported from MySQL
+
+#### Fact Tables
 | Table Name    | Description   |
 | ------------- | ------------- |
-| dim_market  | Content Cell  |
-| dim_product  | Content Cell  |
-| dim_customer  | Content Cell  |
-| dim_date  | Content Cell  |
+| fact_forecast_monthly  | Table of predicted sales at a monthly level.  |
+| fact_sales_monthly           | Table of actual sales at a monthly level. |
+| freight_cost | Details the freight cost for a particular market and fiscal year |
+| gross_price | The gross price of a unique product for a given fiscal year |
+| manufacturing_cost | The manufacturing cost of a unique product for a given year |
+| post_invoice_deductions | For a specific customer and product and at a specific month, a rebate given to customer. |
+| pre_invoice_deductions | For a unique customer and fiscal year, the discount given to the customer |
+
+#### Dimension Tables
+| Table Name    | Primary Key Field   | Description |
+| ------------- | ------------- | ----------- |
+| dim_market  | market  |
+| dim_customer  | customer_code  |
+| dim_product  | product_code  |
 
 ### Business Understanding and Acumen
 * Fiscal Date vs Calendar Date
