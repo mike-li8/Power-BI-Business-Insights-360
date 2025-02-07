@@ -36,10 +36,10 @@ AtliQ sells to customers categorized by three different **channels**:
 5. Distributor
    * In markets where laws/regulations disallow AtliQ from selling directly to customers. 
 
-Sample Profit and Loss (P&L) Statement for AtliQ
+Simplified Profit and Loss (P&L) Statement for AtliQ
 Example of a mouse being sold to Chroma
 | Line Item | Description | P&L Value |
-| -- | -- | -- |
+| :- | :- | -: |
 | Gross Price |  The Base Price of a Product | $30.00 |
 | Pre-Invoice Deduction | For each fiscal year, the sales team determines a discount given for each customer based on factors such as sales performance in previous years. | - $2.00 |
 | Net Invoice Sales | The amount of money that is billed to the customer to obtain the product | $28.00 |
@@ -47,13 +47,42 @@ Example of a mouse being sold to Chroma
 | Net Sales | Revenue | $25.00 |
 | Cost of Goods Sold (COGS) | Expenses AtliQ incurs such as manufacturing the products, shipping of products, and storage of products in warehouses | -$20.00
 | Gross Margin | Profit after deducing COGS | $5.00 |
-
+| Operational Expenses | Exepnses AtliQ incurs from activities such as advertising by marketing team. | -$3.00 |
+| Net Profit | Profit after deducting operational expenses | $2.00 |
 
 ## Tables Imported from MySQL
 
-#### Fact Tables
+#### Dimension Tables Imported from MySQL
+| Table Name    | Primary Key Field   | Description |
+| :- | :- | :- |
+| dim_market  | market  |
+| dim_customer  | customer_code  |
+| dim_product  | product_code  |
+
+dim_market sample records
+
+| market | sub_zone | region |
+| :- | :- | :- |
+| Japan | ROA | APAC |
+| Sweden | NE | EU |
+| Brazil | LATAM | LATAM |
+
+dim_customer sample records
+
+ | 	customer_code	 | 	customer	 | 	market	 | 	platform	 | 	channel	 |
+ | 	-:	 | 	:-	 | 	:-	 | 	:-	 | 	:-	 |
+ | 	1	 | 	Amazon	 | 	USA	 | 	E-Commerce	 | 	Retailer	 |
+ | 	2	 | 	Amazon	 | 	Japan	 | 	E-Commerce	 | 	Retailer	 |
+ | 	3	 | 	AltiQ Exclusive	 | 	South Korea	 | 	Brick & Mortar	 | 	Direct	 |
+ | 	4	 | 	Atliq e Store	 | 	Newzealand	 | 	E-Commerce	 | 	Direct	 |
+ | 	5	 | 	BestBuy	 | 	USA	 | 	Brick & Mortar	 | 	Retailer	 |
+ | 	6	 | 	Neptune	 | 	China	 | 	Brick & Mortar	 | 	Distributor	 |
+
+
+
+#### Fact Tables Imported from MySQL
 | Table Name    | Description   |
-| ------------- | ------------- |
+| :- | :- |
 | fact_forecast_monthly  | Table of predicted sales at a monthly level.  |
 | fact_sales_monthly           | Table of actual sales at a monthly level. |
 | freight_cost | Details the freight cost for a particular market and fiscal year |
@@ -64,12 +93,6 @@ Example of a mouse being sold to Chroma
 
 
 
-#### Dimension Tables
-| Table Name    | Primary Key Field   | Description |
-| ------------- | ------------- | ----------- |
-| dim_market  | market  |
-| dim_customer  | customer_code  |
-| dim_product  | product_code  |
 
 ### Business Understanding and Acumen
 * Fiscal Date vs Calendar Date
