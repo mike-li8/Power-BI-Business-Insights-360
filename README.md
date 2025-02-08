@@ -53,6 +53,7 @@ Example of a mouse being sold to Chroma
 ## Data Sources
 
 ### Dimension Tables Imported from MySQL and Sample Records
+Given by data engineer
 
 dim_market
 | market | sub_zone | region |
@@ -88,6 +89,8 @@ dim_product
 
 
 ### Fact Tables Imported from MySQL and Sample Records
+Given by data engineer
+
 fact_forecast_monthly
 | 	date	 | 	product_code	 | 	division	 | 	category	 | 	product	 | 	customer_code	 | 	customer_name	 | 	market	 | 	platform	 | 	channel	 | 	forecast_quantity	 |
 | 	-:	 | 	-:	 | 	:-	 | 	:-	 | 	:-	 | 	-:	 | 	:-	 | 	:-	 | 	:-	 | 	:-	 | 	-:	 |
@@ -186,7 +189,46 @@ fact_pre_invoice_deduction
 | 	2	 | 	2022	 | 	0.29309271	 |
 
 
+### Fact Tables Imported from CSV Files and Sample Records
+Additional data from stakeholder meeting
 
+operational_expenses
+| 	market	 | 	fiscal_year	 | 	ads_promotions_pct	 | 	other_operational_expense_pct	 |
+| 	:-	 | 	-:	 | 	-:	 | 	-:	 |
+| 	Brazil	 | 	2018	 | 	0.11178	 | 	0.17172	 |
+| 	Brazil	 | 	2019	 | 	0.156975	 | 	0.21147	 |
+| 	Brazil	 | 	2020	 | 	0.14214	 | 	0.185606	 |
+| 	Brazil	 | 	2021	 | 	0.1451875	 | 	0.203414	 |
+| 	Brazil	 | 	2022	 | 	0.18952	 | 	0.196524	 |
+| 	Canada	 | 	2018	 | 	0.141264	 | 	0.363528	 |
+| 	Canada	 | 	2019	 | 	0.125895	 | 	0.27489	 |
+| 	Canada	 | 	2020	 | 	0.101043	 | 	0.231132	 |
+| 	Canada	 | 	2021	 | 	0.143117	 | 	0.283305	 |
+| 	Canada	 | 	2022	 | 	0.314356	 | 	0.365959	 |
+
+targets
+| 	market	 | 	month	 | 	ns_target	 | 	gm_target	 | 	np_target	 |
+| 	:-	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 |
+| 	France	 | 	9/1/2021	 | 	$10,198,819.89	 | 	$3,346,388.95	 | 	-$725,768.42	 |
+| 	France	 | 	10/1/2021	 | 	$15,549,771.95	 | 	$4,403,518.54	 | 	-$1,422,866.33	 |
+| 	France	 | 	11/1/2021	 | 	$15,904,636.14	 | 	$6,218,833.51	 | 	-$916,393.33	 |
+| 	France	 | 	12/1/2021	 | 	$17,697,536.05	 | 	$4,805,448.09	 | 	-$1,607,007.06	 |
+| 	Indonesia	 | 	9/1/2021	 | 	$8,064,974.87	 | 	$2,796,600.63	 | 	-$1,089,126.47	 |
+| 	Indonesia	 | 	10/1/2021	 | 	$10,900,556.90	 | 	$3,853,546.03	 | 	-$1,278,820.63	 |
+| 	Indonesia	 | 	11/1/2021	 | 	$11,918,830.63	 | 	$4,232,776.48	 | 	-$1,673,999.76	 |
+| 	Indonesia	 | 	12/1/2021	 | 	$12,657,658.69	 | 	$4,186,339.00	 | 	-$2,248,949.51	 |
+
+marketshare
+| 	sub_zone	 | 	category	 | 	fy_desc	 | 	total_market_sales_$	 | 	atliq_sales_$	 | 	dale_sales_$	 | 	innovo_sales_$	 | 	pacer_sales_$	 | 	bp_sales_$	 | 	others_sales_$	 |
+| 	:-	 | 	:-	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 |
+| 	LATAM	 | 	Business Laptop	 | 	2019	 | 	1084.4776	 | 	0.286	 | 	255.9367136	 | 	117.7308883	 | 	82.41162178	 | 	57.68813525	 | 	570.4242411	 |
+| 	LATAM	 | 	Business Laptop	 | 	2020	 | 	1523.0215	 | 	1.04346	 | 	319.834515	 | 	102.3470448	 | 	84.94804718	 | 	54.24393374	 | 	960.6044993	 |
+| 	LATAM	 | 	Business Laptop	 | 	2021	 | 	1813.3458	 | 	1.34904	 | 	377.1759264	 | 	128.239815	 | 	93.61506493	 | 	55.14312044	 | 	1157.822833	 |
+| 	LATAM	 | 	Business Laptop	 | 	2022	 | 	2782.7793	 | 	10.44978	 | 	550.9903014	 | 	333.3491323	 | 	136.6731443	 | 	350.016589	 | 	1401.300353	 |
+| 	LATAM	 | 	Gaming Laptop	 | 	2019	 | 	1178.78	 | 	0.05588	 | 	278.19208	 | 	111.276832	 | 	50.0745744	 | 	57.86395264	 | 	681.316681	 |
+| 	LATAM	 | 	Gaming Laptop	 | 	2020	 | 	1799.9345	 | 	0.15862	 | 	435.584149	 | 	150.2765314	 | 	132.2433476	 | 	94.67421479	 | 	986.9976372	 |
+| 	LATAM	 | 	Gaming Laptop	 | 	2021	 | 	2417.7944	 | 	0.83688	 | 	469.0521136	 | 	197.0018877	 | 	133.9612836	 | 	161.5415479	 | 	1455.400687	 |
+| 	LATAM	 | 	Gaming Laptop	 | 	2022	 | 	3091.977	 | 	8.40752	 | 	927.5931	 | 	389.589102	 | 	179.2109869	 | 	331.1507367	 | 	1256.025554	 |
 
 
 ### Business Understanding and Acumen
