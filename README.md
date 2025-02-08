@@ -260,11 +260,15 @@ To aid in building the data model, dim_date dimension table is created using Pow
 ```
 let
     // Retrieve the minimum and maximum dates from both fact_forecast_monthly and fact_sales_monthly
-    MinDateSales = List.Min(List.Transform(fact_sales_monthly[date], each Date.From(_))),  // Min date from sales table
-    MinDateForecast = List.Min(List.Transform(fact_forecast_monthly[date], each Date.From(_))),  // Min date from forecast table
-    MaxDateSales = List.Max(List.Transform(fact_sales_monthly[date], each Date.From(_))),  // Max date from sales table
-    MaxDateForecast = List.Max(List.Transform(fact_forecast_monthly[date], each Date.From(_))), // Max date from forecast table
-    
+    // Min date from sales table
+    MinDateSales = List.Min(List.Transform(fact_sales_monthly[date], each Date.From(_))),
+    // Min date from forecast table
+    MinDateForecast = List.Min(List.Transform(fact_forecast_monthly[date], each Date.From(_))),
+    // Max date from sales table
+    MaxDateSales = List.Max(List.Transform(fact_sales_monthly[date], each Date.From(_))),
+    // Max date from forecast table
+    MaxDateForecast = List.Max(List.Transform(fact_forecast_monthly[date], each Date.From(_))),
+
     // Determine the start and end dates for dim_date table
     StartDate = List.Min({MinDateSales, MinDateForecast}),
     EndDate = List.Max({MaxDateSales, MaxDateForecast}),
@@ -275,13 +279,16 @@ let
     // Convert the list to a table
     DateTable1 = Table.FromList(DateList, Splitter.SplitByNothing(), {"date"}),
 
-    // Since data in fact_sales_montly and fact_forecast_monthly are aggregated on a monthly level, add a month column representing first day of the month
-    DateTable2 = Table.AddColumn(DateTable1, "month", each Date.StartOfMonth([date]), type date),
+    // Ensure "date" column is in date format
+    DateTable2 = Table.TransformColumnTypes(DateTable1, {{"date", type date}}),
 
-    // Add column for AtliQ's fiscal year by adding 4 months to the caldendar month
-    DateTable3 = Table.AddColumn(DateTable2, "fiscal_year", each Date.Year(Date.AddMonths([month], 4)), type text)
+    // Since data in fact_sales_montly and fact_forecast_monthly are aggregated on a monthly level, add a month column representing first day of the month
+    DateTable3 = Table.AddColumn(DateTable2, "month", each Date.StartOfMonth([date]), type date),
+
+    // Add column for AtliQ's fiscal year by adding 4 months to the calendar month
+    DateTable4 = Table.AddColumn(DateTable3, "fiscal_year", each Text.From(Date.Year(Date.AddMonths([month], 4))), type text)
 in
-    DateTable3
+    DateTable4
 ```
 
 
