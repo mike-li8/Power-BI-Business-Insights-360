@@ -116,6 +116,24 @@ fact_sales_monthly
 | 	2019-01-01	 | 	9	 | 	N & S	 | 	External Solid State Drives	 | 	AQ Digit SSD	 | 	7	 | 	Neptune	 | 	China	 | 	Brick & Mortar	 | 	Distributor	 | 	140	 |
 | 	2019-01-01	 | 	10	 | 	N & S	 | 	External Solid State Drives	 | 	AQ Neuer SSD	 | 	3	 | 	Staples	 | 	USA	 | 	Brick & Mortar	 | 	Retailer	 | 	61	 |
 
+fact_freight_cost
+| 	market	 | 	fiscal_year	 | 	freight_pct	 | 	other_cost_pct	 |
+| 	:-	 | 	-:	 | 	-:	 | 	-:	 |
+| 	Australia	 | 	2018	 | 	0.0188	 | 	0.005	 |
+| 	Australia	 | 	2019	 | 	0.0304	 | 	0.0048	 |
+| 	Australia	 | 	2020	 | 	0.0254	 | 	0.0043	 |
+| 	Australia	 | 	2021	 | 	0.0254	 | 	0.0043	 |
+| 	Australia	 | 	2022	 | 	0.0254	 | 	0.0043	 |
+| 	Bangladesh	 | 	2018	 | 	0.0219	 | 	0.0058	 |
+| 	Bangladesh	 | 	2019	 | 	0.0249	 | 	0.0053	 |
+| 	Bangladesh	 | 	2020	 | 	0.0258	 | 	0.0035	 |
+| 	Bangladesh	 | 	2021	 | 	0.0258	 | 	0.0035	 |
+| 	Bangladesh	 | 	2022	 | 	0.0258	 | 	0.0035	 |
+
+fact_gross_price
+
+
+
 #### Fact Tables Imported from MySQL
 | Table Name    | Description   |
 | :- | :- |
