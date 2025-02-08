@@ -260,10 +260,10 @@ To aid in building the data model, dim_date dimension table is created using Pow
 ```
 let
     // Retrieve the minimum and maximum dates from both fact_forecast_monthly and fact_sales_monthly
-    MinDateSales = List.Min(fact_sales_monthly[date]),  // Min date from sales table
-    MinDateForecast = List.Min(fact_forecast_monthly[date]),  // Min date from forecast table
-    MaxDateSales = List.Max(fact_sales_monthly[date]),  // Max date from sales table
-    MaxDateForecast = List.Max(fact_forecast_monthly[date]), // Max date from forecast table
+    MinDateSales = List.Min(List.Transform(fact_sales_monthly[date], each Date.From(_))),  // Min date from sales table
+    MinDateForecast = List.Min(List.Transform(fact_forecast_monthly[date], each Date.From(_))),  // Min date from forecast table
+    MaxDateSales = List.Max(List.Transform(fact_sales_monthly[date], each Date.From(_))),  // Max date from sales table
+    MaxDateForecast = List.Max(List.Transform(fact_forecast_monthly[date], each Date.From(_))), // Max date from forecast table
     
     // Determine the start and end dates for dim_date table
     StartDate = List.Min({MinDateSales, MinDateForecast}),
@@ -273,14 +273,15 @@ let
     DateList = List.Dates(StartDate, Duration.Days(EndDate - StartDate) + 1, #duration(1, 0, 0, 0)),
     
     // Convert the list to a table
-    dim_date = Table.FromList(DateList, Splitter.SplitByNothing(), {"date"})
+    DateTable1 = Table.FromList(DateList, Splitter.SplitByNothing(), {"date"}),
+
+    // Since data in fact_sales_montly and fact_forecast_monthly are aggregated on a monthly level, add a month column representing first day of the month
+    DateTable2 = Table.AddColumn(DateTable1, "month", each Date.StartOfMonth([date]), type date),
+
+    // Add column for AtliQ's fiscal year by adding 4 months to the caldendar month
+    DateTable3 = Table.AddColumn(DateTable2, "fiscal_year", each Date.Year(Date.AddMonths([month], 4)), type text)
 in
-    dim_date
-```
-
-Since data in fact_sales_montly and fact_forecast_monthly are aggregated on a monthly level, add *month* column representing first day of the month
-```
-
+    DateTable3
 ```
 
 
