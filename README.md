@@ -50,6 +50,25 @@ Example of a mouse being sold to Chroma
 | Operational Expenses | Exepnses AtliQ incurs from activities such as advertising by marketing team. | -$3.00 |
 | Net Profit | Profit after deducting operational expenses | $2.00 |
 
+AtliQ Fiscal Year<br>
+AtliQ's fiscal year begins in September and ends in August the following year.<br>
+Example of AtliQ fiscal date vs caldendar date for AtliQ fiscal year 2021:
+| 	Calendar Month and Year	 | 	AtliQ Fiscal Year	 | 	AtliQ Fiscal Month	 | 	AtliQ Fiscal Quarter	 |
+| 	-:	 | 	-:	 | 	-:	 | 	-:	 |
+| 	September 2020	 | 	2021	 | 	1	 | 	Q1	 |
+| 	October 2020	 | 	2021	 | 	2	 | 	Q1	 |
+| 	November 2020	 | 	2021	 | 	3	 | 	Q1	 |
+| 	December 2020	 | 	2021	 | 	4	 | 	Q2	 |
+| 	January 2021	 | 	2021	 | 	5	 | 	Q2	 |
+| 	February 2021	 | 	2021	 | 	6	 | 	Q2	 |
+| 	March 2021	 | 	2021	 | 	7	 | 	Q3	 |
+| 	April 2021	 | 	2021	 | 	8	 | 	Q3	 |
+| 	May 2021	 | 	2021	 | 	9	 | 	Q3	 |
+| 	June 2021	 | 	2021	 | 	10	 | 	Q4	 |
+| 	July 2021	 | 	2021	 | 	11	 | 	Q4	 |
+| 	August 2021	 | 	2021	 | 	12	 | 	Q4	 |
+
+
 ## Data Sources
 
 ### Dimension Tables Imported from MySQL and Sample Records
@@ -85,7 +104,7 @@ dim_product
 | 	7	 | 	N & S	 | 	Networking	 | 	Wi fi extender	 | 	AQ Wi Power Dx1	 | 	Standard	 |
 | 	8  | 	N & S	 | 	Networking	 | 	Wi fi extender	 | 	AQ Wi Power Dx2	 | 	Standard	 |
 | 	9	 | 	N & S	 | 	Storage	 | 	External Solid State Drives	 | 	AQ Digit SSD	 | 	Premium	 |
-|  10 | 	N & S	 | 	Storage	 | 	External Solid State Drives	 | 	AQ Neuer SSD	 | 	Premium	 |
+|  10 | 	N & S	 | 	Storage	 | 	External&nbsp;Solid&nbsp;State&nbsp;Drives	 | 	AQ Neuer SSD	 | 	Premium	 |
 
 
 ### Fact Tables Imported from MySQL and Sample Records
@@ -221,7 +240,7 @@ targets
 marketshare
 | 	sub_zone	 | 	category	 | 	fy_desc	 | 	total_market_sales_$	 | 	atliq_sales_$	 | 	dale_sales_$	 | 	innovo_sales_$	 | 	pacer_sales_$	 | 	bp_sales_$	 | 	others_sales_$	 |
 | 	:-	 | 	:-	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 |
-| 	LATAM	 | 	Business Laptop	 | 	2019	 | 	1084.4776	 | 	0.286	 | 	255.9367136	 | 	117.7308883	 | 	82.41162178	 | 	57.68813525	 | 	570.4242411	 |
+| 	LATAM	 | 	Business&nbsp;Laptop	 | 	2019	 | 	1084.4776	 | 	0.286	 | 	255.9367136	 | 	117.7308883	 | 	82.41162178	 | 	57.68813525	 | 	570.4242411	 |
 | 	LATAM	 | 	Business Laptop	 | 	2020	 | 	1523.0215	 | 	1.04346	 | 	319.834515	 | 	102.3470448	 | 	84.94804718	 | 	54.24393374	 | 	960.6044993	 |
 | 	LATAM	 | 	Business Laptop	 | 	2021	 | 	1813.3458	 | 	1.34904	 | 	377.1759264	 | 	128.239815	 | 	93.61506493	 | 	55.14312044	 | 	1157.822833	 |
 | 	LATAM	 | 	Business Laptop	 | 	2022	 | 	2782.7793	 | 	10.44978	 | 	550.9903014	 | 	333.3491323	 | 	136.6731443	 | 	350.016589	 | 	1401.300353	 |
@@ -229,6 +248,38 @@ marketshare
 | 	LATAM	 | 	Gaming Laptop	 | 	2020	 | 	1799.9345	 | 	0.15862	 | 	435.584149	 | 	150.2765314	 | 	132.2433476	 | 	94.67421479	 | 	986.9976372	 |
 | 	LATAM	 | 	Gaming Laptop	 | 	2021	 | 	2417.7944	 | 	0.83688	 | 	469.0521136	 | 	197.0018877	 | 	133.9612836	 | 	161.5415479	 | 	1455.400687	 |
 | 	LATAM	 | 	Gaming Laptop	 | 	2022	 | 	3091.977	 | 	8.40752	 | 	927.5931	 | 	389.589102	 | 	179.2109869	 | 	331.1507367	 | 	1256.025554	 |
+
+### Importing datasets into Power BI Tables using Power Query
+Dimension and fact tables dim_market, dim_product, dim_customer, fact_sales_monthly, fact_forecast_monthly imported into Power BI using Power Query. Data cleaning performed using Power Query GUI interface:
+* Trimming white spaces in text
+* Assigning appropriate data types for each column
+* Replacing values
+
+# Creating a dim_date dimension table using M-Language
+To aid in building the data model, dim_date dimension table is created using Power Query M-Language
+```
+let
+    // Retrieve the minimum and maximum dates from both fact_forecast_monthly and fact_sales_monthly
+    MinDateSales = List.Min(fact_sales_monthly[date]),  // Min date from sales table
+    MinDateForecast = List.Min(fact_forecast_monthly[date]),  // Min date from forecast table
+    MaxDateSales = List.Max(fact_sales_monthly[date]),  // Max date from sales table
+    MaxDateForecast = List.Max(fact_forecast_monthly[date]), // Max date from forecast table
+    
+    // Determine the start and end dates for dim_date table
+    StartDate = List.Min({MinDateSales, MinDateForecast}),
+    EndDate = List.Max({MaxDateSales, MaxDateForecast}),
+    
+    // Create a list of dates from StartDate to EndDate
+    DateList = List.Dates(StartDate, Duration.Days(EndDate - StartDate) + 1, #duration(1, 0, 0, 0)),
+    
+    // Convert the list to a table
+    dim_date = Table.FromList(DateList, Splitter.SplitByNothing(), {"calendar_date"})
+in
+    dim_date
+```
+
+Since data in fact_sales_montly and fact_forecast_monthly are aggregated on a monthly level, add *month* column representing first day of the month
+
 
 
 ### Business Understanding and Acumen
