@@ -185,16 +185,6 @@ fact_pre_invoice_deduction
 | 	2	 | 	2021	 | 	0.206107124	 |
 | 	2	 | 	2022	 | 	0.29309271	 |
 
-#### Fact Tables Imported from MySQL
-| Table Name    | Description   |
-| :- | :- |
-| fact_forecast_monthly  | Table of predicted sales at a monthly level.  |
-| fact_sales_monthly           | Table of actual sales at a monthly level. |
-| freight_cost | Details the freight cost for a particular market and fiscal year |
-| gross_price | The gross price of a unique product for a given fiscal year |
-| manufacturing_cost | The manufacturing cost of a unique product for a given year |
-| post_invoice_deductions | For a specific customer and product and at a specific month, a rebate given to customer. |
-| pre_invoice_deductions | For a unique customer and fiscal year, the discount given to the customer |
 
 
 
