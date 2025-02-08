@@ -273,13 +273,15 @@ let
     DateList = List.Dates(StartDate, Duration.Days(EndDate - StartDate) + 1, #duration(1, 0, 0, 0)),
     
     // Convert the list to a table
-    dim_date = Table.FromList(DateList, Splitter.SplitByNothing(), {"calendar_date"})
+    dim_date = Table.FromList(DateList, Splitter.SplitByNothing(), {"date"})
 in
     dim_date
 ```
 
 Since data in fact_sales_montly and fact_forecast_monthly are aggregated on a monthly level, add *month* column representing first day of the month
+```
 
+```
 
 
 ### Business Understanding and Acumen
