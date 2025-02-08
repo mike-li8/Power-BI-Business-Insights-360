@@ -297,7 +297,7 @@ in
 ```
 
 ```
-= Table.SelectColumns(#"Renamed Columns",{"date", "product_code", "customer_code", "sold_quantity"})
+= Table.SelectColumns(gdb041_fact_sales_monthly,{"date", "product_code", "customer_code", "sold_quantity"})
 ```
 
 
