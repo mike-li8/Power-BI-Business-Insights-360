@@ -292,12 +292,47 @@ in
 ```
 
 # Normalize sales and forecast tables
+fact_forecast_monthly
 ```
 = Table.SelectColumns(gdb041_fact_forecast_monthly,{"date", "product_code", "customer_code", "forecast_quantity"})
 ```
-
+fact_sales_monthly
 ```
 = Table.SelectColumns(gdb041_fact_sales_monthly,{"date", "product_code", "customer_code", "sold_quantity"})
+```
+
+# Find the last sales month in the sales table fact_sales_monthly
+LastSalesMonth
+```
+= List.Max(fact_sales_monthly[date])
+```
+
+# Create FactActualsEstimate Table using Power Query M-Language
+FactActualsEstimates = 
+```
+let
+
+    // Sales Table and Forecast Table
+    SalesTable1 = fact_sales_monthly,
+    ForecastTable1 = fact_forecast_monthly,
+
+    // Obtain the latest month that there is data available in the sales table
+    LastSalesMonth = List.Max(ForecastTable1[date]),
+
+    // Filter the forecast table to only include records with dates where sales data is not avaliable
+    ForecastTable2 = Table.SelectRows(ForecastTable1, each [date] > LastSalesMonth),
+
+    // Rename sold_quanity column in sales table to Qty
+    SalesTable2 = Table.RenameColumns(SalesTable1, {{"sold_quantity", "Qty"}}),
+
+    // Rename forecast_quantity column in forecast table to Qty
+    ForecastTable3 = Table.RenameColumns(ForecastTable2, {{"forecast_quantity", "Qty"}}),
+
+    // Union of Sales and Forecast tables
+    UnionSalesForecast = Table.Combine({SalesTable2, ForecastTable3})
+
+in
+    UnionSalesForecast
 ```
 
 
