@@ -275,6 +275,43 @@ in
     #"Remove Redundant Columns"
 ```
 
+### Create dim_date Table 2025 Feb 9
+```
+let
+    // Find minimum date from forecast table
+    MinForecastDate = List.Min(Forecast_Monthly[date]),
+    // Find minimum date from sales table
+    MinSalesDate = List.Min(Sales_Monthly[date]),
+    // Find the lower of MinForecastDate and MinSalesDate. This is the lowest date in dim_date table.
+    StartDate = List.Min({MinForecastDate, MinSalesDate}),
+
+    // Find maximum date from forecast table
+    MaxForecastDate = List.Max(Forecast_Monthly[date]),
+    // Find maximum date from sales table
+    MaxSalesDate = List.Max(Sales_Monthly[date]),
+    // Find the higher of MaxForecastDate and MaxSalesDate. This is the highest date in dim_date table.
+    EndDate = List.Max({MaxForecastDate, MaxSalesDate}),
+
+    // Create a list of dates from StartDate to EndDate and sort ascending
+    DateList = List.Dates(StartDate, Duration.Days(EndDate - StartDate) + 1, #duration(1, 0, 0, 0)),
+    DateList_SortASC = List.Sort(DateList,Order.Ascending),
+
+    // Convert list of dates to table and assign appropriate datatype to date column
+    DateTable = Table.FromList(DateList_SortASC, Splitter.SplitByNothing(), {"date"}),
+    #"Changed data type of date column" = Table.TransformColumnTypes(DateTable,{{"date", type date}}),
+
+    // Since data in forecast and sales tables are aggregated on a monthly level,
+    // add a month column representing the first day of the month
+    #"Add month column" = Table.AddColumn(#"Changed data type of date column", "month", each Date.StartOfMonth([date]), type date),
+
+    // Add column for AtliQ's fiscal year by adding 4 months to the calendar month
+    #"Add Fiscal Year column" = Table.AddColumn(#"Add month column", "fiscal_year", each Text.From(Date.Year(Date.AddMonths([month], 4))), type text)
+
+in
+    #"Add Fiscal Year column"
+```
+
+
 
 
 # Creating a dim_date dimension table using M-Language
