@@ -256,19 +256,24 @@ Dimension and fact tables dim_market, dim_product, dim_customer, fact_sales_mont
 * Replacing values
 
 ### Normalize Forecast Table 2025 Feb 9
+Query Name: Forecast_Monthly
 ```
 let
-    // Grab ForecastTable
     ForecastTable = fact_forecast_monthly,
-
-    // Remove Redundant Columns from forecast table
     #"Remove Redundant Columns" = Table.SelectColumns(ForecastTable, {"date", "product_code", "customer_code", "forecast_quantity"})
 in
     #"Remove Redundant Columns"
 ```
 
-
-
+### Normalize Sales Table 2025 Feb 9
+Query Name: Sales_Monthly
+```
+let
+    SalesTable = fact_sales_monthly,
+    #"Remove Redundant Columns" = Table.SelectColumns(SalesTable,{"date", "product_code", "customer_code", "sold_quantity"})
+in
+    #"Remove Redundant Columns"
+```
 
 
 
