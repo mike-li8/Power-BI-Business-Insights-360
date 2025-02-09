@@ -370,106 +370,10 @@ in
     #"Add Fiscal Year column"
 ```
 
-
-
-
-# Creating a dim_date dimension table using M-Language
-To aid in building the data model, dim_date dimension table is created using Power Query M-Language
-```
-let
-    // Retrieve the minimum and maximum dates from both fact_forecast_monthly and fact_sales_monthly
-    // Min date from sales table
-    MinDateSales = List.Min(List.Transform(fact_sales_monthly[date], each Date.From(_))),
-    // Min date from forecast table
-    MinDateForecast = List.Min(List.Transform(fact_forecast_monthly[date], each Date.From(_))),
-    // Max date from sales table
-    MaxDateSales = List.Max(List.Transform(fact_sales_monthly[date], each Date.From(_))),
-    // Max date from forecast table
-    MaxDateForecast = List.Max(List.Transform(fact_forecast_monthly[date], each Date.From(_))),
-
-    // Determine the start and end dates for dim_date table
-    StartDate = List.Min({MinDateSales, MinDateForecast}),
-    EndDate = List.Max({MaxDateSales, MaxDateForecast}),
-    
-    // Create a list of dates from StartDate to EndDate
-    DateList = List.Dates(StartDate, Duration.Days(EndDate - StartDate) + 1, #duration(1, 0, 0, 0)),
-    
-    // Convert the list to a table
-    DateTable1 = Table.FromList(DateList, Splitter.SplitByNothing(), {"date"}),
-
-    // Ensure "date" column is in date format
-    DateTable2 = Table.TransformColumnTypes(DateTable1, {{"date", type date}}),
-
-    // Since data in fact_sales_montly and fact_forecast_monthly are aggregated on a monthly level, add a month column representing first day of the month
-    DateTable3 = Table.AddColumn(DateTable2, "month", each Date.StartOfMonth([date]), type date),
-
-    // Add column for AtliQ's fiscal year by adding 4 months to the calendar month
-    DateTable4 = Table.AddColumn(DateTable3, "fiscal_year", each Text.From(Date.Year(Date.AddMonths([month], 4))), type text)
-in
-    DateTable4
-```
-
-# Normalize sales and forecast tables
-fact_forecast_monthly
-```
-= Table.SelectColumns(gdb041_fact_forecast_monthly,{"date", "product_code", "customer_code", "forecast_quantity"})
-```
-fact_sales_monthly
-```
-= Table.SelectColumns(gdb041_fact_sales_monthly,{"date", "product_code", "customer_code", "sold_quantity"})
-```
-
-# Find the last sales month in the sales table fact_sales_monthly
-LastSalesMonth
-```
-= List.Max(fact_sales_monthly[date])
-```
-
-# Create FactActualsEstimate Table using Power Query M-Language
-## Union of forecast and sales table
-FactActualsEstimates = 
-```
-let
-
-    // Sales Table and Forecast Table
-    SalesTable1 = fact_sales_monthly,
-    ForecastTable1 = fact_forecast_monthly,
-
-    // Obtain the latest month that there is data available in the sales table
-    LastSalesMonth = List.Max(ForecastTable1[date]),
-
-    // Filter the forecast table to only include records with dates where sales data is not avaliable
-    ForecastTable2 = Table.SelectRows(ForecastTable1, each [date] > LastSalesMonth),
-
-    // Rename sold_quanity column in sales table to Qty
-    SalesTable2 = Table.RenameColumns(SalesTable1, {{"sold_quantity", "Qty"}}),
-
-    // Rename forecast_quantity column in forecast table to Qty
-    ForecastTable3 = Table.RenameColumns(ForecastTable2, {{"forecast_quantity", "Qty"}}),
-
-    // Union of Sales and Forecast tables
-    UnionSalesForecast = Table.Combine({SalesTable2, ForecastTable3})
-
-in
-    UnionSalesForecast
-```
-
-## Join with fact_gross_price and preInvoiceDeductions
-
-## Transform Marketshare Table into Desired Format
+### Transform Marketshare Table 2025 Feb 09
 
 
 
 
 
-### Business Understanding and Acumen
-* Fiscal Date vs Calendar Date
-* YTD (Year-to-Date)
-* YTG (Year-to-Go)
-* Profit and Loss Statement
-* Marketshare
-* Revenue
-* Profit
-* Cost of Goods Sold (COGS)
 
-* Supply Chain Basics
