@@ -255,6 +255,23 @@ Dimension and fact tables dim_market, dim_product, dim_customer, fact_sales_mont
 * Assigning appropriate data types for each column
 * Replacing values
 
+### Normalize Forecast Table 2025 Feb 9
+```
+let
+    // Grab ForecastTable
+    ForecastTable = fact_forecast_monthly,
+
+    // Remove Redundant Columns from forecast table
+    #"Remove Redundant Columns" = Table.SelectColumns(ForecastTable, {"date", "product_code", "customer_code", "forecast_quantity"})
+in
+    #"Remove Redundant Columns"
+```
+
+
+
+
+
+
 # Creating a dim_date dimension table using M-Language
 To aid in building the data model, dim_date dimension table is created using Power Query M-Language
 ```
