@@ -275,6 +275,16 @@ in
     #"Remove Redundant Columns"
 ```
 
+
+### Obtain last sales month from sales table
+```
+let
+    LastSalesMonth = List.Max(Sales_Monthly[date])
+in
+    LastSalesMonth
+```
+
+
 ### Create dim_date Table 2025 Feb 9
 ```
 let
