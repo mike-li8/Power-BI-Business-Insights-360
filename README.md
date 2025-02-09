@@ -308,6 +308,7 @@ LastSalesMonth
 ```
 
 # Create FactActualsEstimate Table using Power Query M-Language
+## Union of forecast and sales table
 FactActualsEstimates = 
 ```
 let
@@ -335,6 +336,8 @@ in
     UnionSalesForecast
 ```
 
+## Add gross_sales_amount column
+## Add net_invoice_sales_amount column
 
 
 ### Business Understanding and Acumen
