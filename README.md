@@ -371,7 +371,17 @@ in
 ```
 
 ### Transform Marketshare Table 2025 Feb 09
+```
+let
+    // Transform data to have one column for manufacturer name and another column for total sales amount
+    #"Transform Data" = Table.UnpivotOtherColumns(marketshare, {"sub_zone", "category", "fy_desc", "total_market_sales_$"}, "Manufacturer", "sales_$"),
 
+    // Data cleaning in manufacturer column: remove "_sales_$" from the end of each manufacturer name
+    #"Manufacturer Column Extract Text Before Delimiter" = Table.TransformColumns(#"Transform Data", {{"Manufacturer", each Text.BeforeDelimiter(_, "_"), type text}})
+
+in
+    #"Manufacturer Column Extract Text Before Delimiter"
+```
 
 
 
