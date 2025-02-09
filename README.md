@@ -336,8 +336,12 @@ in
     UnionSalesForecast
 ```
 
-## Add gross_sales_amount column
-## Add net_invoice_sales_amount column
+## Join with fact_gross_price and preInvoiceDeductions
+
+## Transform Marketshare Table into Desired Format
+
+
+
 
 
 ### Business Understanding and Acumen
