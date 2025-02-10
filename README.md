@@ -298,8 +298,8 @@ in
 
 ### Last Refresh Date
 Query to get last refresh date of dashboard
-![image alt]()
-![image alt]()
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Refresh%20Date%20Icon.PNG?raw=true)
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Refresh%20Date.PNG?raw=true)
 
 
 
