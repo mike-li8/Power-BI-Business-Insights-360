@@ -764,8 +764,31 @@ SELECTEDVALUE('Toggle Switch Table'[Number]) = 2, BLANK())
 
 ### DAX for Visuals
 #### Finance View: Profit and Loss Statement Using Matrix Visual
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/Profit%20and%20Loss%20Visual.PNG?raw=true)
 
-#### Sales and Marketing View: Performance Matrix Dyanamic Average Line, Filter Slider
+P & L Columns
+```
+P & L Columns = 
+
+// fetch all the values in fy_desc as the user can select any value from fy_desc
+var x = ALLNOBLANKROW(fiscal_year[fy_desc]) 
+
+return
+UNION(      // adding all the values from fy_desc with below values
+    ROW("Col Header", "Chg"),       // ‘YoY Chg’ is a requirement from mock up
+    ROW("Col Header", "Pct Chg"),     // ‘YoY Chg %’ is a requirement from mock up
+    ROW("Col Header", "BM"),
+    x
+)
+```
+![image alt]()
+
+
+P & L Rows
+![image alt]()
+
+
+#### Sales and Marketing View: Performance Matrix Dyanamic Average Line, Bookmarks, Filter Slider
 
 #### Finance and Executive View: Dynamic Top/Bottom N
 
