@@ -599,6 +599,7 @@ Net Profit % = DIVIDE([Net Profit $], [NS $],0)
 NP / Unit = DIVIDE([Net Profit $],[Quantity],0)
 ```
 
+### Supply Chain Basics and DAX Measures
 
 
 
