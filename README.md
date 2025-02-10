@@ -427,7 +427,8 @@ sub_zone = ALLNOBLANKROW(dim_market[sub_zone])
 category = ALLNOBLANKROW(dim_product[category])
 ```
 
-
+Data Model in Power BI
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Data%20Model%20Screenshots/DataModel.PNG?raw=true)
 
 
 
