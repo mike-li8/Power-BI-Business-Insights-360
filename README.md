@@ -515,3 +515,92 @@ var res = CALCULATE(
 RETURN res * Fact_Actuals_Estimates[net_sales_amount]
 ```
 
+### Key DAX Measures
+
+#### Gross Sales
+```
+GS $ = SUM(Fact_Actuals_Estimates[gross_sales_amount]) // gross sales
+```
+
+```
+NIS $ = SUM(Fact_Actuals_Estimates[net_invoice_sales_amount]) // net invoice sales
+```
+
+```
+Pre Invoice Deduction $ = [GS $] - [NIS $]
+```
+
+```
+Post Invoice Deduction $ = SUM(Fact_Actuals_Estimates[post_invoice_deduction_amount])
+```
+
+```
+Post Invoice Other Deduction $ = SUM(Fact_Actuals_Estimates[post_invoice_other_deduction_amount])
+```
+
+
+```
+Total Post Invoice Deduction $ = [Post Invoice Deduction $] + [Post Invoice Other Deduction $]
+```
+
+```
+NS $ = SUM(Fact_Actuals_Estimates[net_sales_amount])
+```
+
+```
+Manufacturing Cost $ = SUM(Fact_Actuals_Estimates[manufacturing_cost])
+```
+
+```
+Freight Cost $ = SUM(Fact_Actuals_Estimates[freight_cost])
+```
+
+```
+Other Cost $ = SUM(Fact_Actuals_Estimates[other_cost])
+```
+
+```
+Total COGS $ = [Manufacturing Cost $] + [Freight Cost $] + [Other Cost $]
+```
+
+```
+GM $ = [NS $] - [Total COGS $]
+```
+
+```
+GM % = DIVIDE([GM $],[NS $],0)
+```
+
+```
+GM / Unit = DIVIDE([GM $],[Quantity],0)
+```
+
+```
+Ads & Promotions $ = SUM(Fact_Actuals_Estimates[ads_promotion])
+```
+
+```
+Other Operational Expense $ = SUM(Fact_Actuals_Estimates[other_operational_expense])
+```
+
+```
+Operational Expense $ = [Ads & Promotions $] + [Other Operational Expense $]
+```
+
+```
+Net Profit $ = [GM $] - [Operational Expense $]
+```
+
+```
+Net Profit % = DIVIDE([Net Profit $], [NS $],0)
+```
+
+```
+NP / Unit = DIVIDE([Net Profit $],[Quantity],0)
+```
+
+
+
+
+
+
