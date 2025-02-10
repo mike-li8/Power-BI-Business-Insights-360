@@ -249,20 +249,28 @@ marketshare
 | 	LATAM	 | 	Gaming Laptop	 | 	2021	 | 	2417.7944	 | 	0.83688	 | 	469.0521136	 | 	197.0018877	 | 	133.9612836	 | 	161.5415479	 | 	1455.400687	 |
 | 	LATAM	 | 	Gaming Laptop	 | 	2022	 | 	3091.977	 | 	8.40752	 | 	927.5931	 | 	389.589102	 | 	179.2109869	 | 	331.1507367	 | 	1256.025554	 |
 
+
+
+### Import data into Power Query
+The 3 dimension tables and 10 fact tables were imported into Power Query.</br>
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/PowerQuery%20Initial%20Import.PNG?raw=true)
+
+
+
 ### Importing datasets into Power BI Tables using Power Query
 Dimension and fact tables dim_market, dim_product, dim_customer, fact_sales_monthly, fact_forecast_monthly imported into Power BI using Power Query. Data cleaning performed using Power Query GUI interface:
 * Trimming white spaces in text
 * Assigning appropriate data types for each column
 * Replacing values
 
+
+
+
+
 ### Normalize Forecast Table 2025 Feb 9
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Forecast_Monthly%20Icon.PNG?raw=true)
 ```
-let
-    ForecastTable = fact_forecast_monthly,
-    #"Remove Redundant Columns" = Table.SelectColumns(ForecastTable, {"date", "product_code", "customer_code", "forecast_quantity"})
-in
-    #"Remove Redundant Columns"
+= Table.SelectColumns(fact_forecast_monthly, {"date", "product_code", "customer_code", "forecast_quantity"})
 ```
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Forecast_Monthly.PNG?raw=true)
 
@@ -270,11 +278,7 @@ in
 ### Normalize Sales Table 2025 Feb 9
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Sales_Monthly%20Icon.PNG?raw=true)
 ```
-let
-    SalesTable = fact_sales_monthly,
-    #"Remove Redundant Columns" = Table.SelectColumns(SalesTable,{"date", "product_code", "customer_code", "sold_quantity"})
-in
-    #"Remove Redundant Columns"
+= Table.SelectColumns(fact_sales_monthly,{"date", "product_code", "customer_code", "sold_quantity"})
 ```
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Sales_Monthly.PNG?raw=true)
 
