@@ -414,6 +414,7 @@ Add two additional steps to the ![image alt](https://github.com/mike-li8/Power-B
 
 
 ### Data Modelling
+#### DAX Calculated Tables
 To complete the snowflake schema, three additional fact tables need to be created using DAX calculated table:
 ```
 fiscal_year = ALLNOBLANKROW(dim_date[fiscal_year])
@@ -430,5 +431,87 @@ category = ALLNOBLANKROW(dim_product[category])
 Data Model in Power BI
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Data%20Model%20Screenshots/DataModel.PNG?raw=true)
 
+#### DAX Calculated Columns
+### dim_date
+```
+fy_month_num = MONTH(DATE(YEAR(dim_date[date]),MONTH(dim_date[date]) + 4, 1))
+```
 
+```
+quarters = "Q" & ROUNDUP(dim_date[fy_month_num]/3,0)
+```
+
+```
+ytd_ytg = 
+
+var LASTSALESDATE = MAX(Last_Sales_Month[Last_Sales_Month])
+
+var FY_MONTH_NUMBER = MONTH(DATE(YEAR(LASTSALESDATE),MONTH(LASTSALESDATE)+4, 1))
+
+RETURN
+IF(
+    dim_date[fy_month_num] > FY_MONTH_NUMBER,
+    "YTG",
+    "YTD")
+```
+
+### Fact_Actuals_Estimates
+
+```
+post_invoice_deduction_amount = 
+var res = CALCULATE(
+    MAX(post_invoice_deductions[discounts_pct]),
+    RELATEDTABLE(post_invoice_deductions))
+RETURN res * Fact_Actuals_Estimates[net_invoice_sales_amount]
+```
+
+```
+post_invoice_other_deduction_amount = 
+var res = CALCULATE(MAX(post_invoice_deductions[other_deductions_pct]), 
+RELATEDTABLE(post_invoice_deductions))
+RETURN res * Fact_Actuals_Estimates[net_invoice_sales_amount]
+```
+
+```
+net_sales_amount = Fact_Actuals_Estimates[net_invoice_sales_amount] - Fact_Actuals_Estimates[post_invoice_deduction_amount] - Fact_Actuals_Estimates[post_invoice_other_deduction_amount]
+```
+
+```
+manufacturing_cost = 
+var res = CALCULATE(
+    MAX(manufacturing_cost[manufacturing_cost]),
+    RELATEDTABLE(manufacturing_cost))
+RETURN res * Fact_Actuals_Estimates[Qty]
+```
+
+```
+freight_cost = 
+var res = CALCULATE(
+    MAX(freight_cost[freight_pct]),
+    RELATEDTABLE(freight_cost))
+RETURN res * Fact_Actuals_Estimates[net_sales_amount]
+```
+
+```
+other_cost = 
+var res = CALCULATE(MAX(freight_cost[other_cost_pct]), 
+RELATEDTABLE(freight_cost))
+RETURN res * Fact_Actuals_Estimates[net_sales_amount]
+```
+
+```
+ads_promotion = 
+var res = CALCULATE(
+    MAX('operational_expenses'[ads_promotions_pct]),
+    RELATEDTABLE('operational_expenses'))
+RETURN res * Fact_Actuals_Estimates[net_sales_amount]
+```
+
+```
+other_operational_expense = 
+var res = CALCULATE(
+    MAX('operational_expenses'[other_operational_expense_pct]),
+    RELATEDTABLE('operational_expenses'))
+RETURN res * Fact_Actuals_Estimates[net_sales_amount]
+```
 
