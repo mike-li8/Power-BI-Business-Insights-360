@@ -602,6 +602,53 @@ NP / Unit = DIVIDE([Net Profit $],[Quantity],0)
 ### Supply Chain Basics and DAX Measures
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Supply%20Chain%20Screenshots/SupplyChain%20Basics.PNG?raw=true)
 
+```
+Quantity = SUM(Fact_Actuals_Estimates[Qty])
+```
+
+
+```
+Sales Qty = 
+CALCULATE(
+    [Quantity],
+    Fact_Actuals_Estimates[date] <= MAX(Last_Sales_Month[Last_Sales_Month])
+)
+```
+
+```
+Forecast Qty = 
+
+var LASTSALESDATE = MAX(Last_Sales_Month[Last_Sales_Month])
+
+return
+CALCULATE(
+    SUM(fact_forecast_monthly[forecast_quantity]),
+    fact_forecast_monthly[date] <= LASTSALESDATE
+    )
+```
+
+```
+Net Error = [Forecast Qty] - [Sales Qty]
+```
+
+```
+ABS Error = 
+SUMX(DISTINCT(dim_date[month]),
+    SUMX(DISTINCT(dim_product[product_code]), ABS([Net Error]))
+    )
+```
+
+```
+ABS Error % = DIVIDE([ABS Error], [Forecast Qty],0)
+```
+
+```
+Forecast Accuracy % = IF(
+    [ABS Error %] <> BLANK(),
+    1 - [ABS Error %],
+    BLANK()
+    )
+```
 
 
 
