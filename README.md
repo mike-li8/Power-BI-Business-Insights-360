@@ -548,6 +548,23 @@ NS $ = SUM(Fact_Actuals_Estimates[net_sales_amount])
 ```
 
 ```
+NS $ LY = CALCULATE(
+    [NS $],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+```
+
+```
+NS BM $ = 
+
+// returns appropriate measure based on the toggle switch position
+SWITCH(TRUE(),
+SELECTEDVALUE('Toggle Switch Table'[Number]) = 1, [NS $ LY],
+SELECTEDVALUE('Toggle Switch Table'[Number]) = 2, [NS Target $])
+```
+
+
+```
 Manufacturing Cost $ = SUM(Fact_Actuals_Estimates[manufacturing_cost])
 ```
 
@@ -572,6 +589,25 @@ GM % = DIVIDE([GM $],[NS $],0)
 ```
 
 ```
+GM % LY = CALCULATE(
+    [GM %],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+```
+
+```
+GM % BM = 
+
+// returns appropriate measure based on the toggle switch position
+SWITCH(TRUE(),
+SELECTEDVALUE('Toggle Switch Table'[Number]) = 1, [GM % LY],
+SELECTEDVALUE('Toggle Switch Table'[Number]) = 2, [GM % Target])
+```
+
+
+
+
+```
 GM / Unit = DIVIDE([GM $],[Quantity],0)
 ```
 
@@ -594,6 +630,24 @@ Net Profit $ = [GM $] - [Operational Expense $]
 ```
 Net Profit % = DIVIDE([Net Profit $], [NS $],0)
 ```
+
+```
+Net Profit % LY = CALCULATE(
+    [Net Profit %],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+```
+
+```
+NP % BM = 
+// returns appropriate measure based on the toggle switch position
+SWITCH(TRUE(),
+SELECTEDVALUE('Toggle Switch Table'[Number]) = 1, [Net Profit % LY],
+SELECTEDVALUE('Toggle Switch Table'[Number]) = 2, [NP % Target])
+```
+
+
+
 
 ```
 NP / Unit = DIVIDE([Net Profit $],[Quantity],0)
@@ -632,11 +686,32 @@ Net Error = [Forecast Qty] - [Sales Qty]
 ```
 
 ```
+Net Error LY = CALCULATE(
+    [Net Error],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+```
+
+
+
+
+
+```
 ABS Error = 
 SUMX(DISTINCT(dim_date[month]),
     SUMX(DISTINCT(dim_product[product_code]), ABS([Net Error]))
     )
 ```
+
+```
+ABS Error LY = CALCULATE(
+    [ABS Error],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+```
+
+
+
 
 ```
 ABS Error % = DIVIDE([ABS Error], [Forecast Qty],0)
@@ -650,5 +725,17 @@ Forecast Accuracy % = IF(
     )
 ```
 
+```
+Forecast Accuracy % LY = CALCULATE(
+    [Forecast Accuracy %],
+    SAMEPERIODLASTYEAR(dim_date[date])
+    )
+```
 
-
+```
+FA % BM = 
+// returns appropriate measure based on the toggle switch position
+SWITCH(TRUE(),
+SELECTEDVALUE('Toggle Switch Table'[Number]) = 1, [Forecast Accuracy % LY],
+SELECTEDVALUE('Toggle Switch Table'[Number]) = 2, BLANK())
+```
