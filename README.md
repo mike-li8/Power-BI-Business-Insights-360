@@ -788,6 +788,125 @@ P & L Rows</br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/P%20and%20L%20Rows%20Table.PNG?raw=true)
 
 
+
+```
+P & L Values = 
+
+var res = 
+SWITCH(
+    TRUE(),
+
+    // Main P&L Values in Finance View
+    MAX('P & L Rows'[Primary_Key]) = 1, [GS $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 2, [Pre Invoice Deduction $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 3, [NIS $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 4, [Post Invoice Deduction $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 5, [Post Invoice Other Deduction $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 6, [Total Post Invoice Deduction $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 7, [NS $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 8, [Manufacturing Cost $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 9, [Freight Cost $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 10, [Other Cost $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 11, [Total COGS $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 12, [GM $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 13, [GM %]*100,
+    MAX('P & L Rows'[Primary_Key]) = 14, [GM / Unit],
+    MAX('P & L Rows'[Primary_Key]) = 15, [Operational Expense $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 16, [Net Profit $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 17, [Net Profit %]*100,
+    MAX('P & L Rows'[Primary_Key]) = 18, [Ads & Promotions $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 19, [Other Operational Expense $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 20, [NP / Unit]
+)
+
+RETURN
+IF(HASONEVALUE('P & L Rows'[Description]), res, [NS $]/1000000)
+```
+
+```
+P & L Final Value = 
+SWITCH(
+    TRUE(),
+    SELECTEDVALUE(fiscal_year[fy_desc]) = MAX('P & L Columns'[Col Header]), [P & L Values],
+    MAX('P & L Columns'[Col Header]) = "BM", [P & L BM],
+    MAX('P & L Columns'[Col Header]) = "Chg", [P & L Chg],
+    MAX('P & L Columns'[Col Header]) = "Pct Chg", [P & L Chg %]
+)
+```
+
+```
+P & L LY = CALCULATE([P & L Values], SAMEPERIODLASTYEAR(dim_date[date]))
+```
+
+```
+P & L BM =
+SWITCH(
+    TRUE(),
+    SELECTEDVALUE('Toggle Switch Table'[Number]) = 1, [P & L LY],
+    SELECTEDVALUE('Toggle Switch Table'[Number]) = 2, [P & L Targets]
+)
+```
+
+
+```
+Customer / Product Filter Check = 
+ISCROSSFILTERED(dim_product[product]) || ISFILTERED(dim_customer[customer])
+```
+
+
+
+
+```
+P & L Targets = 
+
+var res =
+SWITCH(
+    TRUE(),
+    MAX('P & L Rows'[Primary_Key]) = 7,
+    IF([Customer / Product Filter Check], BLANK(), [NS Target $]/1000000),
+    MAX('P & L Rows'[Primary_Key]) = 12,
+    IF([Customer / Product Filter Check], BLANK(), [GM Target $]/1000000),
+    MAX('P & L Rows'[Primary_Key]) = 13, [GM % Target]*100,
+    MAX('P & L Rows'[Primary_Key]) = 16,
+    IF([Customer / Product Filter Check], BLANK(), [NP Target $]/1000000),
+    MAX('P & L Rows'[Primary_Key]) = 17, [NP % Target]*100
+)
+
+RETURN
+IF(
+    HASONEVALUE('P & L Rows'[Description]),
+    res,
+    IF(
+        [Customer / Product Filter Check],
+        BLANK(),
+        [NS Target $]/1000000
+        )
+)
+```
+
+
+```
+P & L Chg = 
+
+var res = [P & L Values] - [P & L BM]
+
+RETURN
+IF(ISBLANK([P & L BM]) || ISBLANK([P & L Values]), BLANK(), res)
+```
+
+```
+P & L Chg % = 
+
+var res = DIVIDE([P & L Chg],ABS([P & L BM]),0) * 100
+
+RETURN
+IF(ISBLANK([P & L Values]) || ISBLANK([P & L BM]), BLANK(), res)
+```
+
+
+
+
+
 #### Sales and Marketing View: Performance Matrix Dyanamic Average Line, Bookmarks, Filter Slider
 
 #### Finance and Executive View: Dynamic Top/Bottom N
