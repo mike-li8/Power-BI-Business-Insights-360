@@ -431,8 +431,8 @@ category = ALLNOBLANKROW(dim_product[category])
 Data Model in Power BI
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Data%20Model%20Screenshots/DataModel.PNG?raw=true)
 
-#### DAX Calculated Columns
-### dim_date
+### DAX Calculated Columns
+#### dim_date
 ```
 fy_month_num = MONTH(DATE(YEAR(dim_date[date]),MONTH(dim_date[date]) + 4, 1))
 ```
@@ -455,7 +455,7 @@ IF(
     "YTD")
 ```
 
-### Fact_Actuals_Estimates
+#### Fact_Actuals_Estimates
 
 ```
 post_invoice_deduction_amount = 
