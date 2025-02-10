@@ -138,7 +138,7 @@ fact_sales_monthly
 | 	2019-01-01	 | 	9	 | 	N & S	 | 	External Solid State Drives	 | 	AQ Digit SSD	 | 	7	 | 	Neptune	 | 	China	 | 	Brick & Mortar	 | 	Distributor	 | 	140	 |
 | 	2019-01-01	 | 	10	 | 	N & S	 | 	External&nbsp;Solid&nbsp;State&nbsp;Drives	 | 	AQ Neuer SSD	 | 	3	 | 	Staples	 | 	USA	 | 	Brick & Mortar	 | 	Retailer	 | 	61	 |
 
-fact_freight_cost
+freight_cost
 | 	market	 | 	fiscal_year	 | 	freight_pct	 | 	other_cost_pct	 |
 | 	:-	 | 	-:	 | 	-:	 | 	-:	 |
 | 	Australia	 | 	2018	 | 	0.0188	 | 	0.005	 |
