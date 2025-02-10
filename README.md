@@ -152,7 +152,7 @@ freight_cost
 | 	Bangladesh	 | 	2021	 | 	0.0258	 | 	0.0035	 |
 | 	Bangladesh	 | 	2022	 | 	0.0258	 | 	0.0035	 |
 
-fact_gross_price
+gross_price
 | 	product_code	 | 	fiscal_year	 | 	gross_price	 |
 | 	-:	 | 	-:	 | 	-:	 |
 | 	1	 | 	2018	 | 	19.363	 |
@@ -166,7 +166,7 @@ fact_gross_price
 | 	2	 | 	2021	 | 	22.9729	 |
 | 	2	 | 	2022	 | 	23.6298	 |
 
-fact_manufacturing_cost
+manufacturing_cost
 | 	product_code	 | 	cost_year	 | 	manufacturing_cost	 |
 | 	-:	 | 	-:	 | 	-:	 |
 | 	1	 | 	2018	 | 	5.9469	 |
@@ -181,7 +181,7 @@ fact_manufacturing_cost
 | 	2	 | 	2022	 | 	7.3655	 |
 
 
-fact_post_invoice_deduction
+post_invoice_deduction
 | 	customer_code	 | 	product_code	 | 	date	 | 	discounts_pct	 | 	other_deductions_pct	 |
 | 	-:	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 |
 | 	1	 | 	1	 | 	2021-09-01	 | 	0.243105105	 | 	0.064459945	 |
@@ -193,7 +193,7 @@ fact_post_invoice_deduction
 | 	2	 | 	3	 | 	2021-09-01	 | 	0.227948668	 | 	0.094501586	 |
 | 	2	 | 	4	 | 	2021-10-01	 | 	0.228410097	 | 	0.074617767	 |
 
-fact_pre_invoice_deduction
+pre_invoice_deduction
 | 	customer_code	 | 	fiscal_year	 | 	pre_invoice_discount_pct	 |
 | 	-:	 | 	-:	 | 	-:	 |
 | 	1	 | 	2018	 | 	0.082442198	 |
