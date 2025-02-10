@@ -264,6 +264,8 @@ let
 in
     #"Remove Redundant Columns"
 ```
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Forecast_Monthly.PNG?raw=true)
+
 
 ### Normalize Sales Table 2025 Feb 9
 Query Name: Sales_Monthly
@@ -274,7 +276,7 @@ let
 in
     #"Remove Redundant Columns"
 ```
-
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Sales_Monthly.PNG?raw=true)
 
 ### Obtain last sales month from sales table 2025 Feb 9
 ```
@@ -283,6 +285,7 @@ let
 in
     LastSalesMonth
 ```
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Last_Sales_Month.PNG?raw=true)
 
 ### Combine Sales and Forecast Table 2025 Feb 9
 ```
@@ -301,6 +304,7 @@ let
 in
     UnionSalesForecast
 ```
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Combined%20Sales%20and%20Forecast.PNG?raw=true)
 
 ### Create Fact_Actuals_Estimates Table 2025 Feb 9
 Join with gross_price and pre_invoice_deductions to calculate gross sales and net invoice sales columns
@@ -332,7 +336,7 @@ let
 in
     #"Set columns to appropriate datatypes"
 ```
-
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Fact_Actuals_Estimates.PNG?raw=true)
 
 ### Create dim_date Table 2025 Feb 9
 ```
@@ -369,6 +373,8 @@ let
 in
     #"Add Fiscal Year column"
 ```
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/dim_date.PNG?raw=true)
+
 
 ### Transform Marketshare Table 2025 Feb 09
 ```
@@ -382,8 +388,4 @@ let
 in
     #"Manufacturer Column Extract Text Before Delimiter"
 ```
-
-
-
-
-
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Marketshare.PNG?raw=true)
