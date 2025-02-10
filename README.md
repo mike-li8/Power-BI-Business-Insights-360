@@ -296,6 +296,13 @@ in
 ```
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Last_Sales_Month.PNG?raw=true)
 
+### Last Refresh Date
+Query to get last refresh date of dashboard
+![image alt]()
+![image alt]()
+
+
+
 ### Combine Sales and Forecast Table 2025 Feb 9
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Combined%20Sales%20and%20Forecast%20Icon.PNG?raw=true)
 ```
