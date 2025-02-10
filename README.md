@@ -781,11 +781,11 @@ UNION(      // adding all the values from fy_desc with below values
     x
 )
 ```
-![image alt]()
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/P%20and%20L%20Columns%20Table.PNG?raw=true)
 
 
-P & L Rows
-![image alt]()
+P & L Rows</br>
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/P%20and%20L%20Rows%20Table.PNG?raw=true)
 
 
 #### Sales and Marketing View: Performance Matrix Dyanamic Average Line, Bookmarks, Filter Slider
