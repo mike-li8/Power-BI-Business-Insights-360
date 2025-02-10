@@ -515,6 +515,24 @@ var res = CALCULATE(
 RETURN res * Fact_Actuals_Estimates[net_sales_amount]
 ```
 
+
+### Calculated Table for BM Toggle
+```
+Toggle Switch Table = 
+
+VAR x = UNION(
+    ROW("Number", 1, "Selection", "vs LY", "Selection_1", "Last Year: "),
+    ROW("Number", 2, "Selection", "vs Target", "Selection_1", "Target: ")
+)
+
+RETURN x
+```
+
+
+
+
+
+
 ### Key DAX Measures
 
 #### Gross Sales
@@ -739,3 +757,31 @@ SWITCH(TRUE(),
 SELECTEDVALUE('Toggle Switch Table'[Number]) = 1, [Forecast Accuracy % LY],
 SELECTEDVALUE('Toggle Switch Table'[Number]) = 2, BLANK())
 ```
+
+
+
+### DAX for Visuals
+#### Finance View: Profit and Loss Statement Using Matrix Visual
+
+#### Sales and Marketing View: Performance Matrix Dyanamic Average Line, Filter Slider
+
+#### Finance and Executive View: Dynamic Top/Bottom N
+
+#### New Card Visual
+
+
+### Impact of this Project
+
+
+
+
+
+
+
+
+
+
+
+
+
+
