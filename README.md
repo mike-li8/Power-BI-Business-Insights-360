@@ -600,7 +600,7 @@ NP / Unit = DIVIDE([Net Profit $],[Quantity],0)
 ```
 
 ### Supply Chain Basics and DAX Measures
-
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Supply%20Chain%20Screenshots/SupplyChain%20Basics.PNG?raw=true)
 
 
 
