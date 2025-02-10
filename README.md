@@ -268,7 +268,9 @@ Dimension and fact tables dim_market, dim_product, dim_customer, fact_sales_mont
 
 
 ### Normalize Forecast Table 2025 Feb 9
-![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Forecast_Monthly%20Icon.PNG?raw=true)
+Add a step to
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/fact_forecast_Monthly_icon.PNG?raw=true)
+query:
 ```
 = Table.SelectColumns(fact_forecast_monthly, {"date", "product_code", "customer_code", "forecast_quantity"})
 ```
@@ -276,7 +278,9 @@ Dimension and fact tables dim_market, dim_product, dim_customer, fact_sales_mont
 
 
 ### Normalize Sales Table 2025 Feb 9
-![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Sales_Monthly%20Icon.PNG?raw=true)
+Add a step to
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/fact_sales_monthly_icon.PNG?raw=true)
+query:
 ```
 = Table.SelectColumns(fact_sales_monthly,{"date", "product_code", "customer_code", "sold_quantity"})
 ```
@@ -286,7 +290,7 @@ Dimension and fact tables dim_market, dim_product, dim_customer, fact_sales_mont
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Last_Sales_Month%20Icon.PNG?raw=true)
 ```
 let
-    LastSalesMonth = List.Max(Sales_Monthly[date])
+    LastSalesMonth = List.Max(fact_sales_monthly[date])
 in
     LastSalesMonth
 ```
@@ -297,13 +301,13 @@ in
 ```
 let
     // Filter the forecast table to only include records with dates where sales data is not avaliable
-    #"FilterForecastTable" = Table.SelectRows(Forecast_Monthly, each [date] > Last_Sales_Month),
+    #"FilterForecastTable" = Table.SelectRows(fact_forecast_monthly, each [date] > Last_Sales_Month),
 
     // Rename sold_quanity column in sales table to Qty
-    #"Rename sold_quantity to Qty" = Table.RenameColumns(Sales_Monthly, {{"sold_quantity", "Qty"}}),
+    #"Rename sold_quantity to Qty" = Table.RenameColumns(fact_sales_monthly, {{"sold_quantity", "Qty"}}),
 
     // Rename forecast_quantity column in forecast table to Qty
-    #"Rename forecast_quantity to Qty" = Table.RenameColumns(Forecast_Monthly, {{"forecast_quantity", "Qty"}}),
+    #"Rename forecast_quantity to Qty" = Table.RenameColumns(fact_forecast_monthly, {{"forecast_quantity", "Qty"}}),
 
     // Union of Sales and Forecast tables
     UnionSalesForecast = Table.Combine({#"Rename sold_quantity to Qty", #"Rename forecast_quantity to Qty"})
@@ -350,16 +354,16 @@ in
 ```
 let
     // Find minimum date from forecast table
-    MinForecastDate = List.Min(Forecast_Monthly[date]),
+    MinForecastDate = List.Min(fact_forecast_monthly[date]),
     // Find minimum date from sales table
-    MinSalesDate = List.Min(Sales_Monthly[date]),
+    MinSalesDate = List.Min(fact_sales_monthly[date]),
     // Find the lower of MinForecastDate and MinSalesDate. This is the lowest date in dim_date table.
     StartDate = List.Min({MinForecastDate, MinSalesDate}),
 
     // Find maximum date from forecast table
-    MaxForecastDate = List.Max(Forecast_Monthly[date]),
+    MaxForecastDate = List.Max(fact_forecast_monthly[date]),
     // Find maximum date from sales table
-    MaxSalesDate = List.Max(Sales_Monthly[date]),
+    MaxSalesDate = List.Max(fact_sales_monthly[date]),
     // Find the higher of MaxForecastDate and MaxSalesDate. This is the highest date in dim_date table.
     EndDate = List.Max({MaxForecastDate, MaxSalesDate}),
 
@@ -385,16 +389,13 @@ in
 
 
 ### Transform Marketshare Table 2025 Feb 09
-![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Marketshare%20Icon.PNG?raw=true)
+Add two additional steps to ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Marketshare%20Icon.PNG?raw=true) query:
+1. Transform data to have one column for manufacturer name and another column for total sales amount
 ```
-let
-    // Transform data to have one column for manufacturer name and another column for total sales amount
-    #"Transform Data" = Table.UnpivotOtherColumns(marketshare, {"sub_zone", "category", "fy_desc", "total_market_sales_$"}, "Manufacturer", "sales_$"),
-
-    // Data cleaning in manufacturer column: remove "_sales_$" from the end of each manufacturer name
-    #"Manufacturer Column Extract Text Before Delimiter" = Table.TransformColumns(#"Transform Data", {{"Manufacturer", each Text.BeforeDelimiter(_, "_"), type text}})
-
-in
-    #"Manufacturer Column Extract Text Before Delimiter"
+= Table.UnpivotOtherColumns(marketshare, {"sub_zone", "category", "fy_desc", "total_market_sales_$"}, "Manufacturer", "sales_$")
+```
+2. Data cleaning in manufacturer column: remove "_sales_$" from the end of each manufacturer name
+```
+= Table.TransformColumns(marketshare, {{"Manufacturer", each Text.BeforeDelimiter(_, "_"), type text}})
 ```
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Marketshare.PNG?raw=true)
