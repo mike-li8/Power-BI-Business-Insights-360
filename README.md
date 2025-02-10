@@ -529,6 +529,7 @@ VAR x = UNION(
 RETURN x
 ```
 
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/toggle%20switch%20table.PNG?raw=true)
 
 
 
