@@ -517,6 +517,7 @@ RETURN res * Fact_Actuals_Estimates[net_sales_amount]
 
 
 ### Calculated Table for BM Toggle
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/BM%20Toggle%20Image.PNG?raw=true)
 ```
 Toggle Switch Table = 
 
