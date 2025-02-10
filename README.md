@@ -410,3 +410,24 @@ Add two additional steps to the ![image alt](https://github.com/mike-li8/Power-B
 
 ### Final queries
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/PowerQuery%20Final%20Queries.PNG?raw=true)
+
+
+
+### Data Modelling
+To complete the snowflake schema, three additional fact tables need to be created using DAX calculated table:
+```
+fiscal_year = ALLNOBLANKROW(dim_date[fiscal_year])
+```
+
+```
+sub_zone = ALLNOBLANKROW(dim_market[sub_zone])
+```
+
+```
+category = ALLNOBLANKROW(dim_product[category])
+```
+
+
+
+
+
