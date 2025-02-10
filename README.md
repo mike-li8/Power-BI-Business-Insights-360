@@ -256,7 +256,7 @@ Dimension and fact tables dim_market, dim_product, dim_customer, fact_sales_mont
 * Replacing values
 
 ### Normalize Forecast Table 2025 Feb 9
-Query Name: Forecast_Monthly
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Forecast_Monthly%20Icon.PNG?raw=true)
 ```
 let
     ForecastTable = fact_forecast_monthly,
@@ -268,7 +268,7 @@ in
 
 
 ### Normalize Sales Table 2025 Feb 9
-Query Name: Sales_Monthly
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Sales_Monthly%20Icon.PNG?raw=true)
 ```
 let
     SalesTable = fact_sales_monthly,
@@ -279,6 +279,7 @@ in
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Sales_Monthly.PNG?raw=true)
 
 ### Obtain last sales month from sales table 2025 Feb 9
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Last_Sales_Month%20Icon.PNG?raw=true)
 ```
 let
     LastSalesMonth = List.Max(Sales_Monthly[date])
@@ -288,6 +289,7 @@ in
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Last_Sales_Month.PNG?raw=true)
 
 ### Combine Sales and Forecast Table 2025 Feb 9
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Combined%20Sales%20and%20Forecast%20Icon.PNG?raw=true)
 ```
 let
     // Filter the forecast table to only include records with dates where sales data is not avaliable
@@ -307,6 +309,7 @@ in
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Combined%20Sales%20and%20Forecast.PNG?raw=true)
 
 ### Create Fact_Actuals_Estimates Table 2025 Feb 9
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Fact_Actuals_Estimates%20Icon.PNG?raw=true)
 Join with gross_price and pre_invoice_deductions to calculate gross sales and net invoice sales columns
 ```
 let
@@ -339,6 +342,7 @@ in
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Fact_Actuals_Estimates.PNG?raw=true)
 
 ### Create dim_date Table 2025 Feb 9
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/dim_date%20icon.PNG?raw=true)
 ```
 let
     // Find minimum date from forecast table
@@ -377,6 +381,7 @@ in
 
 
 ### Transform Marketshare Table 2025 Feb 09
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Marketshare%20Icon.PNG?raw=true)
 ```
 let
     // Transform data to have one column for manufacturer name and another column for total sales amount
