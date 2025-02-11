@@ -1,43 +1,32 @@
 # Power BI Business Insights 360
 
+
 ## Problem Statement and Project Objective
 The [Codebasics](https://codebasics.io/) [Data Analytics Bootcamp](https://codebasics.io/bootcamps/data-analytics-bootcamp-with-practical-job-assistance) exhibits a fictional company called AtliQ Technologies. AtliQ was rapidly proliferating to various markets around the world. However, AtliQ relied on Excel files for their data analytics needs. Since AtliQ's data was spread across multiple large tables (some containing over a million records), analyzing them in Excel was cumbersome. Moreover, stakeholders found that static reports produced from Excel pivot tables were difficult and time-consuming to digest. This weakened data anaytics capability hindered AtliQ's success when they attempted to expand to markets in Latin America.
 
 The objective of this project is to create a Power BI dashboard which stakeholders from various business verticals (**finance**, **sales**, **marketing**, **supply chain**, and **executive**) can use to effectively and efficiently gather insights from data to help inform important company decisions. The interactive and visual nature of Power BI dashboards should help stakeholders better interpret the data with less time compared to static reports produced in Excel.
 
 
-## Technology Learnings
-### Power BI
-* Techniques
-  * Connecting to data from MySQL database
-  * DAX to create
-      * Measures
-      * Columns
-      * Tables
-* Filter Context
-* Create a dyanamic switch between visuals using a combination of:
-  * Field Parameters
-  * Bookmarks
-
-
 ## AtliQ Business Model
-AtliQ manufactures computer hardware **products** (e.g. mouse, keyboard, printer, monitor) and then sells them to various **customers** which are stores (e.g. Amazon, Best Buy). Hence, AtliQ's customers are in the form of store businesses (e.g. Amazon) and should not be confused with customers in the form of people (e.g. end consumers purchasing products from Amazon).
+### Overview
+AtliQ manufactures computer hardware **products** (e.g., mouse, keyboard, printer, monitor) and then sells them to various **customers** which are stores such as Amazon and Best Buy. Hence, AtliQ's customers are in the form of <ins>store businesses</ins> (e.g., Amazon, Best Buy) and should not be confused with customers in the form of people (i.e., the people purchasing products from Amazon or Best Buy).
 
-AtliQ's sells to customers categorized into two different **platforms**:
+### Customers
+AtliQ's customers are categorized into two different **platforms**:
 1. Brick & Motar
-   * stores that have a physical store locations
+   * stores that have physical location(s)
 2. E-Commerce
    * stores which only sell products online
 
-AtliQ sells to customers categorized by three different **channels**:
+AtliQ's customers are categorized into three different **channels**:
 1. Retailer
-   * Stores not owned by AtliQ hardware (e.g. Amazon)
+   * Stores not owned by AtliQ (e.g. Amazon, Best Buy)
 3. Direct
-   * Stores owned by AtliQ hardware
+   * Stores owned by AtliQ. These include AltiQ Exclusive and AtliQ E-Store.
 5. Distributor
-   * In markets where laws/regulations disallow AtliQ from selling directly to customers. 
+   * In certain markets, laws/regulations make selling products to a distributor the only way of doing business in that market.
 
-Simplified Profit and Loss (P&L) Statement for AtliQ
+### Condensed Profit and Loss (P&L) Statement
 Example of a mouse being sold to Chroma
 | Line Item | Description | P&L Value |
 | :- | :- | -: |
