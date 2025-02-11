@@ -22,7 +22,7 @@ AtliQ's customers are categorized into three different **channels**:
 1. Retailer
    * Stores not owned by AtliQ (e.g. Amazon, Best Buy)
 3. Direct
-   * Stores owned by AtliQ. These include AltiQ Exclusive and AtliQ E-Store.
+   * Stores owned by AtliQ. These are AltiQ Exclusive and AtliQ E-Store.
 5. Distributor
    * In certain markets, laws/regulations means that selling products to a distributor the only way for AtliQ to do business in that market. AtliQ sells products to the distributor, and then the distributor sells the products to various stores in that market.
 
