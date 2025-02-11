@@ -516,14 +516,48 @@ RETURN res * Fact_Actuals_Estimates[net_sales_amount]
 ```
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Calculated Table for BM Toggle
+
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/BM%20Toggle%20Image.PNG?raw=true)
+
+
 ```
-Toggle Switch Table = 
+BM Toggle Switch Table = 
 
 VAR x = UNION(
-    ROW("Number", 1, "Selection", "vs LY", "Selection_1", "Last Year: "),
-    ROW("Number", 2, "Selection", "vs Target", "Selection_1", "Target: ")
+    ROW("Primary_Key", 1, "Selection", "vs LY", "Selection_1", "Last Year: "),
+    ROW("Primary_Key", 2, "Selection", "vs Target", "Selection_1", "Target: ")
 )
 
 RETURN x
@@ -532,58 +566,94 @@ RETURN x
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/toggle%20switch%20table.PNG?raw=true)
 
 
+### Basic DAX Measures for P&L Values
 
-
-
-### Key DAX Measures
 
 #### Gross Sales
 ```
-GS $ = SUM(Fact_Actuals_Estimates[gross_sales_amount]) // gross sales
+GS $ = SUM(Fact_Actuals_Estimates[gross_sales_amount])
 ```
 
+#### Net Invoice Sales
 ```
-NIS $ = SUM(Fact_Actuals_Estimates[net_invoice_sales_amount]) // net invoice sales
+NIS $ = SUM(Fact_Actuals_Estimates[net_invoice_sales_amount])
 ```
 
+#### Pre Invoice Deductions
 ```
 Pre Invoice Deduction $ = [GS $] - [NIS $]
 ```
 
+#### Post Invoice Deductions
 ```
 Post Invoice Deduction $ = SUM(Fact_Actuals_Estimates[post_invoice_deduction_amount])
 ```
 
+#### Post Invoice Other Deductions
 ```
 Post Invoice Other Deduction $ = SUM(Fact_Actuals_Estimates[post_invoice_other_deduction_amount])
 ```
 
-
+#### Total Post Invoice Deductions
 ```
 Total Post Invoice Deduction $ = [Post Invoice Deduction $] + [Post Invoice Other Deduction $]
 ```
 
+#### Filter Check
+```
+Customer / Product Filter Check = 
+ISCROSSFILTERED(dim_product[product]) || ISFILTERED(dim_customer[customer])
+```
+
+#### Net Sales
 ```
 NS $ = SUM(Fact_Actuals_Estimates[net_sales_amount])
 ```
 
 ```
-NS $ LY = CALCULATE(
+NS $ LY = 
+CALCULATE(
     [NS $],
     SAMEPERIODLASTYEAR(dim_date[date])
 )
 ```
 
 ```
+NS Target $ = 
+
+VAR tgt = SUM(targets[ns_target])
+
+RETURN
+IF([Customer / Product Filter Check], BLANK(), tgt)
+```
+
+```
 NS BM $ = 
 
 // returns appropriate measure based on the toggle switch position
-SWITCH(TRUE(),
-SELECTEDVALUE('Toggle Switch Table'[Number]) = 1, [NS $ LY],
-SELECTEDVALUE('Toggle Switch Table'[Number]) = 2, [NS Target $])
+SWITCH(
+    TRUE(),
+    SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 1, [NS $ LY],
+    SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 2, [NS Target $]
+    )
+```
+
+```
+Percent Change NS $ vs BM = 
+
+VAR res = DIVIDE([NS $] - [NS BM $], ABS([NS BM $]), 0)
+
+RETURN
+IF(
+    ISBLANK([NS $]) || ISBLANK([NS BM $]),
+    BLANK(),
+    res
+)
 ```
 
 
+
+#### Cost of Goods Sold
 ```
 Manufacturing Cost $ = SUM(Fact_Actuals_Estimates[manufacturing_cost])
 ```
@@ -600,30 +670,63 @@ Other Cost $ = SUM(Fact_Actuals_Estimates[other_cost])
 Total COGS $ = [Manufacturing Cost $] + [Freight Cost $] + [Other Cost $]
 ```
 
+#### Total Sold Quantity
+```
+Quantity = SUM(Fact_Actuals_Estimates[Qty])
+```
+
+
+
+#### Gross Margin
 ```
 GM $ = [NS $] - [Total COGS $]
 ```
+
+```
+GM Target $ = SUM(targets[gm_target])
+```
+
 
 ```
 GM % = DIVIDE([GM $],[NS $],0)
 ```
 
 ```
-GM % LY = CALCULATE(
+GM % LY =
+CALCULATE(
     [GM %],
     SAMEPERIODLASTYEAR(dim_date[date])
 )
 ```
 
 ```
+GM % Target = DIVIDE([GM Target $], SUM(targets[ns_target]), 0)
+```
+
+```
 GM % BM = 
 
 // returns appropriate measure based on the toggle switch position
-SWITCH(TRUE(),
-SELECTEDVALUE('Toggle Switch Table'[Number]) = 1, [GM % LY],
-SELECTEDVALUE('Toggle Switch Table'[Number]) = 2, [GM % Target])
+SWITCH(
+    TRUE(),
+    SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 1, [GM % LY],
+    SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 2, [GM % Target]
+)
 ```
 
+
+```
+Percent Change GM % vs BM = 
+
+VAR res = DIVIDE([GM %] - [GM % BM], ABS([GM % BM]), 0)
+
+RETURN
+IF(
+    ISBLANK([GM %]) || ISBLANK([GM % BM]),
+    BLANK(),
+    res
+)
+```
 
 
 
@@ -631,6 +734,8 @@ SELECTEDVALUE('Toggle Switch Table'[Number]) = 2, [GM % Target])
 GM / Unit = DIVIDE([GM $],[Quantity],0)
 ```
 
+
+#### Operational Expenses
 ```
 Ads & Promotions $ = SUM(Fact_Actuals_Estimates[ads_promotion])
 ```
@@ -643,42 +748,64 @@ Other Operational Expense $ = SUM(Fact_Actuals_Estimates[other_operational_expen
 Operational Expense $ = [Ads & Promotions $] + [Other Operational Expense $]
 ```
 
+
+#### Net Profit
 ```
-Net Profit $ = [GM $] - [Operational Expense $]
+NP $ = [GM $] - [Operational Expense $]
 ```
 
 ```
-Net Profit % = DIVIDE([Net Profit $], [NS $],0)
+NP Target $ = SUM(targets[np_target])
 ```
 
 ```
-Net Profit % LY = CALCULATE(
-    [Net Profit %],
+NP % = DIVIDE([NP $], [NS $],0)
+```
+
+```
+NP % LY =
+CALCULATE(
+    [NP %],
     SAMEPERIODLASTYEAR(dim_date[date])
 )
 ```
 
 ```
+NP % Target = DIVIDE([NP Target $], SUM(targets[ns_target]),0)
+```
+
+```
 NP % BM = 
+
 // returns appropriate measure based on the toggle switch position
-SWITCH(TRUE(),
-SELECTEDVALUE('Toggle Switch Table'[Number]) = 1, [Net Profit % LY],
-SELECTEDVALUE('Toggle Switch Table'[Number]) = 2, [NP % Target])
+SWITCH(
+    TRUE(),
+    SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 1, [NP % LY],
+    SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 2, [NP % Target]
+)
 ```
 
 
+```
+Percent Change NP % vs BM = 
+
+VAR res = DIVIDE([NP %] - [NP % BM], ABS([NP % BM]), 0)
+
+RETURN
+IF(
+    ISBLANK([NP %]) || ISBLANK([NP % BM]),
+    BLANK(),
+    res
+)
+```
 
 
 ```
-NP / Unit = DIVIDE([Net Profit $],[Quantity],0)
+NP / Unit = DIVIDE([NP $],[Quantity],0)
 ```
 
-### Supply Chain Basics and DAX Measures
+### Supply Chain Learnings and DAX Measures
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Supply%20Chain%20Screenshots/SupplyChain%20Basics.PNG?raw=true)
-
-```
-Quantity = SUM(Fact_Actuals_Estimates[Qty])
-```
 
 
 ```
@@ -687,14 +814,15 @@ CALCULATE(
     [Quantity],
     Fact_Actuals_Estimates[date] <= MAX(Last_Sales_Month[Last_Sales_Month])
 )
+
 ```
 
 ```
 Forecast Qty = 
 
-var LASTSALESDATE = MAX(Last_Sales_Month[Last_Sales_Month])
+VAR LASTSALESDATE = MAX(Last_Sales_Month[Last_Sales_Month])
 
-return
+RETURN
 CALCULATE(
     SUM(fact_forecast_monthly[forecast_quantity]),
     fact_forecast_monthly[date] <= LASTSALESDATE
@@ -706,60 +834,129 @@ Net Error = [Forecast Qty] - [Sales Qty]
 ```
 
 ```
-Net Error LY = CALCULATE(
+Net Error LY =
+CALCULATE(
     [Net Error],
     SAMEPERIODLASTYEAR(dim_date[date])
 )
 ```
 
+```
+Percent Change Net Error = 
 
+VAR res = DIVIDE([Net Error] - [Net Error LY], ABS([Net Error LY]))
+
+RETURN
+IF(
+    ISBLANK([Net Error]) || ISBLANK([Net Error LY]),
+    BLANK(),
+    res
+)
+```
+
+
+```
+Net Error % = DIVIDE([Net Error],[Forecast Qty],0)
+```
 
 
 
 ```
 ABS Error = 
-SUMX(DISTINCT(dim_date[month]),
-    SUMX(DISTINCT(dim_product[product_code]), ABS([Net Error]))
+SUMX(
+    DISTINCT(dim_date[month]),
+    SUMX(
+        DISTINCT(dim_product[product_code]),
+        ABS([Net Error])
     )
-```
-
-```
-ABS Error LY = CALCULATE(
-    [ABS Error],
-    SAMEPERIODLASTYEAR(dim_date[date])
 )
 ```
-
-
-
 
 ```
 ABS Error % = DIVIDE([ABS Error], [Forecast Qty],0)
 ```
 
 ```
-Forecast Accuracy % = IF(
+ABS Error LY =
+CALCULATE(
+    [ABS Error],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+```
+
+```
+Percent Change ABS Error = 
+
+VAR res = DIVIDE([ABS Error] - [ABS Error LY], ABS([ABS Error LY]))
+
+RETURN
+IF(
+    ISBLANK([ABS Error]) || ISBLANK([ABS Error LY]),
+    BLANK(),
+    res
+)
+```
+
+
+
+
+```
+Forecast Accuracy % = 
+IF(
     [ABS Error %] <> BLANK(),
     1 - [ABS Error %],
     BLANK()
-    )
+)
 ```
 
+
 ```
-Forecast Accuracy % LY = CALCULATE(
+Forecast Accuracy % LY = 
+CALCULATE(
     [Forecast Accuracy %],
     SAMEPERIODLASTYEAR(dim_date[date])
-    )
+)
 ```
 
 ```
-FA % BM = 
+Forecast Accuracy % BM = 
 // returns appropriate measure based on the toggle switch position
-SWITCH(TRUE(),
-SELECTEDVALUE('Toggle Switch Table'[Number]) = 1, [Forecast Accuracy % LY],
-SELECTEDVALUE('Toggle Switch Table'[Number]) = 2, BLANK())
+SWITCH(
+    TRUE(),
+    SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 1, [Forecast Accuracy % LY],
+    SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 2, BLANK()
+)
 ```
 
+
+```
+Percent Change Forecast Accuracy % = 
+
+VAR res = DIVIDE([Forecast Accuracy %] - [Forecast Accuracy % LY], ABS([Forecast Accuracy % LY]))
+
+RETURN
+IF(
+    ISBLANK([Forecast Accuracy %]) || ISBLANK([Forecast Accuracy % LY]),
+    BLANK(),
+    res
+)
+```
+
+
+
+
+```
+Risk = 
+IF(
+    [Net Error] > 0,
+    "EI",
+    IF(
+        [Net Error] < 0,
+        "OOS",
+        BLANK()
+    )
+)
+```
 
 
 ### DAX for Visuals
@@ -771,10 +968,11 @@ P & L Columns
 P & L Columns = 
 
 // fetch all the values in fy_desc as the user can select any value from fy_desc
-var x = ALLNOBLANKROW(fiscal_year[fy_desc]) 
+VAR x = ALLNOBLANKROW(fiscal_year[fy_desc])
 
-return
-UNION(      // adding all the values from fy_desc with below values
+RETURN
+// adding all the values from fy_desc with below values
+UNION(
     ROW("Col Header", "Chg"),       // ‘YoY Chg’ is a requirement from mock up
     ROW("Col Header", "Pct Chg"),     // ‘YoY Chg %’ is a requirement from mock up
     ROW("Col Header", "BM"),
@@ -782,6 +980,9 @@ UNION(      // adding all the values from fy_desc with below values
 )
 ```
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/P%20and%20L%20Columns%20Table.PNG?raw=true)
+
+
+
 
 
 P & L Rows</br>
@@ -792,10 +993,9 @@ P & L Rows</br>
 ```
 P & L Values = 
 
-var res = 
+VAR res = 
 SWITCH(
     TRUE(),
-
     // Main P&L Values in Finance View
     MAX('P & L Rows'[Primary_Key]) = 1, [GS $]/1000000,
     MAX('P & L Rows'[Primary_Key]) = 2, [Pre Invoice Deduction $]/1000000,
@@ -812,8 +1012,8 @@ SWITCH(
     MAX('P & L Rows'[Primary_Key]) = 13, [GM %]*100,
     MAX('P & L Rows'[Primary_Key]) = 14, [GM / Unit],
     MAX('P & L Rows'[Primary_Key]) = 15, [Operational Expense $]/1000000,
-    MAX('P & L Rows'[Primary_Key]) = 16, [Net Profit $]/1000000,
-    MAX('P & L Rows'[Primary_Key]) = 17, [Net Profit %]*100,
+    MAX('P & L Rows'[Primary_Key]) = 16, [NP $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 17, [NP %]*100,
     MAX('P & L Rows'[Primary_Key]) = 18, [Ads & Promotions $]/1000000,
     MAX('P & L Rows'[Primary_Key]) = 19, [Other Operational Expense $]/1000000,
     MAX('P & L Rows'[Primary_Key]) = 20, [NP / Unit]
@@ -822,6 +1022,79 @@ SWITCH(
 RETURN
 IF(HASONEVALUE('P & L Rows'[Description]), res, [NS $]/1000000)
 ```
+
+
+```
+P & L LY = 
+CALCULATE(
+    [P & L Values],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+```
+
+
+```
+P & L Targets = 
+
+VAR res =
+SWITCH(
+    TRUE(),
+    MAX('P & L Rows'[Primary_Key]) = 7,
+    IF([Customer / Product Filter Check], BLANK(), [NS Target $]/1000000),
+    MAX('P & L Rows'[Primary_Key]) = 12,
+    IF([Customer / Product Filter Check], BLANK(), [GM Target $]/1000000),
+    MAX('P & L Rows'[Primary_Key]) = 13,
+    [GM % Target]*100,
+    MAX('P & L Rows'[Primary_Key]) = 16,
+    IF([Customer / Product Filter Check], BLANK(), [NP Target $]/1000000),
+    MAX('P & L Rows'[Primary_Key]) = 17,
+    [NP % Target]*100
+)
+
+RETURN
+IF(
+    HASONEVALUE('P & L Rows'[Description]),
+    res,
+    IF(
+        [Customer / Product Filter Check],
+        BLANK(),
+        [NS Target $]/1000000
+    )
+)
+```
+
+
+```
+P & L BM = 
+SWITCH(
+    TRUE(),
+    SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 1, [P & L LY],
+    SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 2, [P & L Targets]
+)
+```
+
+
+
+```
+P & L Chg = 
+
+VAR res = [P & L Values] - [P & L BM]
+
+RETURN
+IF(ISBLANK([P & L BM]) || ISBLANK([P & L Values]), BLANK(), res)
+```
+
+
+```
+P & L Chg % = 
+
+VAR res = DIVIDE([P & L Chg],ABS([P & L BM]),0) * 100
+
+RETURN
+IF(ISBLANK([P & L Values]) || ISBLANK([P & L BM]), BLANK(), res)
+```
+
+
 
 ```
 P & L Final Value = 
@@ -835,73 +1108,58 @@ SWITCH(
 ```
 
 ```
-P & L LY = CALCULATE([P & L Values], SAMEPERIODLASTYEAR(dim_date[date]))
-```
-
-```
-P & L BM =
-SWITCH(
-    TRUE(),
-    SELECTEDVALUE('Toggle Switch Table'[Number]) = 1, [P & L LY],
-    SELECTEDVALUE('Toggle Switch Table'[Number]) = 2, [P & L Targets]
-)
-```
-
-
-```
-Customer / Product Filter Check = 
-ISCROSSFILTERED(dim_product[product]) || ISFILTERED(dim_customer[customer])
-```
-
-
-
-
-```
-P & L Targets = 
-
-var res =
-SWITCH(
-    TRUE(),
-    MAX('P & L Rows'[Primary_Key]) = 7,
-    IF([Customer / Product Filter Check], BLANK(), [NS Target $]/1000000),
-    MAX('P & L Rows'[Primary_Key]) = 12,
-    IF([Customer / Product Filter Check], BLANK(), [GM Target $]/1000000),
-    MAX('P & L Rows'[Primary_Key]) = 13, [GM % Target]*100,
-    MAX('P & L Rows'[Primary_Key]) = 16,
-    IF([Customer / Product Filter Check], BLANK(), [NP Target $]/1000000),
-    MAX('P & L Rows'[Primary_Key]) = 17, [NP % Target]*100
-)
-
-RETURN
+Selected P & L Row = 
 IF(
     HASONEVALUE('P & L Rows'[Description]),
-    res,
-    IF(
-        [Customer / Product Filter Check],
-        BLANK(),
-        [NS Target $]/1000000
-        )
+    SELECTEDVALUE('P & L Rows'[Description]),
+    "Net Sales"
 )
 ```
 
 
+#### Executive View
 ```
-P & L Chg = 
+AtliQ MS % = 
 
-var res = [P & L Values] - [P & L BM]
+VAR atliq_sales = 
+CALCULATE(
+    SUM(marketshare[sales_$]),
+    marketshare[Manufacturer] = "atliq"
+)
+
+VAR total_market_sales = 
+CALCULATE(
+    SUM(marketshare[total_market_sales_$]),
+    marketshare[Manufacturer] = "atliq"
+)
 
 RETURN
-IF(ISBLANK([P & L BM]) || ISBLANK([P & L Values]), BLANK(), res)
+DIVIDE(atliq_sales, total_market_sales,0)
 ```
 
 ```
-P & L Chg % = 
-
-var res = DIVIDE([P & L Chg],ABS([P & L BM]),0) * 100
-
-RETURN
-IF(ISBLANK([P & L Values]) || ISBLANK([P & L BM]), BLANK(), res)
+Market Share % = 
+DIVIDE(
+    SUM(marketshare[sales_$]),
+    SUM(marketshare[total_market_sales_$]),
+    0
+)
 ```
+
+```
+RC % = 
+DIVIDE(
+    [NS $],
+    CALCULATE(
+        [NS $],
+        ALL(dim_market),
+        ALL(dim_customer),
+        ALL(dim_product)
+    ),
+    0
+)
+```
+
 
 
 
@@ -909,23 +1167,523 @@ IF(ISBLANK([P & L Values]) || ISBLANK([P & L BM]), BLANK(), res)
 
 #### Sales and Marketing View: Performance Matrix Dyanamic Average Line, Bookmarks, Filter Slider
 
+##### DAX measures to calculate average
+```
+Average GM% by Customer = 
+
+AVERAGEX(
+    VALUES(dim_customer[customer]),
+    CALCULATE(
+        [GM %],
+        RELATEDTABLE(Fact_Actuals_Estimates)
+    )
+)
+```
+
+
+```
+Average GM% by Market = 
+
+AVERAGEX(
+    VALUES(dim_market[market]),
+    CALCULATE(
+        [GM %],
+        RELATEDTABLE(Fact_Actuals_Estimates)
+    )
+)
+```
+
+
+```
+Average Net Profit % by Customer = 
+
+AVERAGEX(
+    VALUES(dim_customer[customer]),
+    CALCULATE(
+        [NP %],
+        RELATEDTABLE(Fact_Actuals_Estimates)
+    )
+)
+```
+
+
+```
+Average Net Profit % by Market = 
+
+AVERAGEX(
+    VALUES(dim_market[market]),
+    CALCULATE(
+        [NP %],
+        RELATEDTABLE(Fact_Actuals_Estimates)
+    )
+)
+```
+
+
+
+```
+Average NS $ by Customer = 
+
+AVERAGEX(
+    VALUES(dim_customer[customer]),
+    SUMX(
+        RELATEDTABLE(Fact_Actuals_Estimates),
+        Fact_Actuals_Estimates[net_sales_amount]
+    )
+)
+```
+
+```
+Average NS $ by Market = 
+
+AVERAGEX(
+    VALUES(dim_market[market]),
+    SUMX(
+        RELATEDTABLE(Fact_Actuals_Estimates),
+        Fact_Actuals_Estimates[net_sales_amount]
+    )
+)
+```
+
+
+
+
+
+
+##### Field Parameters (same for S1, S2, S3)
+
+```
+Parameter_SalesViewScatterChart_Customers_Bookmark_S1 = {
+    ("market", NAMEOF('dim_market'[market]), 0),
+    ("customer", NAMEOF('dim_customer'[customer]), 1)
+}
+```
+
+
+```
+Parameter_SalesViewScatterChart_y_axis_Bookmark_S1 = {
+    ("GM %", NAMEOF('Key Measures'[GM %]), 0),
+    ("Net Profit %", NAMEOF('Key Measures'[NP %]), 1)
+}
+```
+
+
+##### Average Lines (same for S1, S2, S3)
+```
+sales matrix horizontal average line bookmark S1 = 
+
+VAR gm_pct_or_np_pct =
+SELECTEDVALUE(
+    Parameter_SalesViewScatterChart_y_axis_Bookmark_S1[Order])
+
+VAR customer_hierarchy = 
+SELECTEDVALUE(
+    Parameter_SalesViewScatterChart_Customers_Bookmark_S1[Order])
+
+RETURN
+SWITCH(
+    TRUE(),
+    // GM % and market
+    gm_pct_or_np_pct = 0 && customer_hierarchy = 0,
+    [Average GM% by Market],
+    // GM % and customer
+    gm_pct_or_np_pct = 0 && customer_hierarchy = 1,
+    [Average GM% by Customer],
+
+    // Net Profit % and market
+    gm_pct_or_np_pct = 1 && customer_hierarchy = 0,
+    [Average Net Profit % by Market],
+    // Net Profit % and customer
+    gm_pct_or_np_pct = 1 && customer_hierarchy = 1,
+    [Average Net Profit % by Customer]
+)
+```
+
+
+```
+sales view matrix vertical average line bookmark S1 = 
+
+VAR selected_field_parameter =
+SELECTEDVALUE(Parameter_SalesViewScatterChart_Customers_Bookmark_S1[Order])
+
+RETURN
+SWITCH(
+    TRUE(),
+    // market selected
+    selected_field_parameter = 0,
+    [Average NS $ by Market],
+    // customer selected
+    selected_field_parameter = 1,
+    [Average NS $ by Customer]
+)
+```
+
+
+
+
+
+
+
+
+
+##### Bookmark S2
+```
+SalesViewScatterChart_Bookmark_S2_Filter = 
+
+VAR selected_y_axis = SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S2[Order])
+
+RETURN
+SWITCH(
+    TRUE(),
+    selected_y_axis = 0,
+    IF(
+        NOT(ISBLANK([GM %])) && NOT(ISBLANK([GM % BM])) &&
+        [GM %] >= [GM % BM],
+        "SHOW",
+        "HIDE"
+    ),
+
+    selected_y_axis = 1,
+    IF(
+        NOT(ISBLANK([NP %])) && NOT(ISBLANK([NP % BM])) &&
+        [NP %] >= [NP % BM],
+        "SHOW",
+        "HIDE"
+    )
+)
+```
+
+```
+Parameter_Bookmark_S2_Slider = GENERATESERIES(0, 100, 1)
+```
+
+
+
+```
+Parameter_Bookmark_S2_Slider Value = 
+
+VAR whole_number = SELECTEDVALUE('Parameter_Bookmark_S2_Slider'[Parameter_Bookmark_S2_Slider])
+VAR decimal_number = whole_number/100
+
+RETURN
+decimal_number
+```
+
+
+
+```
+Bookmark_S2_Slider_Filter = 
+
+VAR selected_y_axis = SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S2[Order])
+
+VAR delta_gm_pct = ABS([GM %] - [GM % BM])
+
+VAR delta_np_pct = ABS([NP %] - [NP % BM])
+
+RETURN
+SWITCH(
+    TRUE(),
+    // 0 - GM %
+    selected_y_axis = 0,
+    IF(
+        delta_gm_pct >= [Parameter_Bookmark_S2_Slider Value],
+        "SHOW",
+        "HIDE"
+    ),
+
+    selected_y_axis = 1,
+    // 1 - NP %
+    IF(
+        delta_np_pct >= [Parameter_Bookmark_S2_Slider Value],
+        "SHOW",
+        "HIDE"
+    )
+)
+```
+
+```
+Bookmark S2 Button1 Text = 
+
+VAR gm_pct_or_np_pct = 
+SWITCH(
+    TRUE(),
+    SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S2[Order]) = 0,
+    "GM %",
+    SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S2[Order]) = 1,
+    "NP %"
+)
+
+RETURN
+"Only Show Customers that Meet or Exceed " & gm_pct_or_np_pct & " BM"
+```
+
+
+##### Bookmark S3
+```
+SalesViewScatterChart_Bookmark_S3_Filter = 
+
+VAR selected_y_axis = SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S3[Order])
+
+RETURN
+SWITCH(
+    TRUE(),
+    selected_y_axis = 0,
+    IF(
+        NOT(ISBLANK([GM %])) && NOT(ISBLANK([GM % BM])) &&
+        [GM %] < [GM % BM],
+        "SHOW",
+        "HIDE"
+    ),
+
+    selected_y_axis = 1,
+    IF(
+        NOT(ISBLANK([NP %])) && NOT(ISBLANK([NP % BM])) &&
+        [NP %] < [NP % BM],
+        "SHOW",
+        "HIDE"
+    )
+)
+```
+
+```
+Bookmark S3 Button1 Text = 
+
+VAR gm_pct_or_np_pct = 
+SWITCH(
+    TRUE(),
+    SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S3[Order]) = 0,
+    "GM %",
+    SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S3[Order]) = 1,
+    "NP %"
+)
+
+RETURN
+"Only Show Customers that Do Not Meet " & gm_pct_or_np_pct & " BM"
+```
+
+
+
+
 #### Finance and Executive View: Dynamic Top/Bottom N
+```
+Top Bottom N Toggle = 
+
+VAR x = UNION(
+    ROW("Primary_Key", 0, "Selection", "Top"),
+    ROW("Primary_Key", 1, "Selection", "Bottom")
+)
+
+RETURN x
+```
+
+```
+Parameter_Top_Bottom_N_Value = GENERATESERIES(1, 10, 1)
+```
+
+
+
+
+
+```
+P&L Value by Customer Asc Dense Ranking = 
+RANKX(
+    FILTER(
+        ALLSELECTED(dim_customer[customer]),
+        NOT(ISBLANK([P & L Values]))
+    ),
+    [P & L Values],
+    ,
+    ASC,
+    Dense
+)
+```
+
+
+
+
+```
+P&L Value by Customer Desc Dense Ranking = 
+RANKX(
+    FILTER(
+        ALLSELECTED(dim_customer[customer]),
+        NOT(ISBLANK([P & L Values]))
+    ),
+    [P & L Values],
+    ,
+    DESC,
+    Dense
+)
+```
+
+
+
+```
+Filter Top Bottom N Customers by P&L Value = 
+
+// 0 - Top, 1 - Bottom
+VAR top_or_bottom = SELECTEDVALUE('Top Bottom N Toggle'[Primary_Key])
+
+// Integer between 1-10
+VAR n = [Selected_Parameter_Top_Bottom_N_Value]
+
+
+RETURN
+SWITCH(
+    TRUE(),
+
+    // top n customers
+    top_or_bottom = 0,
+    IF(
+        [P&L Value by Customer Desc Dense Ranking] <= n,
+        [P & L Values]
+    ),
+
+    // bottom n customers
+    top_or_bottom = 1,
+    IF(
+        [P&L Value by Customer Asc Dense Ranking] <= n,
+        [P & L Values]
+    )
+)
+```
+
+
+
+
+```
+P&L Value by Product Asc Dense Ranking = 
+RANKX(
+    FILTER(
+        ALLSELECTED(dim_product[product]),
+        NOT(ISBLANK([P & L Values]))
+    ),
+    [P & L Values],
+    ,
+    ASC,
+    Dense
+)
+```
+
+
+
+
+```
+P&L Value by Product Desc Dense Ranking = 
+RANKX(
+    FILTER(
+        ALLSELECTED(dim_product[product]),
+        NOT(ISBLANK([P & L Values]))
+    ),
+    [P & L Values],
+    ,
+    DESC,
+    Dense
+)
+```
+
+
+```
+Filter Top Bottom N Products by P&L Value = 
+
+// 0 - Top, 1 - Bottom
+VAR top_or_bottom = SELECTEDVALUE('Top Bottom N Toggle'[Primary_Key])
+
+// Integer between 1-10
+VAR n = [Selected_Parameter_Top_Bottom_N_Value]
+
+
+RETURN
+SWITCH(
+    TRUE(),
+
+    // top n products
+    top_or_bottom = 0,
+    IF(
+        [P&L Value by Product Desc Dense Ranking] <= n,
+        [P & L Values]
+    ),
+
+    // bottom n products
+    top_or_bottom = 1,
+    IF(
+        [P&L Value by Product Asc Dense Ranking] <= n,
+        [P & L Values]
+    )
+)
+```
+
+
+
 
 #### New Card Visual
+Example of Net Sales $ Card
+
+```
+NS $ Color = 
+SWITCH(
+    TRUE(),
+    // Blank
+    ISBLANK([NS $]) || ISBLANK([NS BM $]),
+    "#000000",
+
+    [NS $] > [NS BM $],
+    // Green
+    "#43A047",
+
+    [NS $] = [NS BM $],
+    "#000000",
+
+    // Red
+    "#c3312a"
+)
+```
 
 
-### Impact of this Project
+```
+NS $ Image = 
+SWITCH(
+    TRUE(),
+
+    ISBLANK([NS BM $]),
+    "https://i.ibb.co/bjzgy541/BM-na-large.png",
+
+    [NS $] > [NS BM $],
+    // Green Up Arrow
+    "https://i.ibb.co/67dsYqY5/Green-Up.png",
+
+    [NS $] = [NS BM $],
+    // Neutral
+    "https://i.ibb.co/vxQT3xWk/Neutral.png",
+
+    // Red Down Arrow
+    "https://i.ibb.co/Vc8F5L0C/Red-Down.png"
+)
+```
+
+```
+NS $ Reference Label Detail = 
+
+SWITCH(
+    TRUE(),
+
+    ISBLANK([Percent Change NS $ vs BM]),
+    "n/a",
+
+    // Positive Percent Change
+    [Percent Change NS $ vs BM] > 0,
+    "| " & FORMAT([Percent Change NS $ vs BM]*100, "0.00") & "%  ▲ |",
+
+    // 0% Change
+    [Percent Change NS $ vs BM] = 0,
+    "| " & FORMAT([Percent Change NS $ vs BM]*100, "0.00") & "% |",
+
+    // Negative Percent Change
+    [Percent Change NS $ vs BM] < 0,
+    "| " & FORMAT([Percent Change NS $ vs BM]*100, "0.00") & "%  ▼ |"
+)
+```
 
 
 
 
-
-
-
-
-
-
-
-
-
-
+### Impact of this Project and Examples of Insights
