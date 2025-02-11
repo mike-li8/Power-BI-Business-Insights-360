@@ -31,14 +31,15 @@ This example of a simplified P&L statement should give a better understanding of
 | Line Item | Description | P&L Value |
 | :- | :- | -: |
 | Gross Price |  The Base Price of a Product | $30.00 |
-| Pre-Invoice Deduction | For every fiscal year, the sales team determines a pre-invoice deduction percentage for each specific customer. This percentage is based on AtliQ's relationship and past experience with the customer. In this example, the customer has a pre-invoice deduction percentage of 10%. This deduction is applied to the gross price of the product before it is billed to the customer. | - $3.00 |
-| Net Invoice Sales | The amount of money that is billed to the customer to obtain the product | $28.00 |
-| Post-Invoice Deudctions | Rebates paid to customers **after** AtliQ sells products to them. For example, a prmotion can be given to give customers discounts for holidays. Rebates can be given for placing a product at a prime location inside a store. Performance rebates can be given if a customer generates a lot of sales for AtliQ | - $3.00 |
-| Net Sales | Revenue | $25.00 |
-| Cost of Goods Sold (COGS) | Expenses AtliQ incurs such as manufacturing the products, shipping of products, and storage of products in warehouses | -$20.00
-| Gross Margin | Profit after deducing COGS | $5.00 |
-| Operational Expenses | Exepnses AtliQ incurs from activities such as advertising by marketing team. | -$3.00 |
-| Net Profit | Profit after deducting operational expenses | $2.00 |
+| Pre-Invoice Deduction | For every fiscal year, the sales team determines a pre-invoice deduction percentage for each specific customer. This percentage is based on AtliQ's relationship and past experience with the customer. In this example, the customer has a pre-invoice deduction percentage of 10%. This deduction is applied to the gross price of the product before it is billed to the customer. | - $5.00 |
+| Net Invoice Sales | The amount of money that is billed to the customer to obtain the product. | $25.00 |
+| Post-Invoice Deudctions | For each caldendar month, the sales team determines a post-invoice deduction percentage based on a specific customer and product. AtliQ can pay a post-invoice deduction rebate only after net invoice sales are completed and the customer has received the product. For example, a post-invoice deduction rebate can be given after a customer agrees to display one of AtliQ's products at a prime location within the store. In this example, the customer has a pre-invoice deduction percentage of 10%. This deduction is applied to the net invoice sales after it is billed to the customer.
+| - $2.00 |
+| Net Sales | AtliQ's Revenue | $25.00 |
+| Cost of Goods Sold (COGS) | Expenses AtliQ incurs such as manufacturing products, shipping products, and storing products in warehouses | -$20.00
+| Gross Margin | AtliQ's Profit after deducing COGS | $5.00 |
+| Operational Expenses | Exepnses AtliQ incurs from activities such as advertising and promotions performed by the marketing team. | -$3.00 |
+| Net Profit | AtliQ's profit after deducting operational expenses | $2.00 |
 
 AtliQ Fiscal Year<br>
 AtliQ's fiscal year begins in September and ends in August the following year.<br>
