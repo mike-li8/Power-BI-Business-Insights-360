@@ -27,11 +27,11 @@ AtliQ's customers are categorized into three different **channels**:
    * Some markets have laws/regulations which only allow AtliQ to sell products to a distributor type customer within that market. AtliQ sells products to the distributor; the distributor then sells the products to various stores within that market.
 
 ### Condensed Profit and Loss (P&L) Statement
-Example of a mouse being sold to Chroma
+This example of a simplified P&L statement should give a better understanding of AtliQ's business model. The P&L statement values are derived from one sales transaction of one product being sold to one customer.
 | Line Item | Description | P&L Value |
 | :- | :- | -: |
 | Gross Price |  The Base Price of a Product | $30.00 |
-| Pre-Invoice Deduction | For each fiscal year, the sales team determines a discount given for each customer based on factors such as sales performance in previous years. | - $2.00 |
+| Pre-Invoice Deduction | For every fiscal year, the sales team determines a pre-invoice deduction percentage for each specific customer. This percentage is based on AtliQ's relationship and past experience with the customer. In this example, the customer has a pre-invoice deduction percentage of 10%. This deduction is applied to the gross price of the product before it is billed to the customer. | - $3.00 |
 | Net Invoice Sales | The amount of money that is billed to the customer to obtain the product | $28.00 |
 | Post-Invoice Deudctions | Rebates paid to customers **after** AtliQ sells products to them. For example, a prmotion can be given to give customers discounts for holidays. Rebates can be given for placing a product at a prime location inside a store. Performance rebates can be given if a customer generates a lot of sales for AtliQ | - $3.00 |
 | Net Sales | Revenue | $25.00 |
