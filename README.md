@@ -27,7 +27,7 @@ AtliQ's customers are categorized into three different **channels**:
    * Some markets have laws/regulations which only allow AtliQ to sell products to a distributor type customer within that market. AtliQ sells products to the distributor; the distributor then sells the products to various stores within that market.
 
 ### Condensed Profit and Loss (P&L) Statement
-This example of a simplified P&L statement should give a better understanding of AtliQ's business model. The P&L statement values are derived from one sales transaction of one product (e.g., Keyboard) being sold to one customer (e.g., Best Buy).
+This example of a simplified P&L statement should give a better understanding of AtliQ's business model. In this example, the P&L calculations and values are derived from one sales transaction of one product being sold to one customer.
 | Line Item | Description | P&L Value Calculation | P & L Value |
 | :- | :- | :- | -: |
 | Gross Price |  The Base Price of a Product | `not applicable` | $50.00 |
