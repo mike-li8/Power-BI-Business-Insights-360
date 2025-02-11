@@ -42,8 +42,8 @@ This example of a simplified P&L statement should give a better understanding of
 
 
 ### AtliQ Fiscal Year
-AtliQ's fiscal year begins in September and ends in August the following year. The example below shows AtliQ's 2021 fiscal dates compared to calendar dates.
-| 	Calendar Month and Year	 | 	AtliQ Fiscal Year	 | 	AtliQ Fiscal Month	 | 	AtliQ Fiscal Quarter	 |
+AtliQ's fiscal year begins in September and ends in August the following year. The example below shows AtliQ's fiscal dates (for fiscal year 2021) compared to calendar dates.
+| 	Calendar Month and Year	 | 	AtliQ Fiscal Year	 | 	AtliQ Fiscal Month Number | 	AtliQ Fiscal Quarter	 |
 | 	-:	 | 	-:	 | 	-:	 | 	-:	 |
 | 	September 2020	 | 	2021	 | 	1	 | 	Q1	 |
 | 	October 2020	 | 	2021	 | 	2	 | 	Q1	 |
