@@ -307,7 +307,7 @@ The data tables from MySQL, .csv, and .xlsx were imported into **Power Query**:<
 #### Add step to query: `fact_forecast_monthly`
 Add a step to
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/fact_forecast_Monthly_icon.PNG?raw=true)
-to remove unnecessary columns:
+to remove unnecessary redundant columns:
 ```
 = Table.SelectColumns(fact_forecast_monthly, {"date", "product_code", "customer_code", "forecast_quantity"})
 ```
@@ -317,7 +317,7 @@ to remove unnecessary columns:
 #### Add step to query: `fact_sales_monthly`
 Add a step to
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/fact_sales_monthly_icon.PNG?raw=true)
-to remove unnecessary columns:
+to remove unnecessary redundant columns:
 ```
 = Table.SelectColumns(fact_sales_monthly,{"date", "product_code", "customer_code", "sold_quantity"})
 ```
@@ -325,7 +325,10 @@ to remove unnecessary columns:
 
 
 #### Create new query: `Last_Sales_Month`
+Create new query
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Last_Sales_Month%20Icon.PNG?raw=true)
+to generate a single date value representing the last month sales data is available in the fact sales table `fact_sales_monthly`:
+
 ```
 let
     LastSalesMonth = List.Max(fact_sales_monthly[date])
@@ -336,8 +339,9 @@ in
 
 
 #### Create new query: `Refresh Date`
-Query to get last refresh date of dashboard
+Create new query
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Refresh%20Date%20Icon.PNG?raw=true)
+to generate a single date value representing the latest day the refresh button was pressed for this dashboard:
 ```
 = DateTime.Date(DateTime.LocalNow())
 ```
@@ -346,7 +350,9 @@ Query to get last refresh date of dashboard
 
 
 #### Create new query: `Combine Sales and Forecast`
+Create new query
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Combined%20Sales%20and%20Forecast%20Icon.PNG?raw=true)
+:
 ```
 let
     // Filter the forecast table to only include records with dates where sales data is not avaliable
@@ -364,6 +370,10 @@ in
     UnionSalesForecast
 ```
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Combined%20Sales%20and%20Forecast.PNG?raw=true)
+
+This query combines the `fact_sales_monthly` query with the `fact_forecast_monthly` query based on the diagram below (similar to SQL Union):
+
+
 
 #### Create new query: `Fact_Actuals_Estimates`
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Fact_Actuals_Estimates%20Icon.PNG?raw=true)
