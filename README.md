@@ -59,8 +59,8 @@ AtliQ's fiscal year begins in September and ends in August the following year. T
 | 	August 2021	 | 	2021	 | 	12	 | 	Q4	 |
 
 
-## Data Tables Provided by Data Engineer
-AtliQ's data engineers provided various dimension and fact tables stored in a MySQL database schema.
+## Data Tables Prepared by Data Engineer
+AtliQ's data engineers prepared various dimension and fact tables stored in a MySQL database schema.
 
 ### Dimension Tables
 Sample records from each table are provided below. For readability, primary key values have been converted to natural numbers.
@@ -122,9 +122,9 @@ fact_forecast_monthly
 | 	2019-01-01	 | 	10	 | 	N & S	 | 	External&nbsp;Solid&nbsp;State&nbsp;Drives	 | 	AQ Neuer SSD	 | 	3	 | 	Staples	 | 	USA	 | 	Brick & Mortar	 | 	Retailer	 | 	90	 |
 
 Notes:
-* forecast data are aggregated on a monthly level.
-* The data engineer provided a denormalized table.
-* The columns `date`, `product_code`, and `customer_code` make up a *composite primary key*.
+* This table contains data on the predicted quantity of a product required for a specific customer, on a monthly level.
+* The data engineer provided this table in **denormalized** format.
+* The columns `date`, `product_code`, and `customer_code` make up a **composite primary key**.
 
 
 fact_sales_monthly
@@ -142,9 +142,9 @@ fact_sales_monthly
 | 	2019-01-01	 | 	10	 | 	N & S	 | 	External&nbsp;Solid&nbsp;State&nbsp;Drives	 | 	AQ Neuer SSD	 | 	3	 | 	Staples	 | 	USA	 | 	Brick & Mortar	 | 	Retailer	 | 	61	 |
 
 Notes:
-* sales data are aggregated on a monthly level.
-* The data engineer provided a denormalized table.
-* The columns `date`, `product_code`, and `customer_code` make up a *composite primary key*.
+* This table contains data on the actual sold quantity of a product for a specific customer, on a monthly level.
+* The data engineer provided this table in **denormalized** format.
+* The columns `date`, `product_code`, and `customer_code` make up a **composite primary key**.
 
 
 freight_cost
@@ -162,8 +162,8 @@ freight_cost
 | 	Bangladesh	 | 	2022	 | 	0.0258	 | 	0.0035	 |
 
 Notes:
-* freight cost depends on the market and fiscal year
-* The columns `market` and `fiscal_year` make up a *composite primary key*.
+* Freight cost is one component of COGS. This table contains data at a fiscal year level on freight cost (as a percentage of net sales) for each specific market.
+* The columns `market` and `fiscal_year` make up a **composite primary key**.
 
 
 gross_price
@@ -181,8 +181,8 @@ gross_price
 | 	2	 | 	2022	 | 	23.6298	 |
 
 Notes:
-* gross price depends on a specific product and fiscal year
-* The columns `product_code` and `fiscal_year` make up a *composite primary key*.
+* Gross price is the base price of a product. This table contains data on the gross price of each specific product on a fiscal year level. 
+* The columns `product_code` and `fiscal_year` make up a **composite primary key**.
 
 
 manufacturing_cost
@@ -199,9 +199,10 @@ manufacturing_cost
 | 	2	 | 	2021	 | 	6.8199	 |
 | 	2	 | 	2022	 | 	7.3655	 |
 
+
 Notes:
-* manufacturing cost depends on a specific product and fiscal year (`cost_year` column in this table)
-* The columns `product_code` and `cost_year` make up a *composite primary key*.
+* Manufacturing cost is one component of COGS. This table contains data at a fiscal year level on manufacturing cost ($) for each specific product.
+* The columns `product_code` and `cost_year` make up a **composite primary key**.
 
 
 
@@ -218,8 +219,8 @@ post_invoice_deductions
 | 	2	 | 	4	 | 	2021-10-01	 | 	0.228410097	 | 	0.074617767	 |
 
 Notes:
-* post invoice deductions depend on a specific customer, product, and month
-* The columns `customer_code`, `product_code` and `date` make up a *composite primary key*.
+* This table contains data on post invoice deductions (as a percentage of net invoice sales) of a product for a specific customer, on a monthly level.
+* The columns `customer_code`, `product_code` and `date` make up a **composite primary key**.
 
 
 pre_invoice_deductions
@@ -237,10 +238,10 @@ pre_invoice_deductions
 | 	2	 | 	2022	 | 	0.29309271	 |
 
 Notes:
-* pre invoice deductions depend on a specific customer, and fiscal year
-* The columns `customer_code`, and `fiscal_year` make up a *composite primary key*.
+* This table contains data on pre invoice deductions (as a percentage of gross price) for each specific customer, on a fiscal year level.
+* The columns `customer_code`, and `fiscal_year` make up a **composite primary key**.
 
-## Other Data Tables
+## Additional Data Tables
 Additional data tables provided in stakeholder meetings.
 
 operational_expenses
@@ -259,8 +260,8 @@ operational_expenses
 
 Notes:
 * Provided in .csv format
-* Operational expenses depend on a specific market and fiscal year.
-* The columns `market`, and `fiscal_year` make up a *composite primary key*.
+* This table contains data on operational expenses (as a percentage of net sales) for each specific market, on a fiscal year level.
+* The columns `market`, and `fiscal_year` make up a **composite primary key**.
 
 targets
 | 	market	 | 	month	 | 	ns_target	 | 	gm_target	 | 	np_target	 |
@@ -275,9 +276,9 @@ targets
 | 	Indonesia	 | 	12/1/2021	 | 	$12,657,658.69	 | 	$4,186,339.00	 | 	-$2,248,949.51	 |
 
 Notes:
-* Provided in .csv format
-* targets depend on a specific market and month.
-* The columns `market`, and `month` make up a *composite primary key*.
+* Provided in .xlsx format
+* This table contains data on benchmark targets (for net sales, gross margin, and net profit) set by AtliQ. Target data is available for each specific market on a monthly level.
+* The columns `market`, and `month` make up a **composite primary key**.
 
 marketshare
 | 	sub_zone	 | 	category	 | 	fy_desc	 | 	total_market_sales_$	 | 	atliq_sales_$	 | 	dale_sales_$	 | 	innovo_sales_$	 | 	pacer_sales_$	 | 	bp_sales_$	 | 	others_sales_$	 |
@@ -293,12 +294,11 @@ marketshare
 
 Notes:
 * Provided in .xlsx format
-* Data table provides information for each subzone, fiscal year, and product category that relates to personal computers, the marketshare of AtliQ and other PC manufacturers.
+* This table contains data on the marketshare of personal computer (PC) manufacturers (atliq, dale, innovo, pacer, bp). This marketshare data is available for each specific sub zone, product category (related to PC) and fiscal year.
 
 
 
-
-### Import data into Power Query
+### ETL (extract transform load) using Power Query
 The 3 dimension tables and 10 fact tables were imported into Power Query.</br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/PowerQuery%20Initial%20Import.PNG?raw=true)
 
