@@ -299,41 +299,32 @@ Notes:
 
 
 ## ETL (extract transform load) using Power Query
-The 3 dimension tables and 10 fact tables were imported into Power Query.</br>
+The data tables from MySQL, .csv, and .xlsx were imported into **Power Query**:</br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/PowerQuery%20Initial%20Import.PNG?raw=true)
 
 
-
-### Importing datasets into Power BI Tables using Power Query
-Dimension and fact tables dim_market, dim_product, dim_customer, fact_sales_monthly, fact_forecast_monthly imported into Power BI using Power Query. Data cleaning performed using Power Query GUI interface:
-* Trimming white spaces in text
-* Assigning appropriate data types for each column
-* Replacing values
-
-
-
-
-
-### Normalize Forecast Table 2025 Feb 9
+### Additional Queries created using M-Language
+#### Add step to query: `fact_forecast_monthly`
 Add a step to
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/fact_forecast_Monthly_icon.PNG?raw=true)
-query:
+to remove unnecessary columns:
 ```
 = Table.SelectColumns(fact_forecast_monthly, {"date", "product_code", "customer_code", "forecast_quantity"})
 ```
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Forecast_Monthly.PNG?raw=true)
 
 
-### Normalize Sales Table 2025 Feb 9
+#### Add step to query: `fact_sales_monthly`
 Add a step to
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/fact_sales_monthly_icon.PNG?raw=true)
-query:
+to remove unnecessary columns:
 ```
 = Table.SelectColumns(fact_sales_monthly,{"date", "product_code", "customer_code", "sold_quantity"})
 ```
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Sales_Monthly.PNG?raw=true)
 
-### Obtain last sales month from sales table 2025 Feb 9
+
+#### Create new query: `Last_Sales_Month`
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Last_Sales_Month%20Icon.PNG?raw=true)
 ```
 let
@@ -343,14 +334,15 @@ in
 ```
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Last_Sales_Month.PNG?raw=true)
 
-### Last Refresh Date
+
+#### Create new query: `Refresh Date`
 Query to get last refresh date of dashboard
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Refresh%20Date%20Icon.PNG?raw=true)
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Refresh%20Date.PNG?raw=true)
 
 
 
-### Combine Sales and Forecast Table 2025 Feb 9
+#### Create new query: `Combine sales and forecast`
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Combined%20Sales%20and%20Forecast%20Icon.PNG?raw=true)
 ```
 let
@@ -370,7 +362,7 @@ in
 ```
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Combined%20Sales%20and%20Forecast.PNG?raw=true)
 
-### Create Fact_Actuals_Estimates Table 2025 Feb 9
+#### Create new query: `Fact_Actuals_Estimates`
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Fact_Actuals_Estimates%20Icon.PNG?raw=true)
 Join with gross_price and pre_invoice_deductions to calculate gross sales and net invoice sales columns
 ```
@@ -403,7 +395,7 @@ in
 ```
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Fact_Actuals_Estimates.PNG?raw=true)
 
-### Create dim_date Table 2025 Feb 9
+#### Create new query: `dim_date`
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/dim_date%20icon.PNG?raw=true)
 ```
 let
@@ -442,7 +434,7 @@ in
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/dim_date.PNG?raw=true)
 
 
-### Transform Marketshare Table 2025 Feb 09
+#### Add step to query: `Marketshare`
 Add two additional steps to the ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Marketshare%20Icon.PNG?raw=true) query:
 1. Transform data to have one column for manufacturer name and another column for total sales amount
 ```
@@ -455,7 +447,7 @@ Add two additional steps to the ![image alt](https://github.com/mike-li8/Power-B
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Marketshare.PNG?raw=true)
 
 
-### Final queries
+### Final Queries Loaded
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/PowerQuery%20Final%20Queries.PNG?raw=true)
 
 
