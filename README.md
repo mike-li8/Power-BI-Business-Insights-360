@@ -59,19 +59,22 @@ AtliQ's fiscal year begins in September and ends in August the following year. T
 | 	August 2021	 | 	2021	 | 	12	 | 	Q4	 |
 
 
-## Data Sources
+## Data Tables Provided by Data Engineer
+AtliQ's data engineers provided various dimension and fact tables stored in a MySQL database schema.
 
-### Dimension Tables Imported from MySQL and Sample Records
-Given by data engineer
+### Dimension Tables
+Sample records from each table are provided below. For readability, primary key values have been converted to natural numbers.
 
-dim_market
+**dim_market**
 | market | sub_zone | region |
 | :- | :- | :- |
 | Japan | ROA | APAC |
 | Sweden | NE | EU |
 | Brazil | LATAM | LATAM |
 
-dim_customer
+`market` is a primary key field.
+
+**dim_customer**
 | 	customer_code	 | 	customer	 | 	market	 | 	platform	 | 	channel	 |
 | 	-:	 | 	:-	 | 	:-	 | 	:-	 | 	:-	 |
 | 	1	 | 	Amazon	 | 	USA	 | 	E-Commerce	 | 	Retailer	 |
@@ -82,7 +85,9 @@ dim_customer
 | 	6	 | 	Atliq e Store	 | 	Newzealand	 | 	E-Commerce	 | 	Direct	 |
 | 	7	 | 	Neptune	 | 	China	 | 	Brick & Mortar	 | 	Distributor	 |
 
-dim_product
+`customer_code` is a primary key field. 
+
+**dim_product**
 | 	product_code	 | 	division	 | 	segment	 | 	category	 | 	product	 | 	variant	 |
 | 	-:	 | 	:-	 | 	:-	 | 	:-	 | 	:-	 | 	:-	 |
 | 	1	 | 	P & A	 | 	Peripherals	 | 	Graphic Card	 | 	AQ Mforce Gen Y	 | 	Plus 1	 |
@@ -96,9 +101,11 @@ dim_product
 | 	9	 | 	N & S	 | 	Storage	 | 	External Solid State Drives	 | 	AQ Digit SSD	 | 	Premium	 |
 |  10 | 	N & S	 | 	Storage	 | 	External&nbsp;Solid&nbsp;State&nbsp;Drives	 | 	AQ Neuer SSD	 | 	Premium	 |
 
+`product_code` is a primary key field.
 
-### Fact Tables Imported from MySQL and Sample Records
-Given by data engineer
+
+### Fact Tables
+Sample records from each table are provided below.
 
 fact_forecast_monthly
 | 	date	 | 	product_code	 | 	division	 | 	category	 | 	product	 | 	customer_code	 | 	customer_name	 | 	market	 | 	platform	 | 	channel	 | 	forecast_quantity	 |
@@ -114,6 +121,12 @@ fact_forecast_monthly
 | 	2019-01-01	 | 	9	 | 	N & S	 | 	External Solid State Drives	 | 	AQ Digit SSD	 | 	7	 | 	Neptune	 | 	China	 | 	Brick & Mortar	 | 	Distributor	 | 	106	 |
 | 	2019-01-01	 | 	10	 | 	N & S	 | 	External&nbsp;Solid&nbsp;State&nbsp;Drives	 | 	AQ Neuer SSD	 | 	3	 | 	Staples	 | 	USA	 | 	Brick & Mortar	 | 	Retailer	 | 	90	 |
 
+Notes:
+* forecast data are aggregated on a monthly level.
+* The data engineer provided a denormalized table.
+* The columns `date`, `product_code`, and `customer_code` make up a *composite primary key*.
+
+
 fact_sales_monthly
 | 	date	 | 	product_code	 | 	division	 | 	category	 | 	product	 | 	customer_code	 | 	customer_name	 | 	market	 | 	platform	 | 	channel	 | 	sold_quantity	 |
 | 	-:	 | 	-:	 | 	:-	 | 	:-	 | 	:-	 | 	-:	 | 	:-	 | 	:-	 | 	:-	 | 	:-	 | 	-:	 |
@@ -127,6 +140,12 @@ fact_sales_monthly
 | 	2018-12-01	 | 	8	 | 	N & S	 | 	Wi fi extender	 | 	AQ Wi Power Dx2	 | 	6	 | 	Atliq e Store	 | 	Newzealand	 | 	E-Commerce	 | 	Direct	 | 	66	 |
 | 	2019-01-01	 | 	9	 | 	N & S	 | 	External Solid State Drives	 | 	AQ Digit SSD	 | 	7	 | 	Neptune	 | 	China	 | 	Brick & Mortar	 | 	Distributor	 | 	140	 |
 | 	2019-01-01	 | 	10	 | 	N & S	 | 	External&nbsp;Solid&nbsp;State&nbsp;Drives	 | 	AQ Neuer SSD	 | 	3	 | 	Staples	 | 	USA	 | 	Brick & Mortar	 | 	Retailer	 | 	61	 |
+
+Notes:
+* sales data are aggregated on a monthly level.
+* The data engineer provided a denormalized table.
+* The columns `date`, `product_code`, and `customer_code` make up a *composite primary key*.
+
 
 freight_cost
 | 	market	 | 	fiscal_year	 | 	freight_pct	 | 	other_cost_pct	 |
@@ -142,6 +161,11 @@ freight_cost
 | 	Bangladesh	 | 	2021	 | 	0.0258	 | 	0.0035	 |
 | 	Bangladesh	 | 	2022	 | 	0.0258	 | 	0.0035	 |
 
+Notes:
+* freight cost depends on the market and fiscal year
+* The columns `market` and `fiscal_year` make up a *composite primary key*.
+
+
 gross_price
 | 	product_code	 | 	fiscal_year	 | 	gross_price	 |
 | 	-:	 | 	-:	 | 	-:	 |
@@ -155,6 +179,11 @@ gross_price
 | 	2	 | 	2020	 | 	20.7734	 |
 | 	2	 | 	2021	 | 	22.9729	 |
 | 	2	 | 	2022	 | 	23.6298	 |
+
+Notes:
+* gross price depends on a specific product and fiscal year
+* The columns `product_code` and `fiscal_year` make up a *composite primary key*.
+
 
 manufacturing_cost
 | 	product_code	 | 	cost_year	 | 	manufacturing_cost	 |
@@ -170,6 +199,11 @@ manufacturing_cost
 | 	2	 | 	2021	 | 	6.8199	 |
 | 	2	 | 	2022	 | 	7.3655	 |
 
+Notes:
+* manufacturing cost depends on a specific product and fiscal year (`cost_year` column in this table)
+* The columns `product_code` and `cost_year` make up a *composite primary key*.
+
+
 
 post_invoice_deductions
 | 	customer_code	 | 	product_code	 | 	date	 | 	discounts_pct	 | 	other_deductions_pct	 |
@@ -182,6 +216,11 @@ post_invoice_deductions
 | 	2	 | 	2	 | 	2021-10-01	 | 	0.262301248	 | 	0.09568491	 |
 | 	2	 | 	3	 | 	2021-09-01	 | 	0.227948668	 | 	0.094501586	 |
 | 	2	 | 	4	 | 	2021-10-01	 | 	0.228410097	 | 	0.074617767	 |
+
+Notes:
+* post invoice deductions depend on a specific customer, product, and month
+* The columns `customer_code`, `product_code` and `date` make up a *composite primary key*.
+
 
 pre_invoice_deductions
 | 	customer_code	 | 	fiscal_year	 | 	pre_invoice_discount_pct	 |
@@ -197,9 +236,12 @@ pre_invoice_deductions
 | 	2	 | 	2021	 | 	0.206107124	 |
 | 	2	 | 	2022	 | 	0.29309271	 |
 
+Notes:
+* pre invoice deductions depend on a specific customer, and fiscal year
+* The columns `customer_code`, and `fiscal_year` make up a *composite primary key*.
 
-### Fact Tables Imported from CSV Files and Sample Records
-Additional data from stakeholder meeting
+## Other Data Tables
+Additional data tables provided in stakeholder meetings.
 
 operational_expenses
 | 	market	 | 	fiscal_year	 | 	ads_promotions_pct	 | 	other_operational_expense_pct	 |
@@ -215,6 +257,11 @@ operational_expenses
 | 	Canada	 | 	2021	 | 	0.143117	 | 	0.283305	 |
 | 	Canada	 | 	2022	 | 	0.314356	 | 	0.365959	 |
 
+Notes:
+* Provided in .csv format
+* Operational expenses depend on a specific market and fiscal year.
+* The columns `market`, and `fiscal_year` make up a *composite primary key*.
+
 targets
 | 	market	 | 	month	 | 	ns_target	 | 	gm_target	 | 	np_target	 |
 | 	:-	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 |
@@ -227,6 +274,11 @@ targets
 | 	Indonesia	 | 	11/1/2021	 | 	$11,918,830.63	 | 	$4,232,776.48	 | 	-$1,673,999.76	 |
 | 	Indonesia	 | 	12/1/2021	 | 	$12,657,658.69	 | 	$4,186,339.00	 | 	-$2,248,949.51	 |
 
+Notes:
+* Provided in .csv format
+* targets depend on a specific market and month.
+* The columns `market`, and `month` make up a *composite primary key*.
+
 marketshare
 | 	sub_zone	 | 	category	 | 	fy_desc	 | 	total_market_sales_$	 | 	atliq_sales_$	 | 	dale_sales_$	 | 	innovo_sales_$	 | 	pacer_sales_$	 | 	bp_sales_$	 | 	others_sales_$	 |
 | 	:-	 | 	:-	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 | 	-:	 |
@@ -238,6 +290,11 @@ marketshare
 | 	LATAM	 | 	Gaming Laptop	 | 	2020	 | 	1799.9345	 | 	0.15862	 | 	435.584149	 | 	150.2765314	 | 	132.2433476	 | 	94.67421479	 | 	986.9976372	 |
 | 	LATAM	 | 	Gaming Laptop	 | 	2021	 | 	2417.7944	 | 	0.83688	 | 	469.0521136	 | 	197.0018877	 | 	133.9612836	 | 	161.5415479	 | 	1455.400687	 |
 | 	LATAM	 | 	Gaming Laptop	 | 	2022	 | 	3091.977	 | 	8.40752	 | 	927.5931	 | 	389.589102	 | 	179.2109869	 | 	331.1507367	 | 	1256.025554	 |
+
+Notes:
+* Provided in .xlsx format
+* Data table provides information for each subzone, fiscal year, and product category that relates to personal computers, the marketshare of AtliQ and other PC manufacturers.
+
 
 
 
