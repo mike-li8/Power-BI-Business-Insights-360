@@ -372,12 +372,20 @@ in
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Combined%20Sales%20and%20Forecast.PNG?raw=true)
 
 This query combines the `fact_sales_monthly` query with the `fact_forecast_monthly` query based on the diagram below (similar to SQL Union):
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Combined%20Sales%20and%20Forecast%20Diagram.PNG?raw=true)
 
+`Combine Sales and Forecast` contains all the sales data from ` fact_sales_monthly ` up to and including the last sales month (December 2021). Starting from the month January 2022, there is forecasted sales data from `fact_forecast_monthly`.
 
 
 #### Create new query: `Fact_Actuals_Estimates`
+Create new query
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Fact_Actuals_Estimates%20Icon.PNG?raw=true)
-Join with gross_price and pre_invoice_deductions to calculate gross sales and net invoice sales columns
+to:
+* Left join `Combine Sales and Forecast` with `gross_price`
+* Left join `Combine Sales and Forecast` with `pre_invoice_deductions`
+* Add calculated column for gross sales
+* Add calculated column for net invoice sales
+
 ```
 let
     // Add fiscal year column to act as a key field matching records for a left join
@@ -407,6 +415,9 @@ in
     #"Set columns to appropriate datatypes"
 ```
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Fact_Actuals_Estimates.PNG?raw=true)
+
+
+
 
 #### Create new query: `dim_date`
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/dim_date%20icon.PNG?raw=true)
