@@ -373,10 +373,10 @@ let
 in
     UnionSalesForecast
 ```
-Sample records from query result:
+Sample records from query result:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Combined%20Sales%20and%20Forecast.PNG?raw=true)
 
-This query combines the `fact_sales_monthly` query with the `fact_forecast_monthly` query based on the diagram below (similar to SQL Union):
+`Combine Sales and Forecast` query combines the `fact_sales_monthly` query with the `fact_forecast_monthly` query based on the diagram below (similar to SQL Union):
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Combined%20Sales%20and%20Forecast%20Diagram.PNG?raw=true)
 
 `Combine Sales and Forecast` contains all the sales data from ` fact_sales_monthly ` up to and including the last sales month (December 2021). Starting from the month January 2022, there is forecasted sales data from `fact_forecast_monthly`.
