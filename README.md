@@ -311,6 +311,7 @@ to remove unnecessary redundant columns:
 ```
 = Table.SelectColumns(fact_forecast_monthly, {"date", "product_code", "customer_code", "forecast_quantity"})
 ```
+Sample records from query result:
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Forecast_Monthly.PNG?raw=true)
 
 
@@ -321,6 +322,7 @@ to remove unnecessary redundant columns:
 ```
 = Table.SelectColumns(fact_sales_monthly,{"date", "product_code", "customer_code", "sold_quantity"})
 ```
+Sample records from query result:
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Sales_Monthly.PNG?raw=true)
 
 
@@ -335,6 +337,7 @@ let
 in
     LastSalesMonth
 ```
+Query result:
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Last_Sales_Month.PNG?raw=true)
 
 
@@ -345,6 +348,7 @@ to generate a single date value representing the latest day the refresh button w
 ```
 = DateTime.Date(DateTime.LocalNow())
 ```
+Query result:
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Refresh%20Date.PNG?raw=true)
 
 
@@ -369,6 +373,7 @@ let
 in
     UnionSalesForecast
 ```
+Sample records from query result:
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Combined%20Sales%20and%20Forecast.PNG?raw=true)
 
 This query combines the `fact_sales_monthly` query with the `fact_forecast_monthly` query based on the diagram below (similar to SQL Union):
@@ -414,6 +419,7 @@ let
 in
     #"Set columns to appropriate datatypes"
 ```
+Sample records from query result:
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Fact_Actuals_Estimates.PNG?raw=true)
 
 
@@ -455,7 +461,10 @@ let
 in
     #"Add Fiscal Year column"
 ```
+
+Sample records from query result:
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/dim_date.PNG?raw=true)
+
 
 
 #### Add step to query: `Marketshare`
