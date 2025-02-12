@@ -294,7 +294,7 @@ marketshare
 
 Notes:
 * Provided in .xlsx format
-* This table contains data on the marketshare of personal computer (PC) manufacturers (atliq, dale, innovo, pacer, bp). This marketshare data is available for each specific sub zone, product category (PC type product categories only) and fiscal year.
+* This table contains data on the marketshare of various personal computer (PC) manufacturers (atliq, dale, innovo, pacer, bp). This marketshare data is available for each specific sub zone, product category (PC type product categories only) and fiscal year.
 
 
 
