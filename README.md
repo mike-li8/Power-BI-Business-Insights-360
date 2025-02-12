@@ -338,6 +338,9 @@ in
 #### Create new query: `Refresh Date`
 Query to get last refresh date of dashboard
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Refresh%20Date%20Icon.PNG?raw=true)
+```
+= DateTime.Date(DateTime.LocalNow())
+```
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Refresh%20Date.PNG?raw=true)
 
 
