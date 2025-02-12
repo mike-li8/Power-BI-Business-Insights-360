@@ -60,7 +60,7 @@ AtliQ's fiscal year begins in September and ends in August the following year. T
 
 
 ## Data Tables Prepared by Data Engineer
-AtliQ's data engineers prepared various dimension and fact tables stored in a MySQL database schema.
+AtliQ's data engineers prepared various dimension and fact tables and stored them in a MySQL database schema.
 
 ### Dimension Tables
 Sample records from each table are provided below. For readability, primary key values have been converted to natural numbers.
