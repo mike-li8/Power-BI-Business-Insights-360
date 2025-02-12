@@ -242,7 +242,7 @@ Notes:
 * The columns `customer_code`, and `fiscal_year` make up a **composite primary key**.
 
 ## Additional Data Tables
-Additional data tables provided in stakeholder meetings. Sample records from each table are provided below.
+Additional data tables were provided in stakeholder meetings. Sample records from each table are provided below.
 
 operational_expenses
 | 	market	 | 	fiscal_year	 | 	ads_promotions_pct	 | 	other_operational_expense_pct	 |
