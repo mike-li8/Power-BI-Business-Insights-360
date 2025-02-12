@@ -342,7 +342,7 @@ Query to get last refresh date of dashboard
 
 
 
-#### Create new query: `Combine sales and forecast`
+#### Create new query: `Combine Sales and Forecast`
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Combined%20Sales%20and%20Forecast%20Icon.PNG?raw=true)
 ```
 let
