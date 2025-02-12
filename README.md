@@ -472,7 +472,7 @@ Sample records from query result:<br>
 
 
 
-#### Add step to query: `Marketshare`
+#### Add two steps to query: `Marketshare`
 Add two additional steps to the ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Marketshare%20Icon.PNG?raw=true) query:
 1. Transform data to have one column for manufacturer name and another column for total sales amount
 ```
