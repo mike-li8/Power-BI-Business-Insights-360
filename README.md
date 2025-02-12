@@ -426,7 +426,12 @@ Sample records from query result:
 
 
 #### Create new query: `dim_date`
+Create new query
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/dim_date%20icon.PNG?raw=true)
+to create a new date dimension table with three columns:
+* `date` for each calendar date. This is a primary key field.
+* `month` for each calendar month (first day of each calendar month)
+* `fiscal_year` for AtliQ’s fiscal year for each respective calendar date/month
 ```
 let
     // Find minimum date from forecast table
@@ -462,7 +467,7 @@ in
     #"Add Fiscal Year column"
 ```
 
-Sample records from query result:
+Sample records from query result:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/dim_date.PNG?raw=true)
 
 
