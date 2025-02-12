@@ -277,7 +277,7 @@ targets
 
 Notes:
 * Provided in .xlsx format
-* This table contains data on benchmark targets (for net sales, gross margin, and net profit) set by AtliQ. Target data is available for each specific market on a monthly level.
+* This table contains data on benchmark targets set by AtliQ (for net sales, gross margin, and net profit). Target data is available for each specific market on a monthly level.
 * The columns `market`, and `month` make up a **composite primary key**.
 
 marketshare
