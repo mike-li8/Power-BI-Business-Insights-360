@@ -488,7 +488,14 @@ Sample records from query result:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Marketshare.PNG?raw=true)
 
 ### Data Cleaning
-
+Data cleaning is a vital step to reduce the likelihood of errors and biases when business stakeholders use the final dashboard to inform the decision-making process.
+Various data cleaning tasks were formed using Power Query (this list is not exhaustive):
+* Identifying duplicate values and rectifying them with an appropriate method
+* Investigating outliers in quantitative fields with business stakeholders and rectifying them if appropriate.
+* Text fields: fixing spelling mistakes, removing extra white space
+* Ensuring primary key fields contain unique values
+* Ensuring composite primary key fields contain unique combinations of values
+* Connecting with business stakeholders to determine an appropriate interpretation of null/blank values and rectifying them with an appropriate method if needed.
 
 
 ### Final Queries Loaded
