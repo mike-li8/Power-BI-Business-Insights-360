@@ -1186,7 +1186,7 @@ IF(
 
 
 
-### DAX for Visuals
+### DAX Measures for Visuals
 #### Finance View: Profit and Loss Statement Using Matrix Visual
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/Profit%20and%20Loss%20Visual.PNG?raw=true)
 
