@@ -434,7 +434,7 @@ Create new query
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/dim_date%20icon.PNG?raw=true)
 to create a new date dimension table with three columns:
 * `date` for each calendar date. This is a primary key field.
-* `month` for each calendar month (first day of each calendar month)
+* `month` for calendar month (first day of the calendar month)
 * `fiscal_year` for AtliQ’s fiscal year for each respective calendar date/month
 ```
 let
