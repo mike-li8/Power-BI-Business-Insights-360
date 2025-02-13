@@ -203,7 +203,7 @@ manufacturing_cost
 
 
 Notes:
-* Manufacturing cost is one component of COGS. This table contains data at a fiscal year level on manufacturing cost ($) for each specific product.
+* Manufacturing cost is one component of COGS. This table contains data at a fiscal year level on manufacturing cost ($) for one unit quantity of each specific product.
 * The columns `product_code` and `cost_year` make up a **composite primary key**.
 
 
