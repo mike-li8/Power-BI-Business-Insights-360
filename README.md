@@ -1201,28 +1201,15 @@ P & L Targets =
 VAR res =
 SWITCH(
     TRUE(),
-    MAX('P & L Rows'[Primary_Key]) = 7,
-    IF([Customer / Product Filter Check], BLANK(), [NS Target $]/1000000),
-    MAX('P & L Rows'[Primary_Key]) = 12,
-    IF([Customer / Product Filter Check], BLANK(), [GM Target $]/1000000),
-    MAX('P & L Rows'[Primary_Key]) = 13,
-    [GM % Target]*100,
-    MAX('P & L Rows'[Primary_Key]) = 16,
-    IF([Customer / Product Filter Check], BLANK(), [NP Target $]/1000000),
-    MAX('P & L Rows'[Primary_Key]) = 17,
-    [NP % Target]*100
+    MAX('P & L Rows'[Primary_Key]) = 7, [NS Target $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 12, [GM Target $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 13, [GM % Target]*100,
+    MAX('P & L Rows'[Primary_Key]) = 16, [NP Target $]/1000000,
+    MAX('P & L Rows'[Primary_Key]) = 17, [NP % Target]*100
 )
 
 RETURN
-IF(
-    HASONEVALUE('P & L Rows'[Description]),
-    res,
-    IF(
-        [Customer / Product Filter Check],
-        BLANK(),
-        [NS Target $]/1000000
-    )
-)
+IF(HASONEVALUE('P & L Rows'[Description]), res, [NS Target $]/1000000)
 ```
 
 
