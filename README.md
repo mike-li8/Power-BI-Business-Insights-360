@@ -754,8 +754,7 @@ Total Post Invoice Deduction $ = [Post Invoice Deduction $] + [Post Invoice Othe
 
 #### Filter Check
 ```
-Customer / Product Filter Check = 
-ISCROSSFILTERED(dim_product[product]) || ISFILTERED(dim_customer[customer])
+Customer / Product Filter Check = ISCROSSFILTERED(dim_product[product]) || ISCROSSFILTERED(dim_customer[customer])
 ```
 
 #### Net Sales
@@ -836,7 +835,12 @@ GM $ = [NS $] - [Total COGS $]
 ```
 
 ```
-GM Target $ = SUM(targets[gm_target])
+GM Target $ = 
+
+VAR tgt = SUM(fact_targets[gm_target])
+
+RETURN
+IF([Customer / Product Filter Check], BLANK(), tgt)
 ```
 
 
@@ -908,7 +912,12 @@ NP $ = [GM $] - [Operational Expense $]
 ```
 
 ```
-NP Target $ = SUM(targets[np_target])
+NP Target $ = 
+
+VAR tgt = SUM(fact_targets[np_target])
+
+RETURN
+IF([Customer / Product Filter Check], BLANK(), tgt)
 ```
 
 ```
