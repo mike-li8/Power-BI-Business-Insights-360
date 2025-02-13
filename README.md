@@ -331,7 +331,7 @@ Sample records from query result:</br>
 #### Create new query: `Last_Sales_Month`
 Create new query
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Last_Sales_Month%20Icon.PNG?raw=true)
-to generate a single date value representing the last month sales data is available in the fact sales table `fact_sales_monthly`:
+to generate a single date value representing the last month sales data is available in the table `fact_sales_monthly`:
 
 ```
 let
