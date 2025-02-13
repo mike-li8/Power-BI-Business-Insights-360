@@ -313,7 +313,7 @@ to remove unnecessary redundant columns:
 ```
 = Table.SelectColumns(fact_forecast_monthly, {"date", "product_code", "customer_code", "forecast_quantity"})
 ```
-Sample records from query result:
+Sample records from query result:</br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Forecast_Monthly.PNG?raw=true)
 
 
@@ -324,7 +324,7 @@ to remove unnecessary redundant columns:
 ```
 = Table.SelectColumns(fact_sales_monthly,{"date", "product_code", "customer_code", "sold_quantity"})
 ```
-Sample records from query result:
+Sample records from query result:</br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Sales_Monthly.PNG?raw=true)
 
 
@@ -339,7 +339,7 @@ let
 in
     LastSalesMonth
 ```
-Query result:
+Query result:</br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Last_Sales_Month.PNG?raw=true)
 
 
@@ -350,7 +350,7 @@ to generate a single date value representing the latest day the refresh button w
 ```
 = DateTime.Date(DateTime.LocalNow())
 ```
-Query result:
+Query result:</br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Refresh%20Date.PNG?raw=true)
 
 
@@ -421,7 +421,7 @@ let
 in
     #"Set columns to appropriate datatypes"
 ```
-Sample records from query result:
+Sample records from query result:</br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Fact_Actuals_Estimates.PNG?raw=true)
 
 
