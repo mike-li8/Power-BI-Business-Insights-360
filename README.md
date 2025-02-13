@@ -615,41 +615,56 @@ net_sales_amount = Fact_Actuals_Estimates[net_invoice_sales_amount] - Fact_Actua
 ```
 
 ```
-manufacturing_cost = 
+manufacturing_cost =
+// Retrieve manufacturing cost for each row
 var res = CALCULATE(
     MAX(manufacturing_cost[manufacturing_cost]),
     RELATEDTABLE(manufacturing_cost))
+
+// Calculate manufacturing cost for each row
 RETURN res * Fact_Actuals_Estimates[Qty]
 ```
 
 ```
-freight_cost = 
+freight_cost =
+// Retrieve freight cost for each row
 var res = CALCULATE(
     MAX(freight_cost[freight_pct]),
     RELATEDTABLE(freight_cost))
+
+// Calculate freight cost for each row
 RETURN res * Fact_Actuals_Estimates[net_sales_amount]
 ```
 
 ```
+// Retrieve other costs for each row
 other_cost = 
 var res = CALCULATE(MAX(freight_cost[other_cost_pct]), 
 RELATEDTABLE(freight_cost))
+
+// Calculate other costs for each row
 RETURN res * Fact_Actuals_Estimates[net_sales_amount]
 ```
 
 ```
+// Retrieve ads and promotions costs for each row
 ads_promotion = 
 var res = CALCULATE(
     MAX('operational_expenses'[ads_promotions_pct]),
     RELATEDTABLE('operational_expenses'))
+
+// Calculate ads and promotions costs for each row
 RETURN res * Fact_Actuals_Estimates[net_sales_amount]
 ```
 
 ```
+// Retrieve other operational expense costs for each row
 other_operational_expense = 
 var res = CALCULATE(
     MAX('operational_expenses'[other_operational_expense_pct]),
     RELATEDTABLE('operational_expenses'))
+
+// Calculate other operational expense costs for each row
 RETURN res * Fact_Actuals_Estimates[net_sales_amount]
 ```
 
