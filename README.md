@@ -715,49 +715,48 @@ VAR x = UNION(
 
 RETURN x
 ```
-
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/toggle%20switch%20table.PNG?raw=true)
 
 
-### Basic DAX Measures for P&L Values
+## DAX Measures for Calculating KPIs and Visual Building
 
 
-#### Gross Sales
+### Gross Sales
 ```
 GS $ = SUM(Fact_Actuals_Estimates[gross_sales_amount])
 ```
 
-#### Net Invoice Sales
+### Net Invoice Sales
 ```
 NIS $ = SUM(Fact_Actuals_Estimates[net_invoice_sales_amount])
 ```
 
-#### Pre Invoice Deductions
+### Pre Invoice Deductions
 ```
 Pre Invoice Deduction $ = [GS $] - [NIS $]
 ```
 
-#### Post Invoice Deductions
+### Post Invoice Deductions
 ```
 Post Invoice Deduction $ = SUM(Fact_Actuals_Estimates[post_invoice_deduction_amount])
 ```
 
-#### Post Invoice Other Deductions
+### Post Invoice Other Deductions
 ```
 Post Invoice Other Deduction $ = SUM(Fact_Actuals_Estimates[post_invoice_other_deduction_amount])
 ```
 
-#### Total Post Invoice Deductions
+### Total Post Invoice Deductions
 ```
 Total Post Invoice Deduction $ = [Post Invoice Deduction $] + [Post Invoice Other Deduction $]
 ```
 
-#### Filter Check
+### Filter Check
 ```
-Customer / Product Filter Check = ISCROSSFILTERED(dim_product[product]) || ISCROSSFILTERED(dim_customer[customer])
+Customer / Product Filter Check = ISCROSSFILTERED(dim_product[product]) || ISFILTERED(dim_customer[customer])
 ```
 
-#### Net Sales
+### Net Sales
 ```
 NS $ = SUM(Fact_Actuals_Estimates[net_sales_amount])
 ```
@@ -966,7 +965,7 @@ IF(
 NP / Unit = DIVIDE([NP $],[Quantity],0)
 ```
 
-### Supply Chain Learnings and DAX Measures
+### Supply Chain Learnings and Related DAX Measures
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Supply%20Chain%20Screenshots/SupplyChain%20Basics.PNG?raw=true)
 
 
