@@ -300,7 +300,7 @@ Notes:
 
 
 
-## ETL (extract transform load) using Power Query
+## ETL (extract transform load) and Data Cleaning in Power Query
 The data tables from MySQL, .csv, and .xlsx were imported into **Power Query**:</br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/PowerQuery%20Initial%20Import.PNG?raw=true)
 
@@ -493,7 +493,7 @@ Sample records from query result:<br>
 Data cleaning is a vital step to reduce the likelihood of errors and biases when business stakeholders use the final dashboard to inform the decision-making process.
 Various data cleaning tasks were formed using Power Query (this list is not exhaustive):
 * Identifying duplicate values and rectifying them with an appropriate method
-* Investigating outliers in quantitative fields with business stakeholders and rectifying them if appropriate.
+* Investigating outliers in quantitative fields with business stakeholders and removing them if appropriate.
 * Text fields: fixing spelling mistakes, removing extra white space
 * Ensuring primary key fields contain unique values
 * Ensuring composite primary key fields contain unique combinations of values
