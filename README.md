@@ -555,22 +555,29 @@ category = ALLNOBLANKROW(dim_product[category])
 The image below shows the completed data model (snowflake schema) in Power BI Model View:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Data%20Model%20Screenshots/DataModel.PNG?raw=true)
 
-### DAX Calculated Columns
-#### dim_date
+
+## DAX Calculated Columns
+To facilitate dashboard building, DAX expressions were used to create new columns in the tables `dim_date` and `Fact_Actuals_Estimates`
+
+### Calculated Columns in `dim_date`
 ```
+// AtliQ Fiscal year month number
 fy_month_num = MONTH(DATE(YEAR(dim_date[date]),MONTH(dim_date[date]) + 4, 1))
 ```
 
 ```
+// AtliQ Fiscal Quarter
 quarters = "Q" & ROUNDUP(dim_date[fy_month_num]/3,0)
 ```
 
 ```
+// ytd: data before or during last sales month
+// ytg: data after last sales month
 ytd_ytg = 
 
-var LASTSALESDATE = MAX(Last_Sales_Month[Last_Sales_Month])
+VAR LASTSALESDATE = MAX(Last_Sales_Month[Last_Sales_Month])
 
-var FY_MONTH_NUMBER = MONTH(DATE(YEAR(LASTSALESDATE),MONTH(LASTSALESDATE)+4, 1))
+VAR FY_MONTH_NUMBER = MONTH(DATE(YEAR(LASTSALESDATE),MONTH(LASTSALESDATE)+4, 1))
 
 RETURN
 IF(
@@ -579,24 +586,31 @@ IF(
     "YTD")
 ```
 
-#### Fact_Actuals_Estimates
-
+### Calculated Columns in `Fact_Actuals_Estimates`
 ```
-post_invoice_deduction_amount = 
-var res = CALCULATE(
+post_invoice_deduction_amount =
+// Retrieve post invoice deduction percent for each row
+VAR res = CALCULATE(
     MAX(post_invoice_deductions[discounts_pct]),
     RELATEDTABLE(post_invoice_deductions))
+
+// Calculate post invoice deduction amount for each row
 RETURN res * Fact_Actuals_Estimates[net_invoice_sales_amount]
 ```
 
 ```
-post_invoice_other_deduction_amount = 
-var res = CALCULATE(MAX(post_invoice_deductions[other_deductions_pct]), 
-RELATEDTABLE(post_invoice_deductions))
+post_invoice_other_deduction_amount =
+// Retrieve other post invoice deduction percent for each row
+VAR res = CALCULATE(
+    MAX(post_invoice_deductions[other_deductions_pct]), 
+    RELATEDTABLE(post_invoice_deductions))
+
+// Calculate other post invoice deduction amount for each row
 RETURN res * Fact_Actuals_Estimates[net_invoice_sales_amount]
 ```
 
 ```
+// Calculate net sales (revenue) for each row
 net_sales_amount = Fact_Actuals_Estimates[net_invoice_sales_amount] - Fact_Actuals_Estimates[post_invoice_deduction_amount] - Fact_Actuals_Estimates[post_invoice_other_deduction_amount]
 ```
 
