@@ -989,12 +989,13 @@ IF(
 
 
 
-### Supply Chain Learnings and Related DAX Measures
+### DAX Measures for Supply Chain KPIs
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Supply%20Chain%20Screenshots/SupplyChain%20Basics.PNG?raw=true)
 
 
 ```
-Sales Qty = 
+Sales Qty =
+// Get total sales quantity only for months on or before the last month sales data is available
 CALCULATE(
     [Quantity],
     Fact_Actuals_Estimates[date] <= MAX(Last_Sales_Month[Last_Sales_Month])
@@ -1004,10 +1005,11 @@ CALCULATE(
 
 ```
 Forecast Qty = 
-
+// Last month sales data is available
 VAR LASTSALESDATE = MAX(Last_Sales_Month[Last_Sales_Month])
 
 RETURN
+// Get total forecasted quantity only for months on or before the last month sales data is available
 CALCULATE(
     SUM(fact_forecast_monthly[forecast_quantity]),
     fact_forecast_monthly[date] <= LASTSALESDATE
@@ -1047,6 +1049,7 @@ Net Error % = DIVIDE([Net Error],[Forecast Qty],0)
 
 
 ```
+// Absolute error MUST be calculated on a monthly level and then a product level
 ABS Error = 
 SUMX(
     DISTINCT(dim_date[month]),
@@ -1086,6 +1089,7 @@ IF(
 
 
 ```
+// Maximum forecast accuracy % is 100%. Forecast accuracy % can be negative.
 Forecast Accuracy % = 
 IF(
     [ABS Error %] <> BLANK(),
@@ -1131,7 +1135,10 @@ IF(
 
 
 ```
-Risk = 
+Risk =
+// Depending on Net Error:
+// EI: Excess Inventory
+// OOS: Out of Stock
 IF(
     [Net Error] > 0,
     "EI",
