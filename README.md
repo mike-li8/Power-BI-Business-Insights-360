@@ -796,7 +796,7 @@ NP / Unit = DIVIDE([NP $],[Quantity],0)
 ## DAX Measures for Supply Chain KPIs
 
 ### Supply Chain Basics
-![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Supply%20Chain%20Screenshots/SupplyChain%20Basics.PNG?raw=true)
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Supply%20Chain%20Screenshots/SupplyChain%20Basics2.PNG?raw=true)
 
 ### Supply Chain Measures
 ```
