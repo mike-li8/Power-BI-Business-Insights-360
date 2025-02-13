@@ -487,6 +487,9 @@ Add two additional steps to the ![image alt](https://github.com/mike-li8/Power-B
 Sample records from query result:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Marketshare.PNG?raw=true)
 
+### Data Cleaning
+
+
 
 ### Final Queries Loaded
 The image below shows the final queries loaded from Power Query to the Power BI dashboard. To improve query load time, queries not required to build the Power BI dashboard have their load disabled (queries in *italic* in the image have their load disabled). Queries with their load disabled are either intermediate step queries or queries containing data that are already included in queries with their load enabled.<br>
