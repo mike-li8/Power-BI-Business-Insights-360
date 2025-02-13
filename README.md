@@ -795,7 +795,8 @@ NP / Unit = DIVIDE([NP $],[Quantity],0)
 
 ## DAX Measures for Supply Chain KPIs
 
-### Supply Chain Basics
+### Supply Chain Example
+The Excel screenshot below gives an example of supply chain metrics for **one specific product** on a monthly level during a given fiscal year.
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Supply%20Chain%20Screenshots/SupplyChain%20Basics2.PNG?raw=true)
 
 ### Supply Chain Measures
@@ -820,13 +821,14 @@ CALCULATE(
     )
 ```
 ```
+// Net Error provides an indication of inventory status
 Net Error = [Forecast Qty] - [Sales Qty]
 ```
 ```
 Net Error % = DIVIDE([Net Error],[Forecast Qty],0)
 ```
 ```
-// Absolute error MUST be calculated on a monthly level and then a product level
+// Absolute error (magnitude of net error) MUST be calculated on a monthly level and then a product level
 ABS Error = 
 SUMX(
     DISTINCT(dim_date[month]),
@@ -853,6 +855,7 @@ Risk =
 // Inventory Risk Depending on Net Error:
 // EI: Excess Inventory
 // OOS: Out of Stock
+// Perfect Inventory excluded becasue it might be rare
 IF(
     [Net Error] > 0,
     "EI",
@@ -883,14 +886,9 @@ IF(
 
 
 
-
-
-
-
-
-
-### Calculated Table for BM Toggle
-
+## DAX Measures for Dyanmic Benchmark (BM)
+### Create Switch for Benchmark (BM)
+To create a switch for dynamic bencharm
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/BM%20Toggle%20Image.PNG?raw=true)
 
 
