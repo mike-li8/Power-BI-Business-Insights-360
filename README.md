@@ -512,10 +512,12 @@ The image below shows the final queries loaded from Power Query to Power BI. To 
 
 
 
-## Data Modelling
 
-### DAX Expressions to Create Tables
+
+## DAX Expressions to Create Tables
 To help build the data model, three DAX expressions were used to create three dimension tables.
+
+### DAX table expression to create `fiscal_year` table:
 ```
 fiscal_year = 
 ADDCOLUMNS(
@@ -530,28 +532,27 @@ ADDCOLUMNS(
     )
 )
 ```
-DAX table expression result:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/DAX/DAX%20fiscal_year%20table.PNG?raw=true)
 
+### DAX table expression to create `sub_zone` table:
 ```
 // Unique market sub zones
 sub_zone = ALLNOBLANKROW(dim_market[sub_zone])
 ```
-DAX table expression result:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/DAX/DAX%20sub_zone%20table.PNG?raw=true)
 
+### DAX table expression to create `category` table:
 ```
 // Unique product categories
 category = ALLNOBLANKROW(dim_product[category])
 ```
-DAX table expression result:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/DAX/DAX%20category%20table.PNG?raw=true)
 
 
 
 
-
-Data Model in Power BI
+## Data Model
+The image below shows the completed data model (snowflake schema) in Power BI Model View:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Data%20Model%20Screenshots/DataModel.PNG?raw=true)
 
 ### DAX Calculated Columns
