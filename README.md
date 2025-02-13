@@ -697,6 +697,108 @@ RETURN res * Fact_Actuals_Estimates[net_sales_amount]
 
 
 
+## DAX Measures for Calculating KPIs and Visual Building
+
+### Gross Sales
+```
+GS $ = SUM(Fact_Actuals_Estimates[gross_sales_amount])
+```
+
+### Net Invoice Sales
+```
+NIS $ = SUM(Fact_Actuals_Estimates[net_invoice_sales_amount])
+```
+
+### Pre Invoice Deductions
+```
+Pre Invoice Deduction $ = [GS $] - [NIS $]
+```
+
+### Post Invoice Deductions
+```
+Post Invoice Deduction $ = SUM(Fact_Actuals_Estimates[post_invoice_deduction_amount])
+```
+```
+Post Invoice Other Deduction $ = SUM(Fact_Actuals_Estimates[post_invoice_other_deduction_amount])
+```
+```
+Total Post Invoice Deduction $ = [Post Invoice Deduction $] + [Post Invoice Other Deduction $]
+```
+
+### Net Sales
+```
+NS $ = SUM(Fact_Actuals_Estimates[net_sales_amount])
+```
+
+### Total Sold Quantity
+```
+Quantity = SUM(Fact_Actuals_Estimates[Qty])
+```
+
+### Cost of Goods Sold
+```
+Manufacturing Cost $ = SUM(Fact_Actuals_Estimates[manufacturing_cost])
+```
+```
+Freight Cost $ = SUM(Fact_Actuals_Estimates[freight_cost])
+```
+```
+Other Cost $ = SUM(Fact_Actuals_Estimates[other_cost])
+```
+```
+Total COGS $ = [Manufacturing Cost $] + [Freight Cost $] + [Other Cost $]
+```
+
+### Gross Margin
+```
+GM $ = [NS $] - [Total COGS $]
+```
+```
+GM % = DIVIDE([GM $],[NS $],0)
+```
+```
+GM / Unit = DIVIDE([GM $],[Quantity],0)
+```
+
+### Operational Expenses
+```
+Ads & Promotions $ = SUM(Fact_Actuals_Estimates[ads_promotion])
+```
+```
+Other Operational Expense $ = SUM(Fact_Actuals_Estimates[other_operational_expense])
+```
+```
+Operational Expense $ = [Ads & Promotions $] + [Other Operational Expense $]
+```
+
+### Net Profit
+```
+NP $ = [GM $] - [Operational Expense $]
+```
+```
+NP % = DIVIDE([NP $], [NS $],0)
+```
+```
+NP / Unit = DIVIDE([NP $],[Quantity],0)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -718,48 +820,14 @@ RETURN x
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/toggle%20switch%20table.PNG?raw=true)
 
 
-## DAX Measures for Calculating KPIs and Visual Building
 
-
-### Gross Sales
-```
-GS $ = SUM(Fact_Actuals_Estimates[gross_sales_amount])
-```
-
-### Net Invoice Sales
-```
-NIS $ = SUM(Fact_Actuals_Estimates[net_invoice_sales_amount])
-```
-
-### Pre Invoice Deductions
-```
-Pre Invoice Deduction $ = [GS $] - [NIS $]
-```
-
-### Post Invoice Deductions
-```
-Post Invoice Deduction $ = SUM(Fact_Actuals_Estimates[post_invoice_deduction_amount])
-```
-
-### Post Invoice Other Deductions
-```
-Post Invoice Other Deduction $ = SUM(Fact_Actuals_Estimates[post_invoice_other_deduction_amount])
-```
-
-### Total Post Invoice Deductions
-```
-Total Post Invoice Deduction $ = [Post Invoice Deduction $] + [Post Invoice Other Deduction $]
-```
 
 ### Filter Check
 ```
 Customer / Product Filter Check = ISCROSSFILTERED(dim_product[product]) || ISFILTERED(dim_customer[customer])
 ```
 
-### Net Sales
-```
-NS $ = SUM(Fact_Actuals_Estimates[net_sales_amount])
-```
+
 
 ```
 NS $ LY = 
@@ -804,34 +872,13 @@ IF(
 
 
 
-#### Cost of Goods Sold
-```
-Manufacturing Cost $ = SUM(Fact_Actuals_Estimates[manufacturing_cost])
-```
-
-```
-Freight Cost $ = SUM(Fact_Actuals_Estimates[freight_cost])
-```
-
-```
-Other Cost $ = SUM(Fact_Actuals_Estimates[other_cost])
-```
-
-```
-Total COGS $ = [Manufacturing Cost $] + [Freight Cost $] + [Other Cost $]
-```
-
-#### Total Sold Quantity
-```
-Quantity = SUM(Fact_Actuals_Estimates[Qty])
-```
 
 
 
-#### Gross Margin
-```
-GM $ = [NS $] - [Total COGS $]
-```
+
+
+
+
 
 ```
 GM Target $ = 
@@ -843,9 +890,7 @@ IF([Customer / Product Filter Check], BLANK(), tgt)
 ```
 
 
-```
-GM % = DIVIDE([GM $],[NS $],0)
-```
+
 
 ```
 GM % LY =
@@ -886,29 +931,13 @@ IF(
 
 
 
-```
-GM / Unit = DIVIDE([GM $],[Quantity],0)
-```
 
 
-#### Operational Expenses
-```
-Ads & Promotions $ = SUM(Fact_Actuals_Estimates[ads_promotion])
-```
-
-```
-Other Operational Expense $ = SUM(Fact_Actuals_Estimates[other_operational_expense])
-```
-
-```
-Operational Expense $ = [Ads & Promotions $] + [Other Operational Expense $]
-```
 
 
-#### Net Profit
-```
-NP $ = [GM $] - [Operational Expense $]
-```
+
+
+
 
 ```
 NP Target $ = 
@@ -919,9 +948,7 @@ RETURN
 IF([Customer / Product Filter Check], BLANK(), tgt)
 ```
 
-```
-NP % = DIVIDE([NP $], [NS $],0)
-```
+
 
 ```
 NP % LY =
@@ -961,9 +988,6 @@ IF(
 ```
 
 
-```
-NP / Unit = DIVIDE([NP $],[Quantity],0)
-```
 
 ### Supply Chain Learnings and Related DAX Measures
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Supply%20Chain%20Screenshots/SupplyChain%20Basics.PNG?raw=true)
