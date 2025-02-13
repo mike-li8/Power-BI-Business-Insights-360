@@ -59,10 +59,12 @@ AtliQ's fiscal year begins in September and ends in August the following year. T
 | 	August 2021	 | 	2021	 | 	12	 | 	Q4	 |
 
 
-## Data Tables Prepared by Data Engineer
+
+## Data Sources
+### Data Tables Prepared by Data Engineer
 AtliQ's data engineers prepared various dimension and fact tables and stored them in a MySQL database schema.
 
-### Dimension Tables
+#### Dimension Tables
 Sample records from each table are provided below. For readability, primary key values for some tables have been converted to natural numbers.
 
 **dim_market**
@@ -104,7 +106,7 @@ Sample records from each table are provided below. For readability, primary key 
 `product_code` is a primary key field.
 
 
-### Fact Tables
+#### Fact Tables
 Sample records from each table are provided below.
 
 fact_forecast_monthly
@@ -241,7 +243,7 @@ Notes:
 * This table contains data on pre invoice deductions (as a percentage of gross price) for each specific customer, on a fiscal year level.
 * The columns `customer_code`, and `fiscal_year` make up a **composite primary key**.
 
-## Additional Data Tables
+### Additional Data Tables
 Additional data tables were provided in stakeholder meetings. Sample records from each table are provided below.
 
 operational_expenses
@@ -474,24 +476,32 @@ Sample records from query result:<br>
 
 #### Add two steps to query: `Marketshare`
 Add two additional steps to the ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Marketshare%20Icon.PNG?raw=true) query:
-1. Transform data to have one column for manufacturer name and another column for total sales amount
+1. Transform the table to make it more suitable for building data model and visuals later.
 ```
 = Table.UnpivotOtherColumns(marketshare, {"sub_zone", "category", "fy_desc", "total_market_sales_$"}, "Manufacturer", "sales_$")
 ```
-2. Data cleaning in manufacturer column: remove "_sales_$" from the end of each manufacturer name
+2. Remove the text `sales_$` text after the delimiter  `_` for each manufacturer name.
 ```
 = Table.TransformColumns(marketshare, {{"Manufacturer", each Text.BeforeDelimiter(_, "_"), type text}})
 ```
+Sample records from query result:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Marketshare.PNG?raw=true)
 
 
 ### Final Queries Loaded
+The image below shows the final queries loaded from Power Query to the Power BI dashboard. To improve query load time, queries not required to build the Power BI dashboard have their load disabled (queries in *italic* in the image have their load disabled). Queries with their load disabled are either intermediate step queries or queries containing data that are already included in queries with their load enabled.<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/PowerQuery%20Final%20Queries.PNG?raw=true)
 
 
 
-### Data Modelling
-#### DAX Calculated Tables
+
+
+
+
+
+
+## Data Modelling
+### DAX Calculated Tables
 To complete the snowflake schema, three additional fact tables need to be created using DAX calculated table:
 ```
 fiscal_year = ALLNOBLANKROW(dim_date[fiscal_year])
