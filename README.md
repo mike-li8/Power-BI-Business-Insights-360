@@ -513,6 +513,7 @@ The image below shows the final queries loaded from Power Query to Power BI. To 
 
 
 ## Data Modelling
+
 ### DAX Expressions to Create Tables
 To help build the data model, three DAX expressions were used to create three dimension tables.
 ```
@@ -529,14 +530,26 @@ ADDCOLUMNS(
     )
 )
 ```
+DAX table expression result:<br>
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/DAX/DAX%20fiscal_year%20table.PNG?raw=true)
 
 ```
+// Unique market sub zones
 sub_zone = ALLNOBLANKROW(dim_market[sub_zone])
 ```
+DAX table expression result:<br>
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/DAX/DAX%20sub_zone%20table.PNG?raw=true)
 
 ```
+// Unique product categories
 category = ALLNOBLANKROW(dim_product[category])
 ```
+DAX table expression result:<br>
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/DAX/DAX%20category%20table.PNG?raw=true)
+
+
+
+
 
 Data Model in Power BI
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Data%20Model%20Screenshots/DataModel.PNG?raw=true)
