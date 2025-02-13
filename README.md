@@ -798,6 +798,76 @@ NP / Unit = DIVIDE([NP $],[Quantity],0)
 ### Supply Chain Basics
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Supply%20Chain%20Screenshots/SupplyChain%20Basics.PNG?raw=true)
 
+### Supply Chain Measures
+```
+Sales Qty =
+// Get total sales quantity only for months on or before the last month sales data is available
+CALCULATE(
+    [Quantity],
+    Fact_Actuals_Estimates[date] <= MAX(Last_Sales_Month[Last_Sales_Month])
+)
+```
+```
+Forecast Qty = 
+// Last month sales data is available
+VAR LASTSALESDATE = MAX(Last_Sales_Month[Last_Sales_Month])
+
+RETURN
+// Get total forecasted quantity only for months on or before the last month sales data is available
+CALCULATE(
+    SUM(fact_forecast_monthly[forecast_quantity]),
+    fact_forecast_monthly[date] <= LASTSALESDATE
+    )
+```
+```
+Net Error = [Forecast Qty] - [Sales Qty]
+```
+```
+Net Error % = DIVIDE([Net Error],[Forecast Qty],0)
+```
+```
+// Absolute error MUST be calculated on a monthly level and then a product level
+ABS Error = 
+SUMX(
+    DISTINCT(dim_date[month]),
+    SUMX(
+        DISTINCT(dim_product[product_code]),
+        ABS([Net Error])
+    )
+)
+```
+```
+ABS Error % = DIVIDE([ABS Error], [Forecast Qty],0)
+```
+```
+// Maximum forecast accuracy % is 100%. Forecast accuracy % can be negative.
+Forecast Accuracy % = 
+IF(
+    [ABS Error %] <> BLANK(),
+    1 - [ABS Error %],
+    BLANK()
+)
+```
+```
+Risk =
+// Inventory Risk Depending on Net Error:
+// EI: Excess Inventory
+// OOS: Out of Stock
+IF(
+    [Net Error] > 0,
+    "EI",
+    IF(
+        [Net Error] < 0,
+        "OOS",
+        BLANK()
+    )
+)
+```
+
+
+
+
+
 
 
 
@@ -1008,71 +1078,7 @@ IF(
 
 
 
-### Supply Chain Measures
-```
-Sales Qty =
-// Get total sales quantity only for months on or before the last month sales data is available
-CALCULATE(
-    [Quantity],
-    Fact_Actuals_Estimates[date] <= MAX(Last_Sales_Month[Last_Sales_Month])
-)
-```
-```
-Forecast Qty = 
-// Last month sales data is available
-VAR LASTSALESDATE = MAX(Last_Sales_Month[Last_Sales_Month])
 
-RETURN
-// Get total forecasted quantity only for months on or before the last month sales data is available
-CALCULATE(
-    SUM(fact_forecast_monthly[forecast_quantity]),
-    fact_forecast_monthly[date] <= LASTSALESDATE
-    )
-```
-```
-Net Error = [Forecast Qty] - [Sales Qty]
-```
-```
-Net Error % = DIVIDE([Net Error],[Forecast Qty],0)
-```
-```
-// Absolute error MUST be calculated on a monthly level and then a product level
-ABS Error = 
-SUMX(
-    DISTINCT(dim_date[month]),
-    SUMX(
-        DISTINCT(dim_product[product_code]),
-        ABS([Net Error])
-    )
-)
-```
-```
-ABS Error % = DIVIDE([ABS Error], [Forecast Qty],0)
-```
-```
-// Maximum forecast accuracy % is 100%. Forecast accuracy % can be negative.
-Forecast Accuracy % = 
-IF(
-    [ABS Error %] <> BLANK(),
-    1 - [ABS Error %],
-    BLANK()
-)
-```
-```
-Risk =
-// Inventory Risk Depending on Net Error:
-// EI: Excess Inventory
-// OOS: Out of Stock
-IF(
-    [Net Error] > 0,
-    "EI",
-    IF(
-        [Net Error] < 0,
-        "OOS",
-        BLANK()
-    )
-)
-```
 
 
 
