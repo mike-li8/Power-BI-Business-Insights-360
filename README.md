@@ -513,10 +513,21 @@ The image below shows the final queries loaded from Power Query to Power BI. To 
 
 
 ## Data Modelling
-### DAX Calculated Tables
-To complete the snowflake schema, three additional fact tables need to be created using DAX calculated table:
+### DAX Expressions to Create Tables
+To help build the data model, three DAX expressions were used to create three dimension tables.
 ```
-fiscal_year = ALLNOBLANKROW(dim_date[fiscal_year])
+fiscal_year = 
+ADDCOLUMNS(
+    // Primary key column for all unique fiscal year values
+    ALLNOBLANKROW(dim_date[fiscal_year]),
+    // Add fiscal year description column to be used in fiscal year slicer visual. Since the last fiscal year in Fact_Actuals_Estimates has a combination of actual sales and forecasted sales, add the text "Est" for estimate
+    "fy_desc",
+    IF(
+        dim_date[fiscal_year] = MAXX(ALL(dim_date), dim_date[fiscal_year]),
+        dim_date[fiscal_year] & " Est",
+        dim_date[fiscal_year]
+    )
+)
 ```
 
 ```
