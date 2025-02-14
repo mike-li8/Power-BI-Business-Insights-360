@@ -894,7 +894,7 @@ This dashboard has two types of benchmarks (BM) applicable to some KPIs:
 2. Targets
 
 To create this toggle switch (using slicer visual):<br>
-![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/BM%20Toggle%20Image.PNG?raw=true)
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/BM%20Toggle%20Image.PNG?raw=true)<br>
 where a user can choose which benchmark to show, a DAX calculated table `BM Toggle Switch Table` was created:
 ```
 BM Toggle Switch Table = 
