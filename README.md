@@ -1517,10 +1517,90 @@ SWITCH(
 ```
 
 ### Measures to filter scatter plot in Bookmark S2
+```
+SalesViewScatterChart_Bookmark_S2_Filter = 
+
+VAR selected_y_axis = SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S2[Order])
+
+RETURN
+SWITCH(
+    TRUE(),
+    selected_y_axis = 0,
+    IF(
+        NOT(ISBLANK([GM %])) && NOT(ISBLANK([GM % BM])) &&
+        [GM %] >= [GM % BM],
+        "SHOW",
+        "HIDE"
+    ),
+
+    selected_y_axis = 1,
+    IF(
+        NOT(ISBLANK([Net Profit %])) && NOT(ISBLANK([NP % BM])) &&
+        [Net Profit %] >= [NP % BM],
+        "SHOW",
+        "HIDE"
+    )
+)
+```
+
+```
+Bookmark_S2_Slider_Filter = 
+
+VAR selected_y_axis = SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S2[Order])
+
+VAR delta_gm_pct = ABS([GM %] - [GM % BM])
+
+VAR delta_np_pct = ABS([Net Profit %] - [NP % BM])
+
+RETURN
+SWITCH(
+    TRUE(),
+    // 0 - GM %
+    selected_y_axis = 0,
+    IF(
+        delta_gm_pct >= [Parameter_Bookmark_S2_Slider Value],
+        "SHOW",
+        "HIDE"
+    ),
+
+    selected_y_axis = 1,
+    // 1 - NP %
+    IF(
+        delta_np_pct >= [Parameter_Bookmark_S2_Slider Value],
+        "SHOW",
+        "HIDE"
+    )
+)
+```
 
 
 
+### Measures to filter scatter plot in Bookmark S3
+```
+SalesViewScatterChart_Bookmark_S3_Filter = 
 
+VAR selected_y_axis = SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S3[Order])
+
+RETURN
+SWITCH(
+    TRUE(),
+    selected_y_axis = 0,
+    IF(
+        NOT(ISBLANK([GM %])) && NOT(ISBLANK([GM % BM])) &&
+        [GM %] < [GM % BM],
+        "SHOW",
+        "HIDE"
+    ),
+
+    selected_y_axis = 1,
+    IF(
+        NOT(ISBLANK([Net Profit %])) && NOT(ISBLANK([NP % BM])) &&
+        [Net Profit %] < [NP % BM],
+        "SHOW",
+        "HIDE"
+    )
+)
+```
 
 
 
