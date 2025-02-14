@@ -1655,6 +1655,7 @@ SWITCH(
 
 
 ## Finance and Executive View: Dynamic Top/Bottom N
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Top_Bottom_N/Top%20or%20Bottom.PNG?raw=true)
 ```
 Top Bottom N Toggle = 
 
@@ -1666,6 +1667,7 @@ VAR x = UNION(
 RETURN x
 ```
 
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Top_Bottom_N/N%20Value.PNG?raw=true)
 ```
 Parameter_Top_Bottom_N_Value = GENERATESERIES(1, 10, 1)
 ```
@@ -1806,7 +1808,8 @@ SWITCH(
 
 
 #### New Card Visual
-Example of Net Sales $ Card
+Example of Net Sales $ Card<br>
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/net%20sales%20card.PNG?raw=true)
 
 ```
 NS $ Color = 
@@ -1876,4 +1879,4 @@ SWITCH(
 
 
 
-### Impact of this Project and Examples of Insights
+## Impact of this Project
