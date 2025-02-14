@@ -1361,93 +1361,27 @@ SWITCH(
 
 
 
-### Sales and Marketing View: Performance Matrix
-Since the methodology for creating the performance matrix is the same for both sales and marketing view,
-#### DAX Measures to Calculate Median
-```
-Average GM% by Customer = 
-
-AVERAGEX(
-    VALUES(dim_customer[customer]),
-    CALCULATE(
-        [GM %],
-        RELATEDTABLE(Fact_Actuals_Estimates)
-    )
-)
-```
+## Sales and Marketing View: Performance Matrix
+The performance matrix:<br>
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Sales%20View%20Performance%20Matrix.PNG?raw=true)<br>
+requires the creation of new:
+* Field parameters
+* Bookmarks
+* Measures
 
 
-```
-Average GM% by Market = 
-
-AVERAGEX(
-    VALUES(dim_market[market]),
-    CALCULATE(
-        [GM %],
-        RELATEDTABLE(Fact_Actuals_Estimates)
-    )
-)
-```
+### Bookmarks
+#### Bookmark S1
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Bookmark%20show%20all%20customers.PNG?raw=true)
+#### Bookmark S2
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Bookmark%202.PNG?raw=true)
+#### Bookmark S3
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Bookmark%203.PNG?raw=true)
 
 
-```
-Average Net Profit % by Customer = 
-
-AVERAGEX(
-    VALUES(dim_customer[customer]),
-    CALCULATE(
-        [NP %],
-        RELATEDTABLE(Fact_Actuals_Estimates)
-    )
-)
-```
-
-
-```
-Average Net Profit % by Market = 
-
-AVERAGEX(
-    VALUES(dim_market[market]),
-    CALCULATE(
-        [NP %],
-        RELATEDTABLE(Fact_Actuals_Estimates)
-    )
-)
-```
-
-
-
-```
-Average NS $ by Customer = 
-
-AVERAGEX(
-    VALUES(dim_customer[customer]),
-    SUMX(
-        RELATEDTABLE(Fact_Actuals_Estimates),
-        Fact_Actuals_Estimates[net_sales_amount]
-    )
-)
-```
-
-```
-Average NS $ by Market = 
-
-AVERAGEX(
-    VALUES(dim_market[market]),
-    SUMX(
-        RELATEDTABLE(Fact_Actuals_Estimates),
-        Fact_Actuals_Estimates[net_sales_amount]
-    )
-)
-```
-
-
-
-
-
-
-##### Field Parameters (same for S1, S2, S3)
-
+### Field Parameters
+#### `Parameter_SalesViewScatterChart_Customers_Bookmark_S1`
+Create field parameter to toggle between customer or market. This field parameter goes in the Values well of the scatter plot visual.
 ```
 Parameter_SalesViewScatterChart_Customers_Bookmark_S1 = {
     ("market", NAMEOF('dim_market'[market]), 0),
@@ -1455,18 +1389,103 @@ Parameter_SalesViewScatterChart_Customers_Bookmark_S1 = {
 }
 ```
 
-
+#### `Parameter_SalesViewScatterChart_y_axis_Bookmark_S1`
+Create field parameter to toggle y-axis between gross margin % or net profit %.
 ```
 Parameter_SalesViewScatterChart_y_axis_Bookmark_S1 = {
     ("GM %", NAMEOF('Key Measures'[GM %]), 0),
-    ("Net Profit %", NAMEOF('Key Measures'[NP %]), 1)
+    ("Net Profit %", NAMEOF('Key Measures'[Net Profit %]), 1)
 }
 ```
 
-
-##### Average Lines (same for S1, S2, S3)
+### Measures to Calculate Median Values
+#### Calculate Median Values
 ```
-sales matrix horizontal average line bookmark S1 = 
+Median NS $ by Customer = 
+
+MEDIANX(
+    DISTINCT(dim_customer[customer]),
+    SUMX(
+        RELATEDTABLE(FactActualsEstimates),
+        FactActualsEstimates[net_sales_amount]
+    )
+)
+```
+```
+Median NS $ by Market = 
+
+MEDIANX(
+    DISTINCT(dim_market[market]),
+    SUMX(
+        RELATEDTABLE(FactActualsEstimates),
+        FactActualsEstimates[net_sales_amount]
+    )
+)
+```
+```
+Median GM% by Customer = 
+
+MEDIANX(
+    DISTINCT(dim_customer[customer]),
+    CALCULATE(
+        [GM %],
+        RELATEDTABLE(FactActualsEstimates)
+    )
+)
+```
+```
+Median GM% by Market = 
+
+MEDIANX(
+    DISTINCT(dim_market[market]),
+    CALCULATE(
+        [GM %],
+        RELATEDTABLE(FactActualsEstimates)
+    )
+)
+```
+```
+Median Net Profit % by Customer = 
+
+MEDIANX(
+    DISTINCT(dim_customer[customer]),
+    CALCULATE(
+        [Net Profit %],
+        RELATEDTABLE(FactActualsEstimates)
+    )
+)
+```
+```
+Median Net Profit % by Market = 
+
+MEDIANX(
+    DISTINCT(dim_market[market]),
+    CALCULATE(
+        [Net Profit %],
+        RELATEDTABLE(FactActualsEstimates)
+    )
+)
+```
+
+### Measures to Return Median Line for scatter Plot
+```
+sales view matrix vertical line bookmark S1 = 
+
+VAR selected_field_parameter =
+SELECTEDVALUE(Parameter_SalesViewScatterChart_Customers_Bookmark_S1[Order])
+
+RETURN
+SWITCH(
+    TRUE(),
+    selected_field_parameter = 0,
+    [Median NS $ by Market],
+    selected_field_parameter = 1,
+    [Median NS $ by Customer],
+    0
+)
+```
+```
+sales matrix horizontal line bookmark S1 = 
 
 VAR gm_pct_or_np_pct =
 SELECTEDVALUE(
@@ -1481,38 +1500,23 @@ SWITCH(
     TRUE(),
     // GM % and market
     gm_pct_or_np_pct = 0 && customer_hierarchy = 0,
-    [Average GM% by Market],
+    [Median GM% by Market],
     // GM % and customer
     gm_pct_or_np_pct = 0 && customer_hierarchy = 1,
-    [Average GM% by Customer],
+    [Median GM% by Customer],
 
     // Net Profit % and market
     gm_pct_or_np_pct = 1 && customer_hierarchy = 0,
-    [Average Net Profit % by Market],
+    [Median Net Profit % by Market],
     // Net Profit % and customer
     gm_pct_or_np_pct = 1 && customer_hierarchy = 1,
-    [Average Net Profit % by Customer]
+    [Median Net Profit % by Customer],
+
+    0
 )
 ```
 
-
-```
-sales view matrix vertical average line bookmark S1 = 
-
-VAR selected_field_parameter =
-SELECTEDVALUE(Parameter_SalesViewScatterChart_Customers_Bookmark_S1[Order])
-
-RETURN
-SWITCH(
-    TRUE(),
-    // market selected
-    selected_field_parameter = 0,
-    [Average NS $ by Market],
-    // customer selected
-    selected_field_parameter = 1,
-    [Average NS $ by Customer]
-)
-```
+### Measures to filter scatter plot in Bookmark S2
 
 
 
@@ -1522,145 +1526,33 @@ SWITCH(
 
 
 
-##### Bookmark S2
-```
-SalesViewScatterChart_Bookmark_S2_Filter = 
-
-VAR selected_y_axis = SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S2[Order])
-
-RETURN
-SWITCH(
-    TRUE(),
-    selected_y_axis = 0,
-    IF(
-        NOT(ISBLANK([GM %])) && NOT(ISBLANK([GM % BM])) &&
-        [GM %] >= [GM % BM],
-        "SHOW",
-        "HIDE"
-    ),
-
-    selected_y_axis = 1,
-    IF(
-        NOT(ISBLANK([NP %])) && NOT(ISBLANK([NP % BM])) &&
-        [NP %] >= [NP % BM],
-        "SHOW",
-        "HIDE"
-    )
-)
-```
-
-```
-Parameter_Bookmark_S2_Slider = GENERATESERIES(0, 100, 1)
-```
-
-
-
-```
-Parameter_Bookmark_S2_Slider Value = 
-
-VAR whole_number = SELECTEDVALUE('Parameter_Bookmark_S2_Slider'[Parameter_Bookmark_S2_Slider])
-VAR decimal_number = whole_number/100
-
-RETURN
-decimal_number
-```
-
-
-
-```
-Bookmark_S2_Slider_Filter = 
-
-VAR selected_y_axis = SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S2[Order])
-
-VAR delta_gm_pct = ABS([GM %] - [GM % BM])
-
-VAR delta_np_pct = ABS([NP %] - [NP % BM])
-
-RETURN
-SWITCH(
-    TRUE(),
-    // 0 - GM %
-    selected_y_axis = 0,
-    IF(
-        delta_gm_pct >= [Parameter_Bookmark_S2_Slider Value],
-        "SHOW",
-        "HIDE"
-    ),
-
-    selected_y_axis = 1,
-    // 1 - NP %
-    IF(
-        delta_np_pct >= [Parameter_Bookmark_S2_Slider Value],
-        "SHOW",
-        "HIDE"
-    )
-)
-```
-
-```
-Bookmark S2 Button1 Text = 
-
-VAR gm_pct_or_np_pct = 
-SWITCH(
-    TRUE(),
-    SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S2[Order]) = 0,
-    "GM %",
-    SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S2[Order]) = 1,
-    "NP %"
-)
-
-RETURN
-"Only Show Customers that Meet or Exceed " & gm_pct_or_np_pct & " BM"
-```
-
-
-##### Bookmark S3
-```
-SalesViewScatterChart_Bookmark_S3_Filter = 
-
-VAR selected_y_axis = SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S3[Order])
-
-RETURN
-SWITCH(
-    TRUE(),
-    selected_y_axis = 0,
-    IF(
-        NOT(ISBLANK([GM %])) && NOT(ISBLANK([GM % BM])) &&
-        [GM %] < [GM % BM],
-        "SHOW",
-        "HIDE"
-    ),
-
-    selected_y_axis = 1,
-    IF(
-        NOT(ISBLANK([NP %])) && NOT(ISBLANK([NP % BM])) &&
-        [NP %] < [NP % BM],
-        "SHOW",
-        "HIDE"
-    )
-)
-```
-
-```
-Bookmark S3 Button1 Text = 
-
-VAR gm_pct_or_np_pct = 
-SWITCH(
-    TRUE(),
-    SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S3[Order]) = 0,
-    "GM %",
-    SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S3[Order]) = 1,
-    "NP %"
-)
-
-RETURN
-"Only Show Customers that Do Not Meet " & gm_pct_or_np_pct & " BM"
-```
 
 
 
 
-#### Finance and Executive View: Dynamic Top/Bottom N
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Finance and Executive View: Dynamic Top/Bottom N
 ```
 Top Bottom N Toggle = 
 
