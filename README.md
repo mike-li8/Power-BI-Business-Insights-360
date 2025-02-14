@@ -1365,7 +1365,8 @@ SWITCH(
 The performance matrix:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Sales%20View%20Performance%20Matrix.PNG?raw=true)<br>
 requires the creation of new:
-* Field parameters
+* Field Parameters
+* Numeric Range Parameters
 * Bookmarks
 * Measures
 
@@ -1397,6 +1398,19 @@ Parameter_SalesViewScatterChart_y_axis_Bookmark_S1 = {
     ("Net Profit %", NAMEOF('Key Measures'[Net Profit %]), 1)
 }
 ```
+
+
+### Numeric Range Parameters
+To create a slider:
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Sales%20View%20Matrix%20Slider.PNG?raw=true)<br>
+Create a numeric field parameter:<br>
+
+```
+Parameter_Bookmark_S2_Slider = GENERATESERIES(0, 100, 1)
+```
+
+
+
 
 ### Measures to Calculate Median Values
 #### Calculate Median Values
@@ -1542,7 +1556,15 @@ SWITCH(
     )
 )
 ```
+```
+Parameter_Bookmark_S2_Slider Value = 
 
+VAR whole_number = SELECTEDVALUE('Parameter_Bookmark_S2_Slider'[Parameter_Bookmark_S2_Slider])
+VAR decimal_number = whole_number/100
+
+RETURN
+decimal_number
+```
 ```
 Bookmark_S2_Slider_Filter = 
 
