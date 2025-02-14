@@ -1276,8 +1276,9 @@ IF(ISBLANK([P & L Values]) || ISBLANK([P & L BM]), BLANK(), res)
 #### `P & L Final Value`
 ```
 P & L Final Value =
-// For the P & L Statement matrix visual,
-// return the appropriate P & L measure depending on the column filter context
+// For the P & L Statement matrix visual:
+// Return the appropriate P & L measure depending on the column filter context.
+// Then, each P & L measure will return exactly one value depending on the row filter context.
 SWITCH(
     TRUE(),
     SELECTEDVALUE(fiscal_year[fy_desc]) = MAX('P & L Columns'[Col Header]), [P & L Values],
