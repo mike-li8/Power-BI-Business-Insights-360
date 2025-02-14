@@ -1143,11 +1143,19 @@ IF(
 
 
 
-## DAX Measures for Visuals
-#### Finance View: Profit and Loss Statement Using Matrix Visual
+
+
+
+
+
+
+
+
+## Other DAX Measures for Visuals
+### Finance View: Measures to create Profit and Loss Statement using Matrix Visual
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/Profit%20and%20Loss%20Visual.PNG?raw=true)
 
-P & L Columns
+
 ```
 P & L Columns = 
 
@@ -1163,21 +1171,23 @@ UNION(
     x
 )
 ```
-![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/P%20and%20L%20Columns%20Table.PNG?raw=true)
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/P%20and%20L%20Columns%20Table.PNG?raw=true)<br>
+`'P & L Columns'[Col Header]` will go into the Columns field well of the matrix visual:<br>
 
 
 
 
-
-P & L Rows</br>
-![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/P%20and%20L%20Rows%20Table.PNG?raw=true)
+Table `P & L Rows` created manually using Enter Data option in Power BI:</br>
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/P%20and%20L%20Rows%20Table.PNG?raw=true)<br>
+`'P & L Rows'[Line Item]` will go into the Rows field well of the matrix visual:<br>
 
 
 
 ```
 P & L Values = 
 
-VAR res = 
+VAR res =
+// Return appropriate P & L value depending on the row filter context
 SWITCH(
     TRUE(),
     // Main P&L Values in Finance View
