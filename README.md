@@ -803,7 +803,7 @@ The Excel screenshot below gives an example of supply chain metrics for **one sp
 ### Supply Chain Measures
 ```
 Sales Qty =
-// Get total sales quantity only for months on or before the last month sales data is available
+// Get total sales quantity only for dates on or before the last month sales data is available
 CALCULATE(
     [Quantity],
     Fact_Actuals_Estimates[date] <= MAX(Last_Sales_Month[Last_Sales_Month])
@@ -815,7 +815,7 @@ Forecast Qty =
 VAR LASTSALESDATE = MAX(Last_Sales_Month[Last_Sales_Month])
 
 RETURN
-// Get total forecasted quantity only for months on or before the last month sales data is available
+// Get total forecasted quantity only for dates on or before the last month sales data is available
 CALCULATE(
     SUM(fact_forecast_monthly[forecast_quantity]),
     fact_forecast_monthly[date] <= LASTSALESDATE
