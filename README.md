@@ -1361,11 +1361,9 @@ SWITCH(
 
 
 
-
-
-#### Sales and Marketing View: Performance Matrix Dyanamic Average Line, Bookmarks, Filter Slider
-
-##### DAX measures to calculate average
+### Sales and Marketing View: Performance Matrix
+Since the methodology for creating the performance matrix is the same for both sales and marketing view,
+#### DAX Measures to Calculate Median
 ```
 Average GM% by Customer = 
 
