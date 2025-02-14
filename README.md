@@ -1047,11 +1047,8 @@ IF(
 
 
 
-
-
-
-
-
+### Supply Chain BM Measures
+Note: Since targets are not available for supply chain metrics, last year is the only BM available for supply chain metrics.
 
 ```
 Net Error LY =
@@ -1060,7 +1057,6 @@ CALCULATE(
     SAMEPERIODLASTYEAR(dim_date[date])
 )
 ```
-
 ```
 Percent Change Net Error = 
 
