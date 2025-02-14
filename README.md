@@ -912,7 +912,7 @@ RETURN x
 
 
 ### Filter Check: `ISFILTERED` and `ISCROSSFILTERED`
-In the `target` table, **net sales**, **gross margin**, and **net profit** are only avaliable on a **market level**. The below measure evaluates the filter context to determine the appropriateness of displaying target BM:
+In the `targets` table, **net sales**, **gross margin**, and **net profit** are only avaliable on a **market level**. The below measure evaluates the filter context to determine the appropriateness of displaying target BM:
 ```
 // If any column in dim_product is filtered or if dim_product is filtered indirectly by a related table, it is not appropriate to display BM for net sales $, gross margin $, or net profit $
 // If a customer is being filtered directly through the customer column in dim_customer, it is not appropriate to display BM for net sales $, gross margin $, or net profit $
