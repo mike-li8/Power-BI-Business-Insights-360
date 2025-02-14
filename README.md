@@ -279,6 +279,7 @@ targets
 
 Notes:
 * Provided in .xlsx format
+* Target data only available for 2022 fiscal year
 * This table contains data on benchmark targets set by AtliQ (for net sales, gross margin, and net profit). Target data is available for each specific market on a monthly level.
 * The columns `market`, and `month` make up a **composite primary key**.
 
@@ -905,18 +906,21 @@ VAR x = UNION(
 
 RETURN x
 ```
-![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/toggle%20switch%20table.PNG?raw=true)
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/DAX/toggle%20switch%20table2.PNG?raw=true)
 
 
 
 
-### Filter Check
+### Filter Check: `ISFILTERED` and `ISCROSSFILTERED`
+Monthly target data for **net sales**, **gross margin**, and **net profit** are only avaliable on a **market level**. The below measure evaluates the filter context to determine the appropriateness of displaying target BM:
 ```
+// If any column in dim_product is filtered or if dim_product is filtered indirectly by a related table, it is not appropriate to display BM for net sales $, gross margin $, or net profit $
+// If a customer is being filtered directly through the customer column in dim_customer, it is not appropriate to display BM for net sales $, gross margin $, or net profit $
 Customer / Product Filter Check = ISCROSSFILTERED(dim_product[product]) || ISFILTERED(dim_customer[customer])
 ```
 
 
-
+### BM Measures for Net Sales
 ```
 NS $ LY = 
 CALCULATE(
@@ -924,7 +928,6 @@ CALCULATE(
     SAMEPERIODLASTYEAR(dim_date[date])
 )
 ```
-
 ```
 NS Target $ = 
 
@@ -933,18 +936,15 @@ VAR tgt = SUM(targets[ns_target])
 RETURN
 IF([Customer / Product Filter Check], BLANK(), tgt)
 ```
-
 ```
 NS BM $ = 
-
-// returns appropriate measure based on the toggle switch position
+// Returns appropriate BM measure based on the BM switch position
 SWITCH(
     TRUE(),
     SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 1, [NS $ LY],
     SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 2, [NS Target $]
     )
 ```
-
 ```
 Percent Change NS $ vs BM = 
 
@@ -959,15 +959,7 @@ IF(
 ```
 
 
-
-
-
-
-
-
-
-
-
+### BM Measures for Gross Margin
 ```
 GM Target $ = 
 
@@ -976,10 +968,6 @@ VAR tgt = SUM(fact_targets[gm_target])
 RETURN
 IF([Customer / Product Filter Check], BLANK(), tgt)
 ```
-
-
-
-
 ```
 GM % LY =
 CALCULATE(
@@ -987,23 +975,19 @@ CALCULATE(
     SAMEPERIODLASTYEAR(dim_date[date])
 )
 ```
-
 ```
+// Since this gross margin target is in ratio format, Customer / Product Filter Check is not needed
 GM % Target = DIVIDE([GM Target $], SUM(targets[ns_target]), 0)
 ```
-
 ```
 GM % BM = 
-
-// returns appropriate measure based on the toggle switch position
+// Returns appropriate BM measure based on the BM switch position
 SWITCH(
     TRUE(),
     SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 1, [GM % LY],
     SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 2, [GM % Target]
 )
 ```
-
-
 ```
 Percent Change GM % vs BM = 
 
@@ -1017,16 +1001,7 @@ IF(
 )
 ```
 
-
-
-
-
-
-
-
-
-
-
+### BM Measures for Net Profit
 ```
 NP Target $ = 
 
@@ -1035,9 +1010,6 @@ VAR tgt = SUM(fact_targets[np_target])
 RETURN
 IF([Customer / Product Filter Check], BLANK(), tgt)
 ```
-
-
-
 ```
 NP % LY =
 CALCULATE(
@@ -1045,23 +1017,20 @@ CALCULATE(
     SAMEPERIODLASTYEAR(dim_date[date])
 )
 ```
-
 ```
+// Since this net profit target is in ratio format, Customer / Product Filter Check is not needed
 NP % Target = DIVIDE([NP Target $], SUM(targets[ns_target]),0)
 ```
-
 ```
 NP % BM = 
 
-// returns appropriate measure based on the toggle switch position
+// Returns appropriate BM measure based on the BM switch position
 SWITCH(
     TRUE(),
     SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 1, [NP % LY],
     SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 2, [NP % Target]
 )
 ```
-
-
 ```
 Percent Change NP % vs BM = 
 
@@ -1074,15 +1043,6 @@ IF(
     res
 )
 ```
-
-
-
-
-
-
-
-
-
 
 
 
