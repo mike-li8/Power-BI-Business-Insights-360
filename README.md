@@ -797,7 +797,7 @@ NP / Unit = DIVIDE([NP $],[Quantity],0)
 ## DAX Measures for Supply Chain KPIs
 
 ### Supply Chain Example
-The Excel screenshot below gives an example of supply chain metrics for **one specific product** on a monthly level during a given fiscal year.
+The Excel screenshot below gives an example of supply chain metrics for **one specific product** on a monthly level during a given fiscal year:
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Supply%20Chain%20Screenshots/SupplyChain%20Basics2.PNG?raw=true)
 
 ### Supply Chain Measures
@@ -912,10 +912,12 @@ RETURN x
 
 
 ### Filter Check: `ISFILTERED` and `ISCROSSFILTERED`
-In the `targets` table, **net sales**, **gross margin**, and **net profit** are only avaliable on a **market level**. The below measure evaluates the filter context to determine the appropriateness of displaying target BM:
+In the `targets` table, **net sales**, **gross margin**, and **net profit** are only avaliable on a **market level**. The below measure evaluates the filter context to determine the appropriateness of displaying those targets:
 ```
-// If any column in dim_product is filtered or if dim_product is filtered indirectly by a related table, it is not appropriate to display BM for net sales $, gross margin $, or net profit $
-// If a customer is being filtered directly through the customer column in dim_customer, it is not appropriate to display BM for net sales $, gross margin $, or net profit $
+// If any column in dim_product is filtered or if dim_product is filtered indirectly by a related table,
+// it is not appropriate to display BM for net sales $, gross margin $, or net profit $
+// If a customer is being filtered directly through the customer column in dim_customer,
+// it is not appropriate to display BM for net sales $, gross margin $, or net profit $
 Customer / Product Filter Check = ISCROSSFILTERED(dim_product[product]) || ISFILTERED(dim_customer[customer])
 ```
 
