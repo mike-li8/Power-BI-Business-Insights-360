@@ -1063,22 +1063,30 @@ Percent Change Net Error =
 VAR res = DIVIDE([Net Error] - [Net Error LY], ABS([Net Error LY]))
 
 RETURN
-IF(
+SWITCH(
+    TRUE(),
+    // Check for blanks
     ISBLANK([Net Error]) || ISBLANK([Net Error LY]),
     BLANK(),
-    res
+
+    // Excess Inventory for both this year and last year
+    [Net Error] > 0 && [Net Error LY] > 0,
+    res,
+
+    // Out of stock for both this year and last year
+    [Net Error] < 0 && [Net Error LY] < 0,
+    res,
+
+    // 0 Net Error for both this year and last year 
+    [Net Error] = 0 && [Net Error LY] = 0,
+    0,
+
+    // Otherwise, it is a Excess Inventory -> Out of Stock
+    // or Out of Stock -> Excess Inventory Situation,
+    // hence displaying percentage change may not be appropriate
+    BLANK()
 )
 ```
-
-
-
-
-
-
-
-
-
-
 ```
 ABS Error LY =
 CALCULATE(
@@ -1086,7 +1094,6 @@ CALCULATE(
     SAMEPERIODLASTYEAR(dim_date[date])
 )
 ```
-
 ```
 Percent Change ABS Error = 
 
@@ -1099,13 +1106,6 @@ IF(
     res
 )
 ```
-
-
-
-
-
-
-
 ```
 Forecast Accuracy % LY = 
 CALCULATE(
@@ -1113,18 +1113,16 @@ CALCULATE(
     SAMEPERIODLASTYEAR(dim_date[date])
 )
 ```
-
 ```
 Forecast Accuracy % BM = 
-// returns appropriate measure based on the toggle switch position
+// Returns appropriate BM measure based on the BM switch position
+// Only benchmark available is last year
 SWITCH(
     TRUE(),
     SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 1, [Forecast Accuracy % LY],
     SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 2, BLANK()
 )
 ```
-
-
 ```
 Percent Change Forecast Accuracy % = 
 
@@ -1143,7 +1141,7 @@ IF(
 
 
 
-### DAX Measures for Visuals
+## DAX Measures for Visuals
 #### Finance View: Profit and Loss Statement Using Matrix Visual
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/Profit%20and%20Loss%20Visual.PNG?raw=true)
 
