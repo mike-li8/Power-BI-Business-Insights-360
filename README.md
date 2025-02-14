@@ -572,8 +572,8 @@ quarters = "Q" & ROUNDUP(dim_date[fy_month_num]/3,0)
 ```
 
 ```
-// ytd: data before or during last sales month
-// ytg: data after last sales month
+// ytd: fiscal months before or during last sales month number
+// ytg: fiscal months after last sales month number
 ytd_ytg = 
 
 VAR LASTSALESDATE = MAX(Last_Sales_Month[Last_Sales_Month])
