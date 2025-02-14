@@ -1401,8 +1401,8 @@ Parameter_SalesViewScatterChart_y_axis_Bookmark_S1 = {
 
 
 ### Numeric Range Parameters
-To create a slider:
-![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Sales%20View%20Matrix%20Slider.PNG?raw=true)<br>
+To create the slider:<br>
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Sales%20View%20Matrix%20Slider2.PNG?raw=true)<br>
 Create a numeric field parameter:<br>
 
 ```
