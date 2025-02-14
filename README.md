@@ -1231,7 +1231,7 @@ CALCULATE(
 ```
 P & L Targets = 
 VAR res =
-// // Returns appropriate P & L Target depending on the filter context
+// Returns appropriate P & L Target depending on the filter context
 SWITCH(
     TRUE(),
     MAX('P & L Rows'[Primary_Key]) = 7, [NS Target $]/1000000,
