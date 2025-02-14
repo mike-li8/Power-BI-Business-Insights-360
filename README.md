@@ -783,6 +783,58 @@ NP % = DIVIDE([NP $], [NS $],0)
 NP / Unit = DIVIDE([NP $],[Quantity],0)
 ```
 
+### Marketshare
+```
+AtliQ MS % = 
+
+VAR atliq_sales = 
+CALCULATE(
+    SUM(marketshare[sales_$]),
+    marketshare[Manufacturer] = "atliq"
+)
+
+VAR total_market_sales = 
+CALCULATE(
+    SUM(marketshare[total_market_sales_$]),
+    marketshare[Manufacturer] = "atliq"
+)
+
+RETURN
+DIVIDE(atliq_sales, total_market_sales,0)
+```
+```
+Market Share % = 
+DIVIDE(
+    SUM(marketshare[sales_$]),
+    SUM(marketshare[total_market_sales_$]),
+    0
+)
+```
+### Revenue Contribution %
+```
+RC % = 
+DIVIDE(
+    [NS $],
+    CALCULATE(
+        [NS $],
+        ALL(dim_market),
+        ALL(dim_customer),
+        ALL(dim_product)
+    ),
+    0
+)
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1304,48 +1356,7 @@ SWITCH(
 
 
 
-### Executive View
-```
-AtliQ MS % = 
 
-VAR atliq_sales = 
-CALCULATE(
-    SUM(marketshare[sales_$]),
-    marketshare[Manufacturer] = "atliq"
-)
-
-VAR total_market_sales = 
-CALCULATE(
-    SUM(marketshare[total_market_sales_$]),
-    marketshare[Manufacturer] = "atliq"
-)
-
-RETURN
-DIVIDE(atliq_sales, total_market_sales,0)
-```
-
-```
-Market Share % = 
-DIVIDE(
-    SUM(marketshare[sales_$]),
-    SUM(marketshare[total_market_sales_$]),
-    0
-)
-```
-
-```
-RC % = 
-DIVIDE(
-    [NS $],
-    CALCULATE(
-        [NS $],
-        ALL(dim_market),
-        ALL(dim_customer),
-        ALL(dim_product)
-    ),
-    0
-)
-```
 
 
 
