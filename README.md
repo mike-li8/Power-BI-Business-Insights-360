@@ -1152,21 +1152,22 @@ IF(
 
 
 ## Other DAX Measures for Visuals
-### Finance View: Measures to create Profit and Loss Statement using Matrix Visual
-![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/Profit%20and%20Loss%20Visual.PNG?raw=true)
-
+### Finance View: Measures to create Profit and Loss Statement
+The following P & L Statement was created using the Matrix visual:<br>
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/Profit%20and%20Loss%20Visual.PNG?raw=true)<br>
+To create this matrix, some measures need to be created.
 
 ```
 P & L Columns = 
 
-// fetch all the values in fy_desc as the user can select any value from fy_desc
+// get all unique values from fy_desc, ignoring any filter context
 VAR x = ALLNOBLANKROW(fiscal_year[fy_desc])
 
 RETURN
-// adding all the values from fy_desc with below values
+// table representing the column headers of the matrix:
 UNION(
-    ROW("Col Header", "Chg"),       // ‘YoY Chg’ is a requirement from mock up
-    ROW("Col Header", "Pct Chg"),     // ‘YoY Chg %’ is a requirement from mock up
+    ROW("Col Header", "Chg"),
+    ROW("Col Header", "Pct Chg"),
     ROW("Col Header", "BM"),
     x
 )
@@ -1187,10 +1188,11 @@ Table `P & L Rows` created manually using Enter Data option in Power BI:</br>
 P & L Values = 
 
 VAR res =
-// Return appropriate P & L value depending on the row filter context
+// The filter context of each row in the matrix will have exactly one unique 
+// primary_key from P & L Rows.
+// Calculate appropriate P & L Value depending on the filter context of each row in the matrix.
 SWITCH(
     TRUE(),
-    // Main P&L Values in Finance View
     MAX('P & L Rows'[Primary_Key]) = 1, [GS $]/1000000,
     MAX('P & L Rows'[Primary_Key]) = 2, [Pre Invoice Deduction $]/1000000,
     MAX('P & L Rows'[Primary_Key]) = 3, [NIS $]/1000000,
@@ -1214,6 +1216,8 @@ SWITCH(
 )
 
 RETURN
+// If the user selects only one P & L line item, return that P & L line item.
+// Otherwise, return P & L line item net sales $
 IF(HASONEVALUE('P & L Rows'[Description]), res, [NS $]/1000000)
 ```
 
@@ -1229,8 +1233,8 @@ CALCULATE(
 
 ```
 P & L Targets = 
-
 VAR res =
+// Return appropriate P & L Target depending on the filter context of the visual
 SWITCH(
     TRUE(),
     MAX('P & L Rows'[Primary_Key]) = 7, [NS Target $]/1000000,
@@ -1241,12 +1245,15 @@ SWITCH(
 )
 
 RETURN
+// If the user selects only one P & L line item, return that P & L line item.
+// Otherwise, return P & L line item net sales $
 IF(HASONEVALUE('P & L Rows'[Description]), res, [NS Target $]/1000000)
 ```
 
 
 ```
-P & L BM = 
+P & L BM =
+// Returns appropriate BM measure based on the BM switch position
 SWITCH(
     TRUE(),
     SELECTEDVALUE('BM Toggle Switch Table'[Primary_Key]) = 1, [P & L LY],
@@ -1287,15 +1294,8 @@ SWITCH(
     MAX('P & L Columns'[Col Header]) = "Pct Chg", [P & L Chg %]
 )
 ```
+`[P & L Final Value]` measure will go in the Values well of the matrix visual:<br>
 
-```
-Selected P & L Row = 
-IF(
-    HASONEVALUE('P & L Rows'[Description]),
-    SELECTEDVALUE('P & L Rows'[Description]),
-    "Net Sales"
-)
-```
 
 
 #### Executive View
