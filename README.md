@@ -1152,7 +1152,7 @@ IF(
 
 
 ## Other DAX Measures for Visuals
-### Finance View: Measures to create Profit and Loss Statement
+### Finance View: Profit and Loss Statement
 The following P & L Statement was created using the Matrix visual:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/Profit%20and%20Loss%20Visual.PNG?raw=true)<br>
 To create this matrix, some measures need to be created.
@@ -1276,7 +1276,7 @@ IF(ISBLANK([P & L Values]) || ISBLANK([P & L BM]), BLANK(), res)
 #### `P & L Final Value`
 ```
 P & L Final Value =
-// For the P & L Statement matrix visual matrix visual,
+// For the P & L Statement matrix visual,
 // return the appropriate P & L measure depending on the column filter context
 SWITCH(
     TRUE(),
@@ -1288,6 +1288,19 @@ SWITCH(
 ```
 `[P & L Final Value]` measure will go in the Values well of the matrix visual:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/DAX/Values%20field%20well.PNG?raw=true)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ### Executive View
