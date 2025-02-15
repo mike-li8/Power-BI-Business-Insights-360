@@ -1350,6 +1350,165 @@ SWITCH(
 
 
 
+## Finance and Executive View: Dynamic Top/Bottom N
+To create a dynamic Top/Bottom N like in finance view to view top/bottom P & L Value:<br>
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Top_Bottom_N/Finance%20View%20Top%20Bottom%20N.PNG?raw=true)<br>
+requires the creation of new:
+* Numeric Range Parameters
+* Measures
+
+
+
+### Numeric Range Parameters
+#### `Parameter_Top_Bottom_N_Value`
+To create a single value slicer so users can enter N value:<br>
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Top_Bottom_N/N%20Value.PNG?raw=true)<br>
+create a numeric field parameter:<br>
+```
+Parameter_Top_Bottom_N_Value = GENERATESERIES(1, 10, 1)
+```
+
+### Measures
+#### `Top Bottom N Toggle`
+To create a toggle switch (using slicer visual) to choose top values or bottom values:<br>
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Top_Bottom_N/Top%20or%20Bottom.PNG?raw=true)<br>
+create DAX calculated table `Top Bottom N Toggle`:
+```
+Top Bottom N Toggle = 
+
+VAR x = UNION(
+    ROW("Primary_Key", 0, "Selection", "Top"),
+    ROW("Primary_Key", 1, "Selection", "Bottom")
+)
+
+RETURN x
+```
+
+#### RANKX Measures
+Dense rank used so if there are ties in the ranking, they will be ranked the same
+```
+P&L Value by Customer Asc Dense Ranking = 
+RANKX(
+    FILTER(
+        ALLSELECTED(dim_customer[customer]),
+        NOT(ISBLANK([P & L Values]))
+    ),
+    [P & L Values],
+    ,
+    ASC,
+    Dense
+)
+```
+```
+P&L Value by Customer Desc Dense Ranking = 
+RANKX(
+    FILTER(
+        ALLSELECTED(dim_customer[customer]),
+        NOT(ISBLANK([P & L Values]))
+    ),
+    [P & L Values],
+    ,
+    DESC,
+    Dense
+)
+```
+```
+P&L Value by Product Asc Dense Ranking = 
+RANKX(
+    FILTER(
+        ALLSELECTED(dim_product[product]),
+        NOT(ISBLANK([P & L Values]))
+    ),
+    [P & L Values],
+    ,
+    ASC,
+    Dense
+)
+```
+```
+P&L Value by Product Desc Dense Ranking = 
+RANKX(
+    FILTER(
+        ALLSELECTED(dim_product[product]),
+        NOT(ISBLANK([P & L Values]))
+    ),
+    [P & L Values],
+    ,
+    DESC,
+    Dense
+)
+```
+
+
+
+
+#### Measures to Filter Customer and Product Tables
+```
+Filter Top Bottom N Customers by P&L Value = 
+
+// 0 - Top, 1 - Bottom
+VAR top_or_bottom = SELECTEDVALUE('Top Bottom N Toggle'[Primary_Key])
+
+// Integer between 1-10
+VAR n = [Selected_Parameter_Top_Bottom_N_Value]
+
+
+RETURN
+SWITCH(
+    TRUE(),
+
+    // top n customers
+    top_or_bottom = 0,
+    IF(
+        [P&L Value by Customer Desc Dense Ranking] <= n,
+        [P & L Values]
+    ),
+
+    // bottom n customers
+    top_or_bottom = 1,
+    IF(
+        [P&L Value by Customer Asc Dense Ranking] <= n,
+        [P & L Values]
+    )
+)
+```
+```
+Filter Top Bottom N Products by P&L Value = 
+
+// 0 - Top, 1 - Bottom
+VAR top_or_bottom = SELECTEDVALUE('Top Bottom N Toggle'[Primary_Key])
+
+// Integer between 1-10
+VAR n = [Selected_Parameter_Top_Bottom_N_Value]
+
+
+RETURN
+SWITCH(
+    TRUE(),
+
+    // top n products
+    top_or_bottom = 0,
+    IF(
+        [P&L Value by Product Desc Dense Ranking] <= n,
+        [P & L Values]
+    ),
+
+    // bottom n products
+    top_or_bottom = 1,
+    IF(
+        [P&L Value by Product Asc Dense Ranking] <= n,
+        [P & L Values]
+    )
+)
+```
+
+
+
+
+
+
+
+
 
 
 
@@ -1635,181 +1794,13 @@ SWITCH(
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Finance and Executive View: Dynamic Top/Bottom N
-![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Top_Bottom_N/Top%20or%20Bottom.PNG?raw=true)
-```
-Top Bottom N Toggle = 
-
-VAR x = UNION(
-    ROW("Primary_Key", 0, "Selection", "Top"),
-    ROW("Primary_Key", 1, "Selection", "Bottom")
-)
-
-RETURN x
-```
-
-![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Top_Bottom_N/N%20Value.PNG?raw=true)
-```
-Parameter_Top_Bottom_N_Value = GENERATESERIES(1, 10, 1)
-```
-
-
-
-
-
-```
-P&L Value by Customer Asc Dense Ranking = 
-RANKX(
-    FILTER(
-        ALLSELECTED(dim_customer[customer]),
-        NOT(ISBLANK([P & L Values]))
-    ),
-    [P & L Values],
-    ,
-    ASC,
-    Dense
-)
-```
-
-
-
-
-```
-P&L Value by Customer Desc Dense Ranking = 
-RANKX(
-    FILTER(
-        ALLSELECTED(dim_customer[customer]),
-        NOT(ISBLANK([P & L Values]))
-    ),
-    [P & L Values],
-    ,
-    DESC,
-    Dense
-)
-```
-
-
-
-```
-Filter Top Bottom N Customers by P&L Value = 
-
-// 0 - Top, 1 - Bottom
-VAR top_or_bottom = SELECTEDVALUE('Top Bottom N Toggle'[Primary_Key])
-
-// Integer between 1-10
-VAR n = [Selected_Parameter_Top_Bottom_N_Value]
-
-
-RETURN
-SWITCH(
-    TRUE(),
-
-    // top n customers
-    top_or_bottom = 0,
-    IF(
-        [P&L Value by Customer Desc Dense Ranking] <= n,
-        [P & L Values]
-    ),
-
-    // bottom n customers
-    top_or_bottom = 1,
-    IF(
-        [P&L Value by Customer Asc Dense Ranking] <= n,
-        [P & L Values]
-    )
-)
-```
-
-
-
-
-```
-P&L Value by Product Asc Dense Ranking = 
-RANKX(
-    FILTER(
-        ALLSELECTED(dim_product[product]),
-        NOT(ISBLANK([P & L Values]))
-    ),
-    [P & L Values],
-    ,
-    ASC,
-    Dense
-)
-```
-
-
-
-
-```
-P&L Value by Product Desc Dense Ranking = 
-RANKX(
-    FILTER(
-        ALLSELECTED(dim_product[product]),
-        NOT(ISBLANK([P & L Values]))
-    ),
-    [P & L Values],
-    ,
-    DESC,
-    Dense
-)
-```
-
-
-```
-Filter Top Bottom N Products by P&L Value = 
-
-// 0 - Top, 1 - Bottom
-VAR top_or_bottom = SELECTEDVALUE('Top Bottom N Toggle'[Primary_Key])
-
-// Integer between 1-10
-VAR n = [Selected_Parameter_Top_Bottom_N_Value]
-
-
-RETURN
-SWITCH(
-    TRUE(),
-
-    // top n products
-    top_or_bottom = 0,
-    IF(
-        [P&L Value by Product Desc Dense Ranking] <= n,
-        [P & L Values]
-    ),
-
-    // bottom n products
-    top_or_bottom = 1,
-    IF(
-        [P&L Value by Product Asc Dense Ranking] <= n,
-        [P & L Values]
-    )
-)
-```
-
-
-
-
-#### New Card Visual
-Example of Net Sales $ Card<br>
-![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/net%20sales%20card.PNG?raw=true)
+## New Card Visual
+To format [Power BI's new card visual](https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-new-card):<br>
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/net%20sales%20card.PNG?raw=true)<br>
+Three measures were created to dynamically:
+* Change Colors
+* Display Image
+* Show values for BM and its percentage change
 
 ```
 NS $ Color = 
@@ -1830,8 +1821,6 @@ SWITCH(
     "#c3312a"
 )
 ```
-
-
 ```
 NS $ Image = 
 SWITCH(
@@ -1852,7 +1841,6 @@ SWITCH(
     "https://i.ibb.co/Vc8F5L0C/Red-Down.png"
 )
 ```
-
 ```
 NS $ Reference Label Detail = 
 
@@ -1875,6 +1863,9 @@ SWITCH(
     "| " & FORMAT([Percent Change NS $ vs BM]*100, "0.00") & "%  ▼ |"
 )
 ```
+
+
+
 
 
 
