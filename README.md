@@ -2061,13 +2061,24 @@ SWITCH(
 
 
 ## New Card Visual
+
+<details>
+  <summary><b>New Card Visual Example: Net Sales $</b></summary>
+
+### New Card Visual Example: Net Sales $
 To format [Power BI's new card visual](https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-new-card) like for net sales $ in this dashboard:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/net%20sales%20card.PNG?raw=true)<br>
 Three measures were created to dynamically:
 * Change Colors
 * Change Images
 * Show values for BM and its percentage change
+</details>
 
+
+<details>
+  <summary><b>Measures</b></summary>
+
+### Measures
 ```
 NS $ Color = 
 SWITCH(
@@ -2130,3 +2141,4 @@ SWITCH(
     "| " & FORMAT([Percent Change NS $ vs BM]*100, "0.00") & "%  ▼ |"
 )
 ```
+</details>
