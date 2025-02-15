@@ -1528,49 +1528,149 @@ requires new:
 
 
 ### Field Parameters
-#### `Parameter_SalesViewScatterChart_Customers_Bookmark_S1`
+The two field parameters below are created for Bookmark S1, Bookmark S2, and Bookmark S3.
+#### `Parameter_SalesViewScatterChart_Customer_Hierarchy`
 To create a toggle switch (using slicer visual) where users can choose to view points on the scatter plot as either markets or customers:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Customers%20field%20parameter%20button.PNG?raw=true)<br>
 Create a field parameter:
 ```
-Parameter_SalesViewScatterChart_Customers_Bookmark_S1 = {
+Parameter_SalesViewScatterChart_Customer_Hierarchy = {
     ("market", NAMEOF('dim_market'[market]), 0),
     ("customer", NAMEOF('dim_customer'[customer]), 1)
 }
 ```
-`Parameter_SalesViewScatterChart_Customers_Bookmark_S1` also goes in the Values well of the scatter plot visual.
+`Parameter_SalesViewScatterChart_Customer_Hierarchy` goes in the Values well of the scatter plot visual.
 
-#### `Parameter_SalesViewScatterChart_y_axis_Bookmark_S1`
+#### `Parameter_SalesViewScatterChart_y_axis`
 To create a toggle switch (using slicer visual) where users can toggle the scatter plot's y-axis between gross margin % or net profit %:<br>
-```
-https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Y%20axis%20field%20parameter%20buttons.PNG?raw=true
-```
+![img alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Y%20axis%20field%20parameter%20buttons.PNG?raw=true)<br>
 Create field parameter:
 ```
-Parameter_SalesViewScatterChart_y_axis_Bookmark_S1 = {
+Parameter_SalesViewScatterChart_y_axis = {
     ("GM %", NAMEOF('Key Measures'[GM %]), 0),
     ("Net Profit %", NAMEOF('Key Measures'[Net Profit %]), 1)
 }
 ```
-`Parameter_SalesViewScatterChart_y_axis_Bookmark_S1` also goes in the Y Axis well of the scatter plot visual
+`Parameter_SalesViewScatterChart_y_axis` goes in the Y Axis well of the scatter plot visual
 
-### Numeric Range Parameters
+### Numeric Range Parameter
+The Numeric Range Parameter below is created for Bookmark S2 and Bookmark S3.
 To create a single value slicer where users can enter a tolerance value for the magnitude of difference between GM % and GM % BM or NP % and NP % BM:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Sales%20View%20Matrix%20Slider2.PNG?raw=true)<br>
 create a numeric field parameter:<br>
 ```
-Parameter_Bookmark_S2_Slider = GENERATESERIES(0, 100, 1)
+Parameter_Tolerance_BMpct_GMpct_NPpct = GENERATESERIES(0, 100, 1)
 ```
 Then, create a measure to get the value entered by the user into the slicer. Since the user enters a percentage value, convert it to a decimal by dividing by 100:
 ```
-Parameter_Bookmark_S2_Slider Value = 
+Parameter_Tolerance_BMpct_GMpct_NPpct Value = 
 
-VAR whole_number = SELECTEDVALUE('Parameter_Bookmark_S2_Slider'[Parameter_Bookmark_S2_Slider])
+VAR whole_number = SELECTEDVALUE('Parameter_Tolerance_BMpct_GMpct_NPpct'[Parameter_Tolerance_BMpct_GMpct_NPpct])
 VAR decimal_number = whole_number/100
 
 RETURN
 decimal_number
 ```
+
+
+
+### Measures for Scatter Plot in Bookmark S2 and S3
+The following measures were added to *Filters on this visual* for the scatter plot in bookmark S2 and bookmark S3.
+```
+Tolerance_Filter = 
+
+VAR selected_y_axis = SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis[Order])
+
+VAR delta_gm_pct = ABS([GM %] - [GM % BM])
+
+VAR delta_np_pct = ABS([Net Profit %] - [NP % BM])
+
+RETURN
+SWITCH(
+    TRUE(),
+    // 0 - GM %
+    selected_y_axis = 0,
+    IF(
+        delta_gm_pct >= [Parameter_Tolerance_BMpct_GMpct_NPpct Value],
+        "SHOW",
+        "HIDE"
+    ),
+
+    selected_y_axis = 1,
+    // 1 - NP %
+    IF(
+        delta_np_pct >= [Parameter_Tolerance_BMpct_GMpct_NPpct Value],
+        "SHOW",
+        "HIDE"
+    )
+)
+```
+
+
+
+
+
+### Measures for Scatter Plot in Bookmark S2
+The following measures were added to *Filters on this visual* for the scatter plot in bookmark S2.
+```
+SalesViewScatterChart_Bookmark_S2_Filter = 
+
+VAR selected_y_axis = SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis[Order])
+
+RETURN
+SWITCH(
+    TRUE(),
+    // GM % selected
+    selected_y_axis = 0,
+    IF(
+        NOT(ISBLANK([GM %])) && NOT(ISBLANK([GM % BM])) &&
+        [GM %] >= [GM % BM],
+        "SHOW",
+        "HIDE"
+    ),
+    // NP % selected
+    selected_y_axis = 1,
+    IF(
+        NOT(ISBLANK([Net Profit %])) && NOT(ISBLANK([NP % BM])) &&
+        [Net Profit %] >= [NP % BM],
+        "SHOW",
+        "HIDE"
+    )
+)
+```
+
+
+
+### Measures to filter scatter plot in Bookmark S3
+The following measures were added to *Filters on this visual* for the scatter plot in bookmark S3.
+```
+SalesViewScatterChart_Bookmark_S3_Filter = 
+
+VAR selected_y_axis = SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis[Order])
+
+RETURN
+SWITCH(
+    TRUE(),
+    // GM % Selected
+    selected_y_axis = 0,
+    IF(
+        NOT(ISBLANK([GM %])) && NOT(ISBLANK([GM % BM])) &&
+        [GM %] < [GM % BM],
+        "SHOW",
+        "HIDE"
+    ),
+    // NP % Selected
+    selected_y_axis = 1,
+    IF(
+        NOT(ISBLANK([Net Profit %])) && NOT(ISBLANK([NP % BM])) &&
+        [Net Profit %] < [NP % BM],
+        "SHOW",
+        "HIDE"
+    )
+)
+```
+
+
 
 
 
@@ -1643,11 +1743,12 @@ MEDIANX(
 ```
 
 ### Measures to Return Median Line for Scatter Plot
+The measures below are added to the Scatter Plot's X-Axis Constant Line and Y-Axis Constant Line Settings. 
 ```
-sales view matrix vertical line bookmark S1 = 
+sales view matrix vertical line = 
 
 VAR selected_field_parameter =
-SELECTEDVALUE(Parameter_SalesViewScatterChart_Customers_Bookmark_S1[Order])
+SELECTEDVALUE(Parameter_SalesViewScatterChart_Customer_Hierarchy[Order])
 
 RETURN
 SWITCH(
@@ -1655,20 +1756,19 @@ SWITCH(
     selected_field_parameter = 0,
     [Median NS $ by Market],
     selected_field_parameter = 1,
-    [Median NS $ by Customer],
-    0
+    [Median NS $ by Customer]
 )
 ```
 ```
-sales matrix horizontal line bookmark S1 = 
+sales matrix horizontal line = 
 
 VAR gm_pct_or_np_pct =
 SELECTEDVALUE(
-    Parameter_SalesViewScatterChart_y_axis_Bookmark_S1[Order])
+    Parameter_SalesViewScatterChart_y_axis[Order])
 
 VAR customer_hierarchy = 
 SELECTEDVALUE(
-    Parameter_SalesViewScatterChart_Customers_Bookmark_S1[Order])
+    Parameter_SalesViewScatterChart_Customer_Hierarchy[Order])
 
 RETURN
 SWITCH(
@@ -1685,97 +1785,28 @@ SWITCH(
     [Median Net Profit % by Market],
     // Net Profit % and customer
     gm_pct_or_np_pct = 1 && customer_hierarchy = 1,
-    [Median Net Profit % by Customer],
-
-    0
-)
-```
-
-### Measures to filter scatter plot in Bookmark S2
-```
-SalesViewScatterChart_Bookmark_S2_Filter = 
-
-VAR selected_y_axis = SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S2[Order])
-
-RETURN
-SWITCH(
-    TRUE(),
-    selected_y_axis = 0,
-    IF(
-        NOT(ISBLANK([GM %])) && NOT(ISBLANK([GM % BM])) &&
-        [GM %] >= [GM % BM],
-        "SHOW",
-        "HIDE"
-    ),
-
-    selected_y_axis = 1,
-    IF(
-        NOT(ISBLANK([Net Profit %])) && NOT(ISBLANK([NP % BM])) &&
-        [Net Profit %] >= [NP % BM],
-        "SHOW",
-        "HIDE"
-    )
-)
-```
-
-```
-Bookmark_S2_Slider_Filter = 
-
-VAR selected_y_axis = SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S2[Order])
-
-VAR delta_gm_pct = ABS([GM %] - [GM % BM])
-
-VAR delta_np_pct = ABS([Net Profit %] - [NP % BM])
-
-RETURN
-SWITCH(
-    TRUE(),
-    // 0 - GM %
-    selected_y_axis = 0,
-    IF(
-        delta_gm_pct >= [Parameter_Bookmark_S2_Slider Value],
-        "SHOW",
-        "HIDE"
-    ),
-
-    selected_y_axis = 1,
-    // 1 - NP %
-    IF(
-        delta_np_pct >= [Parameter_Bookmark_S2_Slider Value],
-        "SHOW",
-        "HIDE"
-    )
+    [Median Net Profit % by Customer]
 )
 ```
 
 
 
-### Measures to filter scatter plot in Bookmark S3
-```
-SalesViewScatterChart_Bookmark_S3_Filter = 
 
-VAR selected_y_axis = SELECTEDVALUE(Parameter_SalesViewScatterChart_y_axis_Bookmark_S3[Order])
 
-RETURN
-SWITCH(
-    TRUE(),
-    selected_y_axis = 0,
-    IF(
-        NOT(ISBLANK([GM %])) && NOT(ISBLANK([GM % BM])) &&
-        [GM %] < [GM % BM],
-        "SHOW",
-        "HIDE"
-    ),
 
-    selected_y_axis = 1,
-    IF(
-        NOT(ISBLANK([Net Profit %])) && NOT(ISBLANK([NP % BM])) &&
-        [Net Profit %] < [NP % BM],
-        "SHOW",
-        "HIDE"
-    )
-)
-```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1789,11 +1820,11 @@ SWITCH(
 
 
 ## New Card Visual
-To format [Power BI's new card visual](https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-new-card):<br>
+To format [Power BI's new card visual](https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-new-card) like for net sales $ in this dashboard:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/net%20sales%20card.PNG?raw=true)<br>
 Three measures were created to dynamically:
 * Change Colors
-* Display Image
+* Chane Image
 * Show values for BM and its percentage change
 
 ```
@@ -1821,6 +1852,7 @@ SWITCH(
     TRUE(),
 
     ISBLANK([NS BM $]),
+    // not available
     "https://i.ibb.co/bjzgy541/BM-na-large.png",
 
     [NS $] > [NS BM $],
