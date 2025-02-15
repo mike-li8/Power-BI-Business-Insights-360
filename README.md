@@ -1066,7 +1066,14 @@ IF(
 
 
 
+
+
+
 ## DAX Measures for Dyanmic Benchmark (BM)
+
+<details>
+  <summary><b>Create Switch for Benchmark (BM)</b></summary>
+
 ### Create Switch for Benchmark (BM)
 This dashboard has two types of benchmarks (BM) applicable to some KPIs:
 1. Last Year (LY)
@@ -1086,9 +1093,11 @@ VAR x = UNION(
 RETURN x
 ```
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/DAX/toggle%20switch%20table2.PNG?raw=true)
+</details>
 
 
-
+<details>
+  <summary><b>Filter Check: ISFILTERED and ISCROSSFILTERED</b></summary>
 
 ### Filter Check: `ISFILTERED` and `ISCROSSFILTERED`
 In the `targets` table, **net sales**, **gross margin**, and **net profit** are only avaliable on a **market level**. The below measure evaluates the filter context to determine the appropriateness of displaying those targets:
@@ -1099,9 +1108,14 @@ In the `targets` table, **net sales**, **gross margin**, and **net profit** are 
 // it is not appropriate to display BM for net sales $, gross margin $, or net profit $
 Customer / Product Filter Check = ISCROSSFILTERED(dim_product[product]) || ISFILTERED(dim_customer[customer])
 ```
+</details>
 
 
-### BM Measures for Net Sales
+<details>
+  <summary><b>Benchmark (BM) Measures</b></summary>
+
+### Benchmark (BM) Measures
+#### BM Measures for Net Sales
 ```
 NS $ LY = 
 CALCULATE(
@@ -1140,7 +1154,7 @@ IF(
 ```
 
 
-### BM Measures for Gross Margin
+#### BM Measures for Gross Margin
 ```
 GM Target $ = 
 
@@ -1182,7 +1196,7 @@ IF(
 )
 ```
 
-### BM Measures for Net Profit
+#### BM Measures for Net Profit
 ```
 NP Target $ = 
 
@@ -1226,9 +1240,7 @@ IF(
 ```
 
 
-
-
-### Supply Chain BM Measures
+#### Supply Chain BM Measures
 Note: Since targets are not available for supply chain metrics, last year is the only BM available for supply chain metrics.
 
 ```
@@ -1316,7 +1328,7 @@ IF(
     res
 )
 ```
-
+</details>
 
 
 
