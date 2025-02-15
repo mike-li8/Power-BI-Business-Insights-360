@@ -815,22 +815,26 @@ RETURN res * Fact_Actuals_Estimates[net_sales_amount]
 
 ## DAX Measures for Calculating KPIs and Visual Building
 
-### Gross Sales
+<details>
+  <summary><b>Measures</b></summary>
+
+### Measures
+#### Gross Sales
 ```
 GS $ = SUM(Fact_Actuals_Estimates[gross_sales_amount])
 ```
 
-### Net Invoice Sales
+#### Net Invoice Sales
 ```
 NIS $ = SUM(Fact_Actuals_Estimates[net_invoice_sales_amount])
 ```
 
-### Pre Invoice Deductions
+#### Pre Invoice Deductions
 ```
 Pre Invoice Deduction $ = [GS $] - [NIS $]
 ```
 
-### Post Invoice Deductions
+#### Post Invoice Deductions
 ```
 Post Invoice Deduction $ = SUM(Fact_Actuals_Estimates[post_invoice_deduction_amount])
 ```
@@ -841,17 +845,17 @@ Post Invoice Other Deduction $ = SUM(Fact_Actuals_Estimates[post_invoice_other_d
 Total Post Invoice Deduction $ = [Post Invoice Deduction $] + [Post Invoice Other Deduction $]
 ```
 
-### Net Sales
+#### Net Sales
 ```
 NS $ = SUM(Fact_Actuals_Estimates[net_sales_amount])
 ```
 
-### Total Sold Quantity
+#### Total Sold Quantity
 ```
 Quantity = SUM(Fact_Actuals_Estimates[Qty])
 ```
 
-### Cost of Goods Sold
+#### Cost of Goods Sold
 ```
 Manufacturing Cost $ = SUM(Fact_Actuals_Estimates[manufacturing_cost])
 ```
@@ -865,7 +869,7 @@ Other Cost $ = SUM(Fact_Actuals_Estimates[other_cost])
 Total COGS $ = [Manufacturing Cost $] + [Freight Cost $] + [Other Cost $]
 ```
 
-### Gross Margin
+#### Gross Margin
 ```
 GM $ = [NS $] - [Total COGS $]
 ```
@@ -876,7 +880,7 @@ GM % = DIVIDE([GM $],[NS $],0)
 GM / Unit = DIVIDE([GM $],[Quantity],0)
 ```
 
-### Operational Expenses
+#### Operational Expenses
 ```
 Ads & Promotions $ = SUM(Fact_Actuals_Estimates[ads_promotion])
 ```
@@ -887,7 +891,7 @@ Other Operational Expense $ = SUM(Fact_Actuals_Estimates[other_operational_expen
 Operational Expense $ = [Ads & Promotions $] + [Other Operational Expense $]
 ```
 
-### Net Profit
+#### Net Profit
 ```
 NP $ = [GM $] - [Operational Expense $]
 ```
@@ -898,7 +902,7 @@ NP % = DIVIDE([NP $], [NS $],0)
 NP / Unit = DIVIDE([NP $],[Quantity],0)
 ```
 
-### Marketshare
+#### Marketshare
 ```
 AtliQ MS % = 
 
@@ -925,7 +929,7 @@ DIVIDE(
     0
 )
 ```
-### Revenue Contribution %
+#### Revenue Contribution %
 ```
 RC % = 
 DIVIDE(
@@ -939,7 +943,7 @@ DIVIDE(
     0
 )
 ```
-
+</details>
 
 
 
@@ -963,9 +967,17 @@ DIVIDE(
 
 ## DAX Measures for Supply Chain KPIs
 
+<details>
+  <summary><b>Supply Chain Example</b></summary>
+
 ### Supply Chain Example
 The Excel screenshot below gives an example of supply chain metrics for **one specific product** on a monthly level during a given fiscal year:
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Supply%20Chain%20Screenshots/SupplyChain%20Basics2.PNG?raw=true)
+</details>
+
+
+<details>
+  <summary><b>Supply Chain Measures</b></summary>
 
 ### Supply Chain Measures
 ```
@@ -1034,7 +1046,7 @@ IF(
     )
 )
 ```
-
+</details>
 
 
 
