@@ -1639,7 +1639,7 @@ SWITCH(
 
 
 
-### Measure to filter scatter plot in Bookmark S3
+### Measure for Scatter Plot in Bookmark S3
 The following measures was added to *Filters on this visual* for the scatter plot in bookmark S3.
 ```
 SalesViewScatterChart_Bookmark_S3_Filter = 
