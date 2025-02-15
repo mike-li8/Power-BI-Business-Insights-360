@@ -1529,8 +1529,8 @@ requires new:
 
 ### Field Parameters
 #### `Parameter_SalesViewScatterChart_Customers_Bookmark_S1`
-To create a toggle switch (using slicer visual) where users can choose to view points on the scatter plot as either customers or markets:
-
+To create a toggle switch (using slicer visual) where users can choose to view points on the scatter plot as either markets or customers:<br>
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Customers%20field%20parameter%20button.PNG?raw=true)<br>
 Create a field parameter:
 ```
 Parameter_SalesViewScatterChart_Customers_Bookmark_S1 = {
@@ -1538,32 +1538,31 @@ Parameter_SalesViewScatterChart_Customers_Bookmark_S1 = {
     ("customer", NAMEOF('dim_customer'[customer]), 1)
 }
 ```
-This field parameter goes in the Values well of the scatter plot visual.
+`Parameter_SalesViewScatterChart_Customers_Bookmark_S1` also goes in the Values well of the scatter plot visual.
 
 #### `Parameter_SalesViewScatterChart_y_axis_Bookmark_S1`
-Create field parameter to toggle y-axis between gross margin % or net profit %.
+To create a toggle switch (using slicer visual) where users can toggle the scatter plot's y-axis between gross margin % or net profit %:<br>
+```
+https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Y%20axis%20field%20parameter%20buttons.PNG?raw=true
+```
+Create field parameter:
 ```
 Parameter_SalesViewScatterChart_y_axis_Bookmark_S1 = {
     ("GM %", NAMEOF('Key Measures'[GM %]), 0),
     ("Net Profit %", NAMEOF('Key Measures'[Net Profit %]), 1)
 }
 ```
-
+`Parameter_SalesViewScatterChart_y_axis_Bookmark_S1` also goes in the Y Axis well of the scatter plot visual
 
 ### Numeric Range Parameters
-To create the slider:<br>
+To create a single value slicer where users can enter a tolerance value for the magnitude of difference between GM%/NP% and GM% BM / NP% BM:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Sales%20View%20Matrix%20Slider2.PNG?raw=true)<br>
-Create a numeric field parameter:<br>
-
+create a numeric field parameter:<br>
 ```
 Parameter_Bookmark_S2_Slider = GENERATESERIES(0, 100, 1)
 ```
 
-
-
-
 ### Measures to Calculate Median Values
-#### Calculate Median Values
 ```
 Median NS $ by Customer = 
 
@@ -1631,7 +1630,7 @@ MEDIANX(
 )
 ```
 
-### Measures to Return Median Line for scatter Plot
+### Measures to Return Median Line for Scatter Plot
 ```
 sales view matrix vertical line bookmark S1 = 
 
