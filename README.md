@@ -28,17 +28,17 @@ AtliQ's customers are categorized into three different **channels**:
 
 ### Condensed Profit and Loss (P&L) Statement
 This example of a simplified P&L statement should give a better understanding of AtliQ's business model. In this example, the P&L calculations and values are derived from one sales transaction of one product being sold to one customer.
-| Line Item | Description | P&L Value Calculation | P & L Value |
-| :- | :- | :- | -: |
-| Gross Price |  The base price of a product | `not applicable` | $50.00 |
-| Pre-Invoice Deduction | For every fiscal year, the sales team determines a pre-invoice deduction percentage for each <ins>specific customer</ins>. The pre-invoice deduction percentage is based on AtliQ's relationship and experience with the customer. The pre-invoice deduction is applied to the gross price of the product before it is billed to the customer. In this example, the customer receives a pre-invoice deduction of 10% of gross price. | `$50.00 * 0.10` | $5.00 |
-| Net Invoice Sales | The amount of money that is billed to the customer to obtain the product. | `$50.00 - $5.00` | $45.00 |
-| Post-Invoice Deudctions | For each calendar month, the sales team determines a post-invoice deduction percentage based on a specific <ins>customer and product</ins>. For example, if AtliQ sells a product to a customer and that customer agrees to display the product at a prime location within the store during a specific calendar month, AtliQ may pay that customer a post-invoice deduction. AtliQ pays a post-invoice deduction amount as a rebate to the customer after net invoice sales. In this example, the customer receives a post-invoice deduction of 20% of net invoice sales. | `$45.00 * 0.20` | $9.00 |
-| Net Sales | AtliQ's Revenue | `$45.00 - $9.00` | $36.00 |
-| Cost of Goods Sold (COGS) | Expenses AtliQ incurs such as manufacturing products, shipping products, and storing products in warehouses. | `Manufacturing Cost $ + Freight Cost $ + Other COGS $` | $16.00 |
-| Gross Margin | AtliQ's Profit after deducing COGS. | `$36.00 - $16.00` | $20.00 |
-| Operational Expenses | Expenses AtliQ incurs from activities such as advertising and promotions for products performed by the marketing team. | `Ads & Promotions $ + Other Operational Expense $` | $15.00 |
-| Net Profit | AtliQ's profit after deducting operational expenses | `$20.00 - $15.00` | $5.00 |
+| Line Item | Description | P & L Value Formula | P&L Value Calculation | P & L Value |
+| :- | :- | :- | :- | -: |
+| Gross Price |  The base price of a product | `not applicable` | `not applicable` | $50.00 |
+| Pre-Invoice Deduction | For every fiscal year, the sales team determines a pre-invoice deduction percentage for each <ins>specific customer</ins>. The pre-invoice deduction percentage is based on AtliQ's relationship and experience with the customer. The pre-invoice deduction is applied to the gross price of the product before it is billed to the customer. In this example, the customer receives a pre-invoice deduction of 10% of gross price. | `(gross price $) * (Pre-Invoice Deduction %)` | `$50.00 * 0.10` | $5.00 |
+| Net Invoice Sales | The amount of money that is billed to the customer to obtain the product. | `(gross price $) - (Pre-Invoice Deduction $)` | `$50.00 - $5.00` | $45.00 |
+| Post-Invoice Deudctions | For each calendar month, the sales team determines a post-invoice deduction percentage based on a <ins>specific customer and product</ins>. For example, if AtliQ sells a product to a customer and that customer agrees to display the product at a prime location within the store during a specific calendar month, AtliQ may pay that customer a post-invoice deduction. AtliQ pays a post-invoice deduction amount as a rebate to the customer after net invoice sales. In this example, the customer receives a post-invoice deduction of 20% of net invoice sales. | `not applicable` | `$45.00 * 0.20` | $9.00 |
+| Net Sales | AtliQ's Revenue | `(Net Invoice Sales $) - (Post-Invoice Deudctions $)` | `$45.00 - $9.00` | $36.00 |
+| Cost of Goods Sold (COGS) | Expenses AtliQ incurs such as manufacturing products, shipping products, and storing products in warehouses. | `(Manufacturing Cost $) + (Freight Cost $) + (Other COGS $)` | $16.00 |
+| Gross Margin | AtliQ's Profit after deducing COGS. | `(Net Sales $) - (COGS $)` | `$36.00 - $16.00` | $20.00 |
+| Operational Expenses | Expenses AtliQ incurs from activities such as advertising and promotions for products performed by the marketing team. | `(Ads & Promotions $) + (Other Operational Expense $)` | $15.00 |
+| Net Profit | AtliQ's profit after deducting operational expenses | `(Gross Margin $) - (Operational Expenses $)` | `$20.00 - $15.00` | $5.00 |
 
 
 ### AtliQ Fiscal Year
