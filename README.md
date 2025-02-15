@@ -372,10 +372,21 @@ Notes:
 </details>
 
 
+
+
+
+
+
+
+
+
+
 ## ETL (extract transform load) and Data Cleaning in Power Query
 The data tables from MySQL, .csv, and .xlsx were imported into **Power Query**:</br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/PowerQuery%20Initial%20Import.PNG?raw=true)
 
+<details>
+  <summary><b>Additional Queries created using M-Language</b></summary>
 
 ### Additional Queries created using M-Language
 #### Add step to query: `fact_forecast_monthly`
@@ -560,6 +571,10 @@ Add two additional steps to the ![image alt](https://github.com/mike-li8/Power-B
 ```
 Sample records from query result:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/Marketshare.PNG?raw=true)
+</details>
+
+<details>
+  <summary><b>Data Cleaning</b></summary>
 
 ### Data Cleaning
 Data cleaning is a vital step to reduce the likelihood of errors and biases when business stakeholders use the final dashboard to inform the decision-making process.
@@ -570,13 +585,15 @@ Various data cleaning tasks were formed using Power Query (this list is not exha
 * Ensuring primary key fields contain unique values
 * Ensuring composite primary key fields contain unique combinations of values
 * Connecting with business stakeholders to determine an appropriate interpretation of null/blank values and rectifying them with an appropriate method if needed.
+</details>
 
+<details>
+  <summary><b>Final Queries Loaded</b></summary>
 
 ### Final Queries Loaded
 The image below shows the final queries loaded from Power Query to Power BI. To improve query load time, queries not required to build the Power BI dashboard have their load disabled (queries in *italic* in the image below have their load disabled). Queries with their load disabled are either intermediate query steps or queries containing data that are already included in queries with their load enabled.<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/PowerQuery%20Final%20Queries.PNG?raw=true)
-
-
+</details>
 
 
 
