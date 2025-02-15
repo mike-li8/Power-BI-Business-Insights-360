@@ -668,9 +668,14 @@ The image below shows the completed data model (snowflake schema) in Power BI Mo
 
 
 ## DAX Calculated Columns
+
+<details>
+  <summary><b>Calculated Columns</b></summary>
+
+### Calculated Columns
 To facilitate dashboard building, DAX expressions were used to create new columns in the tables `dim_date` and `Fact_Actuals_Estimates`
 
-### Calculated Columns in `dim_date`
+#### Calculated Columns in `dim_date`
 ```
 // AtliQ Fiscal year month number
 fy_month_num = MONTH(DATE(YEAR(dim_date[date]),MONTH(dim_date[date]) + 4, 1))
@@ -697,7 +702,7 @@ IF(
     "YTD")
 ```
 
-### Calculated Columns in `Fact_Actuals_Estimates`
+#### Calculated Columns in `Fact_Actuals_Estimates`
 ```
 post_invoice_deduction_amount =
 // Retrieve post invoice deduction percent for each row
@@ -778,7 +783,7 @@ var res = CALCULATE(
 // Calculate other operational expense costs for each row
 RETURN res * Fact_Actuals_Estimates[net_sales_amount]
 ```
-
+</details>
 
 
 
