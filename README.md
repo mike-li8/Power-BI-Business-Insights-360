@@ -1515,17 +1515,29 @@ SWITCH(
 
 
 
+
 ## Finance View: Dynamic Top/Bottom N
+
+<details>
+  <summary><b>Dynamic Top/Bottom N</b></summary>
+
+### Dynamic Top/Bottom N
 Dynamic Top/Bottom N customers and products by P&L Value:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Top_Bottom_N/Finance%20View%20Top%20Bottom%20N.PNG?raw=true)<br>
 requires the creation of:
 * Numeric Range Parameter
 * Table
 * Measures
+</details>
 
 
 
-### Create Numeric Range Parameter `Parameter_Top_Bottom_N_Value`
+
+<details>
+  <summary><b>Numeric Range Parameter</b></summary>
+
+### Numeric Range Parameter
+#### Create Numeric Range Parameter `Parameter_Top_Bottom_N_Value`
 To create a single value slicer where users can enter a value for N between 1 and 10:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Top_Bottom_N/N%20Value.PNG?raw=true)<br>
 create a numeric range parameter:<br>
@@ -1536,10 +1548,15 @@ Then, create a measure to get the N value entered by the user into the slicer:
 ```
 Selected_Parameter_Top_Bottom_N_Value = SELECTEDVALUE('Parameter_Top_Bottom_N_Value'[Parameter_Top_Bottom_N])
 ```
+</details>
 
 
 
-### Create table `Top Bottom N Toggle`
+<details>
+  <summary><b>Table</b></summary>
+
+### Table
+#### Create table `Top Bottom N Toggle`
 To create a toggle switch (using slicer visual) where users can choose either top values or bottom values:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Top_Bottom_N/Top%20or%20Bottom.PNG?raw=true)<br>
 create a DAX calculated table:
@@ -1553,8 +1570,15 @@ VAR x = UNION(
 
 RETURN x
 ```
+</details>
 
-### Create RANKX Measures
+
+<details>
+  <summary><b>Measures</b></summary>
+
+
+### Measures
+#### Create RANKX Measures
 Dense rank is used so that if there are any ties, they are all given the same rank
 ```
 P&L Value by Customer Asc Dense Ranking = 
@@ -1612,7 +1636,7 @@ RANKX(
 
 
 
-### Create Measures to Return Top/Bottom N Customers and Products by P&L Value
+#### Create Measures to Return Top/Bottom N Customers and Products by P&L Value
 ```
 Top Bottom N Customers by P&L Value = 
 
@@ -1671,6 +1695,20 @@ SWITCH(
     )
 )
 ```
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Sales View: Performance Matrix
