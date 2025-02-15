@@ -1344,11 +1344,23 @@ IF(
 
 
 ## Finance View: Profit and Loss Statement
+
+<details>
+  <summary><b>Matrix Visual</b></summary>
+
+### Matrix Visual
 The following P & L Statement was created using the **Matrix visual**:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/Profit%20and%20Loss%20Visual.PNG?raw=true)<br>
 To create this matrix, tables and measures were created.
+</details>
 
-### Create Table: `P & L Columns`
+
+
+<details>
+  <summary><b>Tables</b></summary>
+
+### Tables
+#### Create Table: `P & L Columns`
 ```
 P & L Columns = 
 
@@ -1369,13 +1381,20 @@ UNION(
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/DAX/Columns%20Field%20Well.PNG?raw=true)
 
 
-### Create Table: `P & L Rows`
+#### Create Table: `P & L Rows`
 Table `P & L Rows` created manually using Enter Data option in Power BI:</br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/P%20and%20L%20Rows%20Table.PNG?raw=true)<br>
 `'P & L Rows'[Line Item]` will go into the Rows field well of the matrix visual:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/DAX/Rows%20Field%20Well.PNG?raw=true)
+</details>
 
-### Create Measure: `P & L Values`
+
+<details>
+  <summary><b>Measures</b></summary>
+
+### Measures
+
+#### Create Measure: `P & L Values`
 ```
 P & L Values = 
 
@@ -1411,7 +1430,7 @@ RETURN
 IF(HASONEVALUE('P & L Rows'[Description]), res, [NS $]/1000000)
 ```
 
-### Create P & L BM Measures
+#### Create P & L BM Measures
 ```
 P & L LY = 
 CALCULATE(
@@ -1464,7 +1483,7 @@ IF(ISBLANK([P & L Values]) || ISBLANK([P & L BM]), BLANK(), res)
 ```
 
 
-### Create Measure: `P & L Final Value`
+#### Create Measure: `P & L Final Value`
 ```
 P & L Final Value =
 // For the P & L Statement matrix visual:
@@ -1480,6 +1499,13 @@ SWITCH(
 ```
 `[P & L Final Value]` measure will go in the Values well of the matrix visual:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/DAX/Values%20field%20well.PNG?raw=true)
+</details>
+
+
+
+
+
+
 
 
 
