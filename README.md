@@ -112,8 +112,17 @@ AtliQ's fiscal year begins in September and ends in August the following year. T
 
 
 ## Data Sources
+
+
+
+<details>
+  <summary><b>Data Tables Prepared by Data Engineer</b></summary>
+
 ### Data Tables Prepared by Data Engineer
 AtliQ's data engineers prepared various dimension and fact tables and stored them in a MySQL database schema.
+
+<details>
+  <summary><b>Dimension Tables</b></summary>
 
 #### Dimension Tables
 Sample records from each table are provided below. For readability, primary key values for some tables have been converted to natural numbers.
@@ -155,7 +164,10 @@ Sample records from each table are provided below. For readability, primary key 
 |  10 | 	N & S	 | 	Storage	 | 	External&nbsp;Solid&nbsp;State&nbsp;Drives	 | 	AQ Neuer SSD	 | 	Premium	 |
 
 `product_code` is a primary key field.
+</details>
 
+<details>
+  <summary><b>Fact Tables</b></summary>
 
 #### Fact Tables
 Sample records from each table are provided below.
@@ -293,6 +305,14 @@ pre_invoice_deductions
 Notes:
 * This table contains data on pre invoice deductions (as a percentage of gross price) for each specific customer, on a fiscal year level.
 * The columns `customer_code`, and `fiscal_year` make up a **composite primary key**.
+</details>
+</details>
+
+
+
+
+<details>
+  <summary><b>Additional Data Tables</b></summary>
 
 ### Additional Data Tables
 Additional data tables were provided in stakeholder meetings. Sample records from each table are provided below.
@@ -349,7 +369,7 @@ marketshare
 Notes:
 * Provided in .xlsx format
 * This table contains data on the marketshare of various personal computer (PC) manufacturers (atliq, dale, innovo, pacer, bp). This marketshare data is available for each specific sub zone, product category (PC type product categories only) and fiscal year.
-
+</details>
 
 
 ## ETL (extract transform load) and Data Cleaning in Power Query
