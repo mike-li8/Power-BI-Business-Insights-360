@@ -382,8 +382,16 @@ Notes:
 
 
 ## ETL (extract transform load) and Data Cleaning in Power Query
+
+
+<details>
+  <summary><b>Import Data</b></summary>
+
+### Import Data
 The data tables from MySQL, .csv, and .xlsx were imported into **Power Query**:</br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Power%20Query%20Screenshots/PowerQuery%20Initial%20Import.PNG?raw=true)
+</details>
+
 
 <details>
   <summary><b>Additional Queries created using M-Language</b></summary>
