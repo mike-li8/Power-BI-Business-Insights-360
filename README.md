@@ -1447,7 +1447,7 @@ RANKX(
 
 
 
-### Create Measures to Return Top/Bottom Customers and Products by P&L Value
+### Create Measures to Return Top/Bottom N Customers and Products by P&L Value
 ```
 Top Bottom N Customers by P&L Value = 
 
