@@ -1207,7 +1207,7 @@ IF(
 ## Finance View: Profit and Loss Statement
 The following P & L Statement was created using the **Matrix visual**:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/Profit%20and%20Loss%20Visual.PNG?raw=true)<br>
-To create this matrix, DAX tables and measures were created.
+To create this matrix, tables and measures were created.
 
 ### Create Table: `P & L Columns`
 ```
