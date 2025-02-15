@@ -1367,7 +1367,7 @@ create a numeric range parameter:<br>
 ```
 Parameter_Top_Bottom_N_Value = GENERATESERIES(1, 10, 1)
 ```
-Then, create a measure to store the N value entered by the user into the slicer:
+Then, create a measure to get the N value entered by the user into the slicer:
 ```
 Selected_Parameter_Top_Bottom_N_Value = SELECTEDVALUE('Parameter_Top_Bottom_N_Value'[Parameter_Top_Bottom_N])
 ```
