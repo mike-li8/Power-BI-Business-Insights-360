@@ -1,15 +1,35 @@
 # Power BI Business Insights 360
 
 
+
+
+
+
+
+
 ## Problem Statement and Project Objective
 The [Codebasics](https://codebasics.io/) [Data Analytics Bootcamp](https://codebasics.io/bootcamps/data-analytics-bootcamp-with-practical-job-assistance) exhibits a fictional company called AtliQ Technologies. AtliQ was rapidly proliferating to various markets around the world. However, AtliQ relied on Excel files for their data analytics needs. Since AtliQ's data was spread across multiple large tables (some containing over a million records), analyzing them in Excel was cumbersome. Moreover, stakeholders found that static reports produced from Excel pivot tables were difficult and time-consuming to digest. This weakened data anaytics capability hindered AtliQ's success when they attempted to expand to markets in Latin America.
 
 The objective of this project is to create a Power BI dashboard which stakeholders from various business verticals (**finance**, **sales**, **marketing**, **supply chain**, and **executive**) can use to effectively and efficiently gather insights from data to help inform important company decisions. The interactive and visual nature of Power BI dashboards should help stakeholders better interpret the data with less time compared to static reports produced in Excel.
 
 
+
+
+
+
+
+
 ## AtliQ Business Model
+
+<details>
+  <summary><b>Overview</b></summary>
+
 ### Overview
 AtliQ manufactures computer hardware **products** (e.g., mouse, keyboard, printer, monitor) and then sells them to various **customers** which are stores such as Amazon and Best Buy. Hence, AtliQ's customers are in the form of <ins>store businesses</ins> (e.g., Amazon, Best Buy) and should not be confused with customers in the form of people (i.e., the people purchasing products from Amazon or Best Buy).
+</details>
+
+<details>
+  <summary><b>Customers</b></summary>
 
 ### Customers
 AtliQ's customers are categorized into two different **platforms**:
@@ -25,6 +45,14 @@ AtliQ's customers are categorized into three different **channels**:
    * Stores owned by AtliQ. These are AltiQ Exclusive and AtliQ E-Store.
 5. Distributor
    * Some markets have laws/regulations which only allow AtliQ to sell products to a distributor type customer within that market. AtliQ sells products to the distributor; the distributor then sells the products to various stores within that market.
+</details>
+
+
+
+
+
+<details>
+  <summary><b>Condensed Profit and Loss (P&L) Statement</b></summary>
 
 ### Condensed Profit and Loss (P&L) Statement
 This example of a simplified P&L statement should give a better understanding of AtliQ's business model. In this example, the P&L calculations and values are derived from one sales transaction of one product being sold to one customer.
@@ -39,7 +67,11 @@ This example of a simplified P&L statement should give a better understanding of
 | Gross Margin | AtliQ's Profit after deducing COGS from Net Sales. | (Net Sales $) -<br>(COGS $) | `$36.00` -<br>`$16.00` | `$20.00` |
 | Operational Expenses | Expenses AtliQ incurs from activities such as<br>advertising and promotions of products<br>performed by the marketing team. | (Ads & Promotions $) +<br>(Other&nbsp;Operational&nbsp;Expense&nbsp;$) | `not applicable` | `$15.00` |
 | Net Profit | AtliQ's Profit after deducting operational expenses<br>from gross margin. | (Gross Margin $) -<br>(Operational Expenses $) | `$20.00` -<br>`$15.00` | `$5.00` |
+</details>
 
+
+<details>
+  <summary><b>AtliQ Fiscal Year</b></summary>
 
 ### AtliQ Fiscal Year
 AtliQ's fiscal year begins in September and ends in August the following year. The example below shows AtliQ's fiscal dates (for fiscal year 2021) compared to calendar dates.
@@ -57,6 +89,25 @@ AtliQ's fiscal year begins in September and ends in August the following year. T
 | 	June 2021	 | 	2021	 | 	10	 | 	Q4	 |
 | 	July 2021	 | 	2021	 | 	11	 | 	Q4	 |
 | 	August 2021	 | 	2021	 | 	12	 | 	Q4	 |
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
