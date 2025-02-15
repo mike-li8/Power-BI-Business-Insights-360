@@ -1822,7 +1822,7 @@ To format [Power BI's new card visual](https://learn.microsoft.com/en-us/power-b
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Dashboard%20Screenshots/net%20sales%20card.PNG?raw=true)<br>
 Three measures were created to dynamically:
 * Change Colors
-* Chane Image
+* Change Images
 * Show values for BM and its percentage change
 
 ```
