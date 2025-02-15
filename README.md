@@ -1589,6 +1589,7 @@ SWITCH(
     // 0 - GM %
     selected_y_axis = 0,
     IF(
+        NOT(ISBLANK([GM %])) && NOT(ISBLANK([GM % BM])) &&
         delta_gm_pct >= [Parameter_Tolerance_BMpct_GMpct_NPpct Value],
         "SHOW",
         "HIDE"
@@ -1597,6 +1598,7 @@ SWITCH(
     selected_y_axis = 1,
     // 1 - NP %
     IF(
+        NOT(ISBLANK([Net Profit %])) && NOT(ISBLANK([NP % BM])) &&
         delta_np_pct >= [Parameter_Tolerance_BMpct_GMpct_NPpct Value],
         "SHOW",
         "HIDE"
