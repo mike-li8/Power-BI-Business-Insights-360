@@ -116,16 +116,10 @@ AtliQ's fiscal year begins in September and ends in August the following year. T
 
 
 <details>
-  <summary><b>Data Tables Prepared by Data Engineer</b></summary>
-
-### Data Tables Prepared by Data Engineer
-AtliQ's data engineers prepared various dimension and fact tables and stored them in a MySQL database schema.
-
-<details>
   <summary><b>Dimension Tables</b></summary>
 
-#### Dimension Tables
-Sample records from each table are provided below. For readability, primary key values for some tables have been converted to natural numbers.
+### Dimension Tables
+AtliQ's data engineers prepared various dimension tables and stored them in a MySQL database schema. Sample records from each table are provided below. For readability, primary key values for some tables have been converted to natural numbers.
 
 **dim_market**
 | market | sub_zone | region |
@@ -166,11 +160,13 @@ Sample records from each table are provided below. For readability, primary key 
 `product_code` is a primary key field.
 </details>
 
+
+
 <details>
   <summary><b>Fact Tables</b></summary>
 
-#### Fact Tables
-Sample records from each table are provided below.
+### Fact Tables
+AtliQ's data engineers prepared various fact tables and stored them in a MySQL database schema. Sample records from each table are provided below.
 
 fact_forecast_monthly
 | 	date	 | 	product_code	 | 	division	 | 	category	 | 	product	 | 	customer_code	 | 	customer_name	 | 	market	 | 	platform	 | 	channel	 | 	forecast_quantity	 |
@@ -306,8 +302,6 @@ Notes:
 * This table contains data on pre invoice deductions (as a percentage of gross price) for each specific customer, on a fiscal year level.
 * The columns `customer_code`, and `fiscal_year` make up a **composite primary key**.
 </details>
-</details>
-
 
 
 
