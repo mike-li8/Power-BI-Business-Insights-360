@@ -1350,29 +1350,34 @@ SWITCH(
 
 
 
-## Finance and Executive View: Dynamic Top/Bottom N
-To create a dynamic Top/Bottom N like in finance view to view top/bottom P & L Value:<br>
+## Finance View: Dynamic Top/Bottom N
+Dynamic Top/Bottom N customers and products by P&L Value:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Top_Bottom_N/Finance%20View%20Top%20Bottom%20N.PNG?raw=true)<br>
-requires the creation of new:
-* Numeric Range Parameters
+requires the creation of:
+* Numeric Range Parameter
+* Table
 * Measures
 
 
 
-### Numeric Range Parameters
-#### `Parameter_Top_Bottom_N_Value`
-To create a single value slicer so users can enter N value:<br>
+### Create Numeric Range Parameter `Parameter_Top_Bottom_N_Value`
+To create a single value slicer where users can enter a value for N between 1 and 10:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Top_Bottom_N/N%20Value.PNG?raw=true)<br>
-create a numeric field parameter:<br>
+create a numeric range parameter:<br>
 ```
 Parameter_Top_Bottom_N_Value = GENERATESERIES(1, 10, 1)
 ```
+Then, create a measure to store the N value entered by the user into the slicer:
+```
+Selected_Parameter_Top_Bottom_N_Value = SELECTEDVALUE('Parameter_Top_Bottom_N_Value'[Parameter_Top_Bottom_N])
+```
 
-### Measures
-#### `Top Bottom N Toggle`
-To create a toggle switch (using slicer visual) to choose top values or bottom values:<br>
+
+
+### Create table `Top Bottom N Toggle`
+To create a toggle switch (using slicer visual) where users can choose either top values or bottom values:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Top_Bottom_N/Top%20or%20Bottom.PNG?raw=true)<br>
-create DAX calculated table `Top Bottom N Toggle`:
+create a DAX calculated table:
 ```
 Top Bottom N Toggle = 
 
@@ -1384,8 +1389,8 @@ VAR x = UNION(
 RETURN x
 ```
 
-#### RANKX Measures
-Dense rank used so if there are ties in the ranking, they will be ranked the same
+### Create RANKX Measures
+Dense rank is used so that if there are any ties, they are all given the same rank
 ```
 P&L Value by Customer Asc Dense Ranking = 
 RANKX(
@@ -1442,9 +1447,9 @@ RANKX(
 
 
 
-#### Measures to Filter Customer and Product Tables
+### Create Measures to Return Top/Bottom Customers and Products by P&L Value
 ```
-Filter Top Bottom N Customers by P&L Value = 
+Top Bottom N Customers by P&L Value = 
 
 // 0 - Top, 1 - Bottom
 VAR top_or_bottom = SELECTEDVALUE('Top Bottom N Toggle'[Primary_Key])
@@ -1473,7 +1478,7 @@ SWITCH(
 )
 ```
 ```
-Filter Top Bottom N Products by P&L Value = 
+Top Bottom N Products by P&L Value = 
 
 // 0 - Top, 1 - Bottom
 VAR top_or_bottom = SELECTEDVALUE('Top Bottom N Toggle'[Primary_Key])
@@ -1501,23 +1506,6 @@ SWITCH(
     )
 )
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ## Sales and Marketing View: Performance Matrix
