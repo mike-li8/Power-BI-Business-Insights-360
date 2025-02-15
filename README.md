@@ -1508,13 +1508,13 @@ SWITCH(
 ```
 
 
-## Sales and Marketing View: Performance Matrix
+## Sales View: Performance Matrix
 The performance matrix:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Sales%20View%20Performance%20Matrix.PNG?raw=true)<br>
-requires the creation of new:
-* Field Parameters
-* Numeric Range Parameters
+requires new:
 * Bookmarks
+* Field Parameters
+* Numeric Range Parameter
 * Measures
 
 
@@ -1529,13 +1529,16 @@ requires the creation of new:
 
 ### Field Parameters
 #### `Parameter_SalesViewScatterChart_Customers_Bookmark_S1`
-Create field parameter to toggle between customer or market. This field parameter goes in the Values well of the scatter plot visual.
+To create a toggle switch (using slicer visual) where users can choose to view points on the scatter plot as either customers or markets:
+
+Create a field parameter:
 ```
 Parameter_SalesViewScatterChart_Customers_Bookmark_S1 = {
     ("market", NAMEOF('dim_market'[market]), 0),
     ("customer", NAMEOF('dim_customer'[customer]), 1)
 }
 ```
+This field parameter goes in the Values well of the scatter plot visual.
 
 #### `Parameter_SalesViewScatterChart_y_axis_Bookmark_S1`
 Create field parameter to toggle y-axis between gross margin % or net profit %.
