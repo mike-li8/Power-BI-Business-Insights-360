@@ -1555,12 +1555,24 @@ Parameter_SalesViewScatterChart_y_axis_Bookmark_S1 = {
 `Parameter_SalesViewScatterChart_y_axis_Bookmark_S1` also goes in the Y Axis well of the scatter plot visual
 
 ### Numeric Range Parameters
-To create a single value slicer where users can enter a tolerance value for the magnitude of difference between GM%/NP% and GM% BM / NP% BM:<br>
+To create a single value slicer where users can enter a tolerance value for the magnitude of difference between GM % and GM % BM or NP % and NP % BM:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Sales%20View%20Matrix%20Slider2.PNG?raw=true)<br>
 create a numeric field parameter:<br>
 ```
 Parameter_Bookmark_S2_Slider = GENERATESERIES(0, 100, 1)
 ```
+Then, create a measure to get the value entered by the user into the slicer. Since the user enters a percentage value, convert it to a decimal by dividing by 100:
+```
+Parameter_Bookmark_S2_Slider Value = 
+
+VAR whole_number = SELECTEDVALUE('Parameter_Bookmark_S2_Slider'[Parameter_Bookmark_S2_Slider])
+VAR decimal_number = whole_number/100
+
+RETURN
+decimal_number
+```
+
+
 
 ### Measures to Calculate Median Values
 ```
@@ -1705,15 +1717,7 @@ SWITCH(
     )
 )
 ```
-```
-Parameter_Bookmark_S2_Slider Value = 
 
-VAR whole_number = SELECTEDVALUE('Parameter_Bookmark_S2_Slider'[Parameter_Bookmark_S2_Slider])
-VAR decimal_number = whole_number/100
-
-RETURN
-decimal_number
-```
 ```
 Bookmark_S2_Slider_Filter = 
 
