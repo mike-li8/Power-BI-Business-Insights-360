@@ -1528,7 +1528,6 @@ requires new:
 
 
 ### Field Parameters
-The two field parameters below are created for Bookmark S1, Bookmark S2, and Bookmark S3.
 #### `Parameter_SalesViewScatterChart_Customer_Hierarchy`
 To create a toggle switch (using slicer visual) where users can choose to view points on the scatter plot as either markets or customers:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Customers%20field%20parameter%20button.PNG?raw=true)<br>
@@ -1554,8 +1553,7 @@ Parameter_SalesViewScatterChart_y_axis = {
 `Parameter_SalesViewScatterChart_y_axis` goes in the Y Axis well of the scatter plot visual
 
 ### Numeric Range Parameter
-The Numeric Range Parameter below is created for Bookmark S2 and Bookmark S3.
-To create a single value slicer where users can enter a tolerance value for the magnitude of difference between GM % and GM % BM or NP % and NP % BM:<br>
+To create a single value slicer where users can enter a tolerance value for the magnitude of difference between GM% and GM% BM or NP% and NP% BM:<br>
 ![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Sales%20View%20Performance%20Matrix/Sales%20View%20Matrix%20Slider2.PNG?raw=true)<br>
 create a numeric field parameter:<br>
 ```
@@ -1574,8 +1572,8 @@ decimal_number
 
 
 
-### Measures for Scatter Plot in Bookmark S2 and S3
-The following measures were added to *Filters on this visual* for the scatter plot in bookmark S2 and bookmark S3.
+### Measure for Scatter Plot in Bookmark S2 and S3
+The following measure was added to *Filters on this visual* for the scatter plot in bookmark S2 and bookmark S3.
 ```
 Tolerance_Filter = 
 
@@ -1610,8 +1608,8 @@ SWITCH(
 
 
 
-### Measures for Scatter Plot in Bookmark S2
-The following measures were added to *Filters on this visual* for the scatter plot in bookmark S2.
+### Measure for Scatter Plot in Bookmark S2
+The following measure was added to *Filters on this visual* for the scatter plot in bookmark S2.
 ```
 SalesViewScatterChart_Bookmark_S2_Filter = 
 
@@ -1641,8 +1639,8 @@ SWITCH(
 
 
 
-### Measures to filter scatter plot in Bookmark S3
-The following measures were added to *Filters on this visual* for the scatter plot in bookmark S3.
+### Measure to filter scatter plot in Bookmark S3
+The following measures was added to *Filters on this visual* for the scatter plot in bookmark S3.
 ```
 SalesViewScatterChart_Bookmark_S3_Filter = 
 
@@ -1742,8 +1740,8 @@ MEDIANX(
 )
 ```
 
-### Measures to Return Median Line for Scatter Plot
-The measures below are added to the Scatter Plot's X-Axis Constant Line and Y-Axis Constant Line Settings. 
+### Measures to Return Median Line(s) for Scatter Plot
+The measures below were added to the Scatter Plot's X-Axis Constant Line and Y-Axis Constant Line Settings in the scatter plot visual's [Analytics pane](https://learn.microsoft.com/en-us/power-bi/developer/visuals/analytics-pane?tabs=API-5-1%2CAPI-5-1-Impl-FormattingModel-Utils) 
 ```
 sales view matrix vertical line = 
 
@@ -1889,11 +1887,3 @@ SWITCH(
     "| " & FORMAT([Percent Change NS $ vs BM]*100, "0.00") & "%  ▼ |"
 )
 ```
-
-
-
-
-
-
-
-## Impact of this Project
