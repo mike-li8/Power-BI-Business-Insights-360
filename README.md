@@ -5,32 +5,54 @@ Click the link below to explore this live, interactive dashboard on Power BI Ser
 [🔗 **View Dashboard**](https://app.powerbi.com/view?r=eyJrIjoiZDFlYzhlYWUtYTUyYS00ZTlhLWIzNmYtODVlNDhjM2VlNTdkIiwidCI6ImM2ZTU0OWIzLTVmNDUtNDAzMi1hYWU5LWQ0MjQ0ZGM1YjJjNCJ9)
 <br>
 
-
-<h2>📸 Image Gallery</h2>
-
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-    <div style="width: 48%; margin-bottom: 10px;">
-        <img src="https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/1%20Home%20Page.png?raw=true" width="100%" height="auto" />
-    </div>
-    <div style="width: 48%; margin-bottom: 10px;">
-        <img src="https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/2%20Finance%20View.png?raw=true" width="100%" height="auto" />
-    </div>
-    <div style="width: 48%; margin-bottom: 10px;">
-        <img src="https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/3%20Sales%20View.png?raw=true" width="100%" height="auto" />
-    </div>
-    <div style="width: 48%; margin-bottom: 10px;">
-        <img src="https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/4%20Marketing%20View.png?raw=true" width="100%" height="auto" />
-    </div>
-    <div style="width: 48%; margin-bottom: 10px;">
-        <img src="https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/5%20Supply%20Chain%20View.png?raw=true" width="100%" height="auto" />
-    </div>
-    <div style="width: 48%; margin-bottom: 10px;">
-        <img src="https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/6%20Executive%20View.png?raw=true" width="100%" height="auto" />
-    </div>
-</div>
+## Dashboard Screenshots
 
 
+<details>
+  <summary><b>Home Page</b></summary>
 
+### Home Page
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/1%20Home%20Page.png?raw=true)
+</details>
+
+
+<details>
+  <summary><b>Finance View</b></summary>
+
+### Finance View
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/2%20Finance%20View.png?raw=true)
+</details>
+
+
+<details>
+  <summary><b>Sales View</b></summary>
+
+### Sales View
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/3%20Sales%20View.png?raw=true)
+</details>
+
+
+<details>
+  <summary><b>Marketing View</b></summary>
+
+### Marketing View
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/4%20Marketing%20View.png?raw=true)
+</details>
+
+<details>
+  <summary><b>Supply Chain View</b></summary>
+
+### Supply Chain View
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/5%20Supply%20Chain%20View.png?raw=true)
+</details>
+
+
+<details>
+  <summary><b>Executive View</b></summary>
+
+### Executive View
+![image alt](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/6%20Executive%20View.png?raw=true)
+</details>
 
 
 
