@@ -375,7 +375,7 @@ Notes:
 
 
 
-## ETL (extract transform load) and Data Cleaning in Power Query
+## ETL (Extract Transform Load) and Data Cleaning in Power Query
 
 
 <details>
@@ -1069,7 +1069,7 @@ IF(
 
 
 
-## DAX Measures for Dyanmic Benchmark (BM)
+## Create Dyanmic Benchmark (BM)
 
 <details>
   <summary><b>Create Switch for Benchmark (BM)</b></summary>
@@ -1099,7 +1099,7 @@ RETURN x
 <details>
   <summary><b>Filter Check: ISFILTERED and ISCROSSFILTERED</b></summary>
 
-### Filter Check: `ISFILTERED` and `ISCROSSFILTERED`
+### Create Filter Check: `ISFILTERED` and `ISCROSSFILTERED`
 In the `targets` table, **net sales**, **gross margin**, and **net profit** are only avaliable on a **market level**. The below measure evaluates the filter context to determine the appropriateness of displaying those targets:
 ```
 // If any column in dim_product is filtered or if dim_product is filtered indirectly by a related table,
@@ -1114,7 +1114,7 @@ Customer / Product Filter Check = ISCROSSFILTERED(dim_product[product]) || ISFIL
 <details>
   <summary><b>Benchmark (BM) Measures</b></summary>
 
-### Benchmark (BM) Measures
+### Create Benchmark (BM) Measures
 #### BM Measures for Net Sales
 ```
 NS $ LY = 
