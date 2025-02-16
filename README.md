@@ -862,7 +862,7 @@ RETURN res * Fact_Actuals_Estimates[net_sales_amount]
 
 
 
-## DAX Measures for Calculating KPIs and Visual Building
+## DAX Measures for Calculating KPIs
 
 <details>
   <summary><b>Measures</b></summary>
