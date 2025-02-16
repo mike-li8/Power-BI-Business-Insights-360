@@ -1,8 +1,9 @@
 # Power BI Business Insights 360
 
-
-
-
+## 📊 **Interactive Power BI Dashboard**
+Click the link below to explore this live, interactive dashboard on Power BI Service:<br>
+[🔗 **View Dashboard**](https://app.powerbi.com/view?r=eyJrIjoiZDFlYzhlYWUtYTUyYS00ZTlhLWIzNmYtODVlNDhjM2VlNTdkIiwidCI6ImM2ZTU0OWIzLTVmNDUtNDAzMi1hYWU5LWQ0MjQ0ZGM1YjJjNCJ9)
+<br>
 
 
 
