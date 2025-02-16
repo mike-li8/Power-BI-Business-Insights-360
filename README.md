@@ -1,7 +1,7 @@
 # Power BI Business Insights 360
 
-## 📊 **Interactive Power BI Dashboard**
-Click the link below to explore this live, interactive dashboard on Power BI Service:<br>
+## 📊 **Interactive Dashboard on Power BI Service**
+Click the link below to explore the live, interactive dashboard on Power BI Service:<br>
 [🔗 **View Dashboard**](https://app.powerbi.com/view?r=eyJrIjoiZDFlYzhlYWUtYTUyYS00ZTlhLWIzNmYtODVlNDhjM2VlNTdkIiwidCI6ImM2ZTU0OWIzLTVmNDUtNDAzMi1hYWU5LWQ0MjQ0ZGM1YjJjNCJ9)
 <br>
 
@@ -57,7 +57,7 @@ Click the link below to explore this live, interactive dashboard on Power BI Ser
 
 
 
-## Problem Statement and Project Objective
+## Project Overview, Problem Statement, and Objective
 The [Codebasics](https://codebasics.io/) [Data Analytics Bootcamp](https://codebasics.io/bootcamps/data-analytics-bootcamp-with-practical-job-assistance) exhibits a fictional company called AtliQ Technologies. AtliQ was rapidly proliferating to various markets around the world. However, AtliQ relied on Excel files for their data analytics needs. Since AtliQ's data was spread across multiple large tables (some containing over a million records), analyzing them in Excel was cumbersome. Moreover, stakeholders found that static reports produced from Excel pivot tables were difficult and time-consuming to digest. This weakened data anaytics capability hindered AtliQ's success when they attempted to expand to markets in Latin America.
 
 The objective of this project is to create a Power BI dashboard which stakeholders from various business verticals (**finance**, **sales**, **marketing**, **supply chain**, and **executive**) can use to effectively and efficiently gather insights from data to help inform important company decisions. The interactive and visual nature of Power BI dashboards should help stakeholders better interpret the data with less time compared to static reports produced in Excel.
