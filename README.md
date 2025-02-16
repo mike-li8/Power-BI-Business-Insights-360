@@ -1097,7 +1097,7 @@ RETURN x
 
 
 <details>
-  <summary><b>Filter Check: ISFILTERED and ISCROSSFILTERED</b></summary>
+  <summary><b>Create Filter Check: ISFILTERED and ISCROSSFILTERED</b></summary>
 
 ### Create Filter Check: `ISFILTERED` and `ISCROSSFILTERED`
 In the `targets` table, **net sales**, **gross margin**, and **net profit** are only avaliable on a **market level**. The below measure evaluates the filter context to determine the appropriateness of displaying those targets:
@@ -1112,7 +1112,7 @@ Customer / Product Filter Check = ISCROSSFILTERED(dim_product[product]) || ISFIL
 
 
 <details>
-  <summary><b>Benchmark (BM) Measures</b></summary>
+  <summary><b>Create Benchmark (BM) Measures</b></summary>
 
 ### Create Benchmark (BM) Measures
 #### BM Measures for Net Sales
