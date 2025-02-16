@@ -6,29 +6,29 @@ Click the link below to explore this live, interactive dashboard on Power BI Ser
 <br>
 
 
-
 <h2>📸 Image Gallery</h2>
 
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
     <div style="width: 48%; margin-bottom: 10px;">
-        <img src="[image1.png](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/1%20Home%20Page.png?raw=true)" width="100%" height="auto" />
+        <img src="https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/1%20Home%20Page.png?raw=true" width="100%" height="auto" />
     </div>
     <div style="width: 48%; margin-bottom: 10px;">
-        <img src="[image2.png](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/2%20Finance%20View.png?raw=true)" width="100%" height="auto" />
+        <img src="https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/2%20Finance%20View.png?raw=true" width="100%" height="auto" />
     </div>
     <div style="width: 48%; margin-bottom: 10px;">
-        <img src="[image3.png](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/3%20Sales%20View.png?raw=true)" width="100%" height="auto" />
+        <img src="https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/3%20Sales%20View.png?raw=true" width="100%" height="auto" />
     </div>
     <div style="width: 48%; margin-bottom: 10px;">
-        <img src="[image4.png](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/4%20Marketing%20View.png?raw=true)" width="100%" height="auto" />
+        <img src="https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/4%20Marketing%20View.png?raw=true" width="100%" height="auto" />
     </div>
     <div style="width: 48%; margin-bottom: 10px;">
-        <img src="[image5.png](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/5%20Supply%20Chain%20View.png?raw=true)" width="100%" height="auto" />
+        <img src="https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/5%20Supply%20Chain%20View.png?raw=true" width="100%" height="auto" />
     </div>
     <div style="width: 48%; margin-bottom: 10px;">
-        <img src="[image6.png](https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/6%20Executive%20View.png?raw=true)" width="100%" height="auto" />
+        <img src="https://github.com/mike-li8/Power-BI-Business-Insights-360/blob/main/Final%20Dashboard%20Screenshots/6%20Executive%20View.png?raw=true" width="100%" height="auto" />
     </div>
 </div>
+
 
 
 
